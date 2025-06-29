@@ -31,7 +31,19 @@ public class TicketService {
     private TecnicoRepository tecnicoRepository;
 
     public Ticket saveTicket(MultipartFile file, double cantidad, TypeTicket typeTicket, LocalDate date,
-            String codigoTecnico) throws IOException {
+            String codigoTecnico,
+            String instalacionEquipo,
+            String instalacionModelo,
+            String instalacionDireccion,
+            String mantenimientoEquipo,
+            String mantenimientoDescripcion,
+            String mantenimientoProxima,
+            String cotizacionCliente,
+            String cotizacionMonto,
+            String cotizacionDescripcion,
+            String diagnosticoEquipo,
+            String diagnosticoProblema,
+            String diagnosticoObservaciones) throws IOException {
 
         Path filePath = null;
         if (file != null && !file.isEmpty()) {
@@ -68,6 +80,18 @@ public class TicketService {
                 .tecnico(tecnico)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
+                .instalacionEquipo(instalacionEquipo)
+                .instalacionModelo(instalacionModelo)
+                .instalacionDireccion(instalacionDireccion)
+                .mantenimientoEquipo(mantenimientoEquipo)
+                .mantenimientoDescripcion(mantenimientoDescripcion)
+                .mantenimientoProxima(mantenimientoProxima)
+                .cotizacionCliente(cotizacionCliente)
+                .cotizacionMonto(cotizacionMonto)
+                .cotizacionDescripcion(cotizacionDescripcion)
+                .diagnosticoEquipo(diagnosticoEquipo)
+                .diagnosticoProblema(diagnosticoProblema)
+                .diagnosticoObservaciones(diagnosticoObservaciones)
                 .build();
 
         return ticketRepository.save(ticket);

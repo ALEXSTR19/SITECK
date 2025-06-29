@@ -35,6 +35,23 @@ public class Ticket {
     private TicketStatus status;
 
     private String file;
+
+    // Campos adicionales para cada tipo de servicio
+    private String instalacionEquipo;
+    private String instalacionModelo;
+    private String instalacionDireccion;
+
+    private String mantenimientoEquipo;
+    private String mantenimientoDescripcion;
+    private String mantenimientoProxima;
+
+    private String cotizacionCliente;
+    private String cotizacionMonto;
+    private String cotizacionDescripcion;
+
+    private String diagnosticoEquipo;
+    private String diagnosticoProblema;
+    private String diagnosticoObservaciones;
     
     @ManyToOne
     private Tecnico tecnico;

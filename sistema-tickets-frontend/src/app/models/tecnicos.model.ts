@@ -15,6 +15,18 @@ export interface Ticket {
     status: string;
     file: string;
     tecnico: Tecnico;
+    instalacionEquipo?: string;
+    instalacionModelo?: string;
+    instalacionDireccion?: string;
+    mantenimientoEquipo?: string;
+    mantenimientoDescripcion?: string;
+    mantenimientoProxima?: string;
+    cotizacionCliente?: string;
+    cotizacionMonto?: string;
+    cotizacionDescripcion?: string;
+    diagnosticoEquipo?: string;
+    diagnosticoProblema?: string;
+    diagnosticoObservaciones?: string;
 }
 
 export enum TicketType {

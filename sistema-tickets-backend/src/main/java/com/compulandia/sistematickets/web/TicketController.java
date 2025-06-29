@@ -84,9 +84,39 @@ public Ticket guardarTicket(
     @RequestParam("cantidad") double cantidad,
     @RequestParam("type") TypeTicket type,
     @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-    @RequestParam("codigoTecnico") String codigoTecnico
+    @RequestParam("codigoTecnico") String codigoTecnico,
+    @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
+    @RequestParam(value="instalacionModelo", required = false) String instalacionModelo,
+    @RequestParam(value="instalacionDireccion", required = false) String instalacionDireccion,
+    @RequestParam(value="mantenimientoEquipo", required = false) String mantenimientoEquipo,
+    @RequestParam(value="mantenimientoDescripcion", required = false) String mantenimientoDescripcion,
+    @RequestParam(value="mantenimientoProxima", required = false) String mantenimientoProxima,
+    @RequestParam(value="cotizacionCliente", required = false) String cotizacionCliente,
+    @RequestParam(value="cotizacionMonto", required = false) String cotizacionMonto,
+    @RequestParam(value="cotizacionDescripcion", required = false) String cotizacionDescripcion,
+    @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
+    @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
+    @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
 ) throws IOException {
-    return ticketService.saveTicket(file, cantidad, type, date, codigoTecnico);
+    return ticketService.saveTicket(
+        file,
+        cantidad,
+        type,
+        date,
+        codigoTecnico,
+        instalacionEquipo,
+        instalacionModelo,
+        instalacionDireccion,
+        mantenimientoEquipo,
+        mantenimientoDescripcion,
+        mantenimientoProxima,
+        cotizacionCliente,
+        cotizacionMonto,
+        cotizacionDescripcion,
+        diagnosticoEquipo,
+        diagnosticoProblema,
+        diagnosticoObservaciones
+    );
 }
 
     @GetMapping(value = "/ticketfile/{ticketId}", produces = MediaType.APPLICATION_PDF_VALUE)
