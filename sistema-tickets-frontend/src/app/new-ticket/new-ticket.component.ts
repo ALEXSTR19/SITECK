@@ -34,7 +34,7 @@ export class NewTicketComponent implements OnInit{
     cantidad: this.fb.control(''),
     type: this.fb.control(''),
     codigoTecnico: this.fb.control(this.codigoTecnico),
-    fileSource: this.fb.control(''),
+    fileSource: this.fb.control(null),
     fileName: this.fb.control(''),
     // Campos para Instalación
     instalacionEquipo: this.fb.control(''),
@@ -77,7 +77,9 @@ guardarTicket() {
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('type', this.ticketFormGroup.value.type);
   formData.set('codigoTecnico', this.ticketFormGroup.value.codigoTecnico);
-  formData.append('file', this.ticketFormGroup.value.fileSource);
+  if (this.ticketFormGroup.value.fileSource) {
+    formData.append('file', this.ticketFormGroup.value.fileSource);
+  }
   // Adjuntar información adicional según el tipo de servicio
   formData.set('instalacionEquipo', this.ticketFormGroup.value.instalacionEquipo);
   formData.set('instalacionModelo', this.ticketFormGroup.value.instalacionModelo);
