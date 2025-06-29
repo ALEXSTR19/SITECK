@@ -16,6 +16,7 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { RegisterComponent } from './register/register.component';
 
 
+import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
         canActivate: [AuthorizationGuard], data: { roles: ['ADMIN'] }
        },
       { path: "dashboard", component: DashboardComponent },
+      { path: "dashboard-tecnico", component: TecnicoDashboardComponent },
       { path: "tecnicos", component: TecnicosComponent },
       { path: "tickets", component: TicketsComponent },
       { path: "tecnico-detalles/:codigo",  component: TecnicoDetallesComponent },

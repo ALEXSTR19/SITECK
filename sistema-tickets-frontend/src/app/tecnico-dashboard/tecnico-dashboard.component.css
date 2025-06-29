@@ -1,0 +1,40 @@
+.dashboard-container {
+  padding: 16px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.card {
+  width: 180px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.card.today {
+  background-color: #1976d2;
+}
+
+.card.pending {
+  background-color: #f57c00;
+}
+
+.card.completed {
+  background-color: #388e3c;
+}
+
+.card.historic {
+  background-color: #455a64;
+}
+
+.card.metrics {
+  background-color: #0288d1;
+}
+
+.card.scores {
+  background-color: #7b1fa2;
+}
