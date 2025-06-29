@@ -10,7 +10,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { TecnicosComponent } from './tecnicos/tecnicos.component';
 import { AdminTemplateComponent } from './admin-template/admin-template.component';
 import { AuthGuard } from './guards/auth.guard';
-import { AuthorizationGuard } from './guards/authorization.guard.ts';
+import { AuthorizationGuard } from './guards/authorization.guard';
 import { TecnicoDetallesComponent } from './tecnico-detalles/tecnico-detalles.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { RegisterComponent } from './register/register.component';
