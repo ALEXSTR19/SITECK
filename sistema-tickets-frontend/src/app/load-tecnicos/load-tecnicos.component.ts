@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
+import { ServiciosService } from '../services/servicios.service';
 
 @Component({
   selector: 'app-load-tecnicos',
@@ -9,8 +10,9 @@ import { TecnicosService } from '../services/tecnicos.service';
 export class LoadTecnicosComponent implements OnInit {
 
   tecnicoForm!: FormGroup;
+  servicios: any[] = [];
 
-  constructor(private fb: FormBuilder, private tecnicosService: TecnicosService) {}
+  constructor(private fb: FormBuilder, private tecnicosService: TecnicosService, private servicioServices: ServiciosService) {}
 
   ngOnInit(): void {
     this.tecnicoForm = this.fb.group({
@@ -18,7 +20,13 @@ export class LoadTecnicosComponent implements OnInit {
       especialidad: ['', Validators.required]
     });
 
+    this.tecnicosService.obtenerProximoCodigo().subscribe(code => {
+      this.tecnicoForm.patchValue({ codigo: code });
+    });
 
+    this.servicioServices.getServicios().subscribe({
+      next: value => (this.servicios = value),
+      error: err => console.error('Error al obtener servicios', err),
     });
   }
 
