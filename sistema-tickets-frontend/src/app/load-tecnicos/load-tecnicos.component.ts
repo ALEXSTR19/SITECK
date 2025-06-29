@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
 import { ServiciosService } from '../services/servicios.service';
+import { Servicio } from '../models/servicio.model';
 
 @Component({
   selector: 'app-load-tecnicos',
@@ -10,7 +11,7 @@ import { ServiciosService } from '../services/servicios.service';
 export class LoadTecnicosComponent implements OnInit {
 
   tecnicoForm!: FormGroup;
-  servicios: any[] = [];
+  servicios: Servicio[] = [];
 
   constructor(private fb: FormBuilder, private tecnicosService: TecnicosService, private servicioServices: ServiciosService) {}
 
