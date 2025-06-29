@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
 import java.util.List;
 
 import com.compulandia.sistematickets.entities.Servicio;
@@ -33,7 +34,7 @@ public class Tecnico {
     @Column(unique = true)
     private String codigo;
 
-    @ManyToMany(cascade = jakarta.persistence.CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = jakarta.persistence.CascadeType.ALL)
     @JoinTable(
         name = "tecnico_servicio",
         joinColumns = @JoinColumn(name = "tecnico_id"),
