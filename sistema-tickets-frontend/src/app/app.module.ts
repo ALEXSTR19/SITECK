@@ -37,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
+import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard
     NewTicketComponent,
     RegisterComponent,
     TecnicoDashboardComponent,
+    LoadServiciosComponent,
   ],
   imports: [
     BrowserModule,
