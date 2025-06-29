@@ -35,7 +35,6 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { RegisterComponent } from './register/register.component';
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
 @NgModule({
@@ -52,7 +51,6 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
     DashboardComponent,
     TecnicoDetallesComponent,
     NewTicketComponent,
-    RegisterComponent,
     TecnicoDashboardComponent,
     LoadServiciosComponent,
   ],
