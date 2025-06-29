@@ -16,7 +16,8 @@ export class NewTicketComponent implements OnInit{
   codigoTecnico!: string;
   tiposTickets: string[] = [];
   pdfFileUrl!: string;
-  constructor(private fb:FormBuilder, private activatedRoute:ActivatedRoute, private tecnicoService: TecnicosService) { 
+  // Fields specific to each type of servicio will be handled through the reactive form
+  constructor(private fb:FormBuilder, private activatedRoute:ActivatedRoute, private tecnicoService: TecnicosService) {
     // Initialize the form group and other properties here if needed
 
 
@@ -35,6 +36,22 @@ export class NewTicketComponent implements OnInit{
     codigoTecnico: this.fb.control(this.codigoTecnico),
     fileSource: this.fb.control(''),
     fileName: this.fb.control(''),
+    // Campos para Instalación
+    instalacionEquipo: this.fb.control(''),
+    instalacionModelo: this.fb.control(''),
+    instalacionDireccion: this.fb.control(''),
+    // Campos para Mantenimiento
+    mantenimientoEquipo: this.fb.control(''),
+    mantenimientoDescripcion: this.fb.control(''),
+    mantenimientoProxima: this.fb.control(''),
+    // Campos para Cotización
+    cotizacionCliente: this.fb.control(''),
+    cotizacionMonto: this.fb.control(''),
+    cotizacionDescripcion: this.fb.control(''),
+    // Campos para Diagnóstico
+    diagnosticoEquipo: this.fb.control(''),
+    diagnosticoProblema: this.fb.control(''),
+    diagnosticoObservaciones: this.fb.control(''),
   });
 }
 
@@ -61,6 +78,19 @@ guardarTicket() {
   formData.set('type', this.ticketFormGroup.value.type);
   formData.set('codigoTecnico', this.ticketFormGroup.value.codigoTecnico);
   formData.append('file', this.ticketFormGroup.value.fileSource);
+  // Adjuntar información adicional según el tipo de servicio
+  formData.set('instalacionEquipo', this.ticketFormGroup.value.instalacionEquipo);
+  formData.set('instalacionModelo', this.ticketFormGroup.value.instalacionModelo);
+  formData.set('instalacionDireccion', this.ticketFormGroup.value.instalacionDireccion);
+  formData.set('mantenimientoEquipo', this.ticketFormGroup.value.mantenimientoEquipo);
+  formData.set('mantenimientoDescripcion', this.ticketFormGroup.value.mantenimientoDescripcion);
+  formData.set('mantenimientoProxima', this.ticketFormGroup.value.mantenimientoProxima);
+  formData.set('cotizacionCliente', this.ticketFormGroup.value.cotizacionCliente);
+  formData.set('cotizacionMonto', this.ticketFormGroup.value.cotizacionMonto);
+  formData.set('cotizacionDescripcion', this.ticketFormGroup.value.cotizacionDescripcion);
+  formData.set('diagnosticoEquipo', this.ticketFormGroup.value.diagnosticoEquipo);
+  formData.set('diagnosticoProblema', this.ticketFormGroup.value.diagnosticoProblema);
+  formData.set('diagnosticoObservaciones', this.ticketFormGroup.value.diagnosticoObservaciones);
 
   
     console.log(formData);
