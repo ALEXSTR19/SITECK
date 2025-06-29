@@ -33,28 +33,31 @@ public class TicketService {
     public Ticket saveTicket(MultipartFile file, double cantidad, TypeTicket typeTicket, LocalDate date,
             String codigoTecnico) throws IOException {
 
-        /*
-         * se creo una ruta donde se guarda el archivo
-         * system.getProperty(user.home): obtiene la ruta del directorio del usuario del
-         * S.O
-         * Paths.get(...): crea un objeto Path apuntando a una carpeta llamada
-         * enset/tickets dentro del codigo
-         */
-        Path FolderPath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets");
+        Path filePath = null;
+        if (file != null && !file.isEmpty()) {
+            /*
+             * se creo una ruta donde se guarda el archivo
+             * system.getProperty(user.home): obtiene la ruta del directorio del usuario del
+             * S.O
+             * Paths.get(...): crea un objeto Path apuntando a una carpeta llamada
+             * enset/tickets dentro del codigo
+             */
+            Path FolderPath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets");
 
-        if (!Files.exists(FolderPath)) {
-            Files.createDirectories(FolderPath);
+            if (!Files.exists(FolderPath)) {
+                Files.createDirectories(FolderPath);
+            }
+
+            String fileName = UUID.randomUUID().toString();
+
+            // sE CREA UN PATH PARA EL ARCHIVO PDF QUE SE GUARDARA EN ENSET-DATA
+            filePath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets", fileName + ".pdf");
+
+            // file.getInputStream(): obtiene el flujo de datos del archivo recibido desde
+            // la solicitud HTTP
+            // Files.copy(...): Copia los datos del archivo al destino filePath
+            Files.copy(file.getInputStream(), filePath);
         }
-
-        String fileName = UUID.randomUUID().toString();
-
-        // sE CREA UN PATH PARA EL ARCHIVO PDF QUE SE GUARDARA EN ENSET-DATA
-        Path filePath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets", fileName + ".pdf");
-
-        // file.getInputStream(): obtiene el flujo de datos del archivo recibido desde
-        // la solicitud HTTP
-        // Files.copy(...): Copia los datos del archivo al destino filePath
-        Files.copy(file.getInputStream(), filePath);
 
         Tecnico tecnico = tecnicoRepository.findByCodigo(codigoTecnico);
 
@@ -64,7 +67,7 @@ public class TicketService {
                 .fecha(date)
                 .tecnico(tecnico)
                 .cantidad(cantidad)
-                .file(filePath.toUri().toString())
+                .file(filePath != null ? filePath.toUri().toString() : null)
                 .build();
 
         return ticketRepository.save(ticket);
@@ -78,6 +81,9 @@ public class TicketService {
          * -Path.of(...): Convierte el URI en un Path
          * -Files.readAllBytes(...): lee el contenido del archivo y lo devuelve como un array de bytes
          */
+        if (ticket.getFile() == null) {
+            return null;
+        }
         return Files.readAllBytes(Path.of(URI.create(ticket.getFile())));
 
 

@@ -78,9 +78,9 @@ public class TicketController {
     public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status, @PathVariable Long ticketId){
         return ticketService.actualizaTicketPorStatus(status, ticketId);
     }
-    @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+@PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 public Ticket guardarTicket(
-    @RequestParam("file") MultipartFile file,
+    @RequestParam(value="file", required=false) MultipartFile file,
     @RequestParam("cantidad") double cantidad,
     @RequestParam("type") TypeTicket type,
     @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
