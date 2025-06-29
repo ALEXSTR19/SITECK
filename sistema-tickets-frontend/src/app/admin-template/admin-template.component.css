@@ -1,0 +1,34 @@
+/* Color azul marino para la navbar */
+mat-toolbar {
+  background-color: #929bff !important;
+  color: white !important;
+}
+
+/* Color naranja para los botones normales */
+mat-toolbar button.mat-button {
+  color: #ffab40 !important;  /* Naranja más claro para texto */
+}
+
+/* Color naranja más intenso para botón raised */
+mat-toolbar button.mat-raised-button {
+  background-color: #ff6d00 !important;
+  color: white !important;
+}
+
+/* Color para los ítems del menú desplegable */
+.mat-menu-item {
+  color: #babeec !important;  /* Azul marino para el texto del menú */
+}
+
+/* Color para el drawer lateral */
+mat-drawer {
+  background-color: #ffffff !important;  /* Fondo gris claro */
+}
+
+/* Estilo para los botones del drawer */
+mat-drawer button.mat-button {
+  color: #878998 !important;  /* Azul marino */
+  width: 100%;
+  text-align: left;
+  padding-left: 16px;
+}

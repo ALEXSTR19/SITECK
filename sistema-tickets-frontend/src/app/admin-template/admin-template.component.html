@@ -1,0 +1,58 @@
+<mat-toolbar class="custom-primary">
+    <button mat-button (click)="myDrawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span style="flex:auto">Admin Dashboard</span>
+    <button mat-button routerLink="/admin/home">Home</button>
+    <button mat-button routerLink="/admin/profile">Perfil</button>
+
+    <button *ngIf="authService.roles.includes('ADMIN')" mat-button [matMenuTriggerFor]="importMenu">
+        <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
+        Importar
+    </button>
+
+    <mat-menu #importMenu>
+        <button mat-menu-item routerLink="/admin/loadTecnicos">
+            Cargar Tecnicos
+        </button>
+        <button mat-menu-item routerLink="/admin/loadTickets">
+            Cargar Tickets
+        </button>
+    </mat-menu>
+
+    <button mat-button *ngIf="authService.isAuthenticated">
+        {{ authService.username }}
+    </button>
+
+    <button mat-raised-button class="custom-accent" (click)="logout()">Salir</button>
+</mat-toolbar>
+<mat-drawer-container>
+    <mat-drawer #myDrawer opened="true" mode="side" position="start">
+    <mat-list>
+        <mat-list-item>
+            <button mat-button routerLink="/admin/dashboard">
+                <mat-icon>Dasboard</mat-icon>
+                Dashboard
+            </button>
+        </mat-list-item>
+        <mat-list-item>
+             <button mat-button routerLink="/admin/tecnicos">
+                <mat-icon>Dasboard</mat-icon>
+                Tecnicos
+             </button>
+        </mat-list-item>
+        <mat-list-item>
+             <button mat-button routerLink="/admin/tickets">
+                <mat-icon>Dasboard</mat-icon>
+                Tickets
+             </button>
+             
+        </mat-list-item>
+    </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="div" style="min-height: 600px;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

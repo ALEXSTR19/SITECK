@@ -1,0 +1,64 @@
+<div class="container">
+    <mat-toolbar>
+        <button mat-raised-button color="primary" (click)="agregaTicket()">Agregar Ticket</button>
+    </mat-toolbar>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Tickets
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <table  mat-table [dataSource]="ticketsDataSource"
+                class="mat-elevation-z1">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef > FECHA
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let element">{{element.fecha}}</td>
+                </ng-container>
+                <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef >
+                        CANTIDAD </th>
+                    <td mat-cell
+                        *matCellDef="let element">{{element.cantidad}}</td>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef > TIPO
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{element.type}}</td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef >
+                        STATUS </th>
+                    <td mat-cell
+                        *matCellDef="let element">{{element.status}}</td>
+                </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef >
+                        TECNICO </th>
+                    <td mat-cell
+                        *matCellDef="let element">{{element.tecnico.nombre}}</td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef >
+                        ACCIONES </th>
+                    <td mat-cell
+                        *matCellDef="let element">{{element.acciones}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
