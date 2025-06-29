@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    let username = this.loginForm.value.username;
-    let password = this.loginForm.value.password;
-    let auth: boolean = this.authService.login(username, password);
-
-    if (auth == true) {
-      this.router.navigateByUrl("/admin");
-    }
+    const username = this.loginForm.value.username;
+    const password = this.loginForm.value.password;
+    this.authService.login(username, password).subscribe({
+      next: () => this.router.navigateByUrl('/admin'),
+      error: () => alert('Credenciales incorrectas')
+    });
   }
 }

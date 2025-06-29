@@ -13,11 +13,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthorizationGuard } from './guards/authorization.guard.ts';
 import { TecnicoDetallesComponent } from './tecnico-detalles/tecnico-detalles.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
   {
     path: "admin", component: AdminTemplateComponent,
     canActivate: [AuthGuard], // Assuming AuthGuard is imported and provided in the module
