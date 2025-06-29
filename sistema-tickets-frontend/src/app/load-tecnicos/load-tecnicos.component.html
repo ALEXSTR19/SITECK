@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card [formGroup]="tecnicoForm" class="tecnico-form">
+  <mat-card *ngIf="tecnicoForm" [formGroup]="tecnicoForm" class="tecnico-form">
     <mat-card-header>
       <mat-card-title>Registrar Técnico</mat-card-title>
     </mat-card-header>
