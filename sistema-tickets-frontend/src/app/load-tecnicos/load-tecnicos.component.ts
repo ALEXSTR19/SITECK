@@ -20,6 +20,10 @@ export class LoadTecnicosComponent implements OnInit {
       codigo: ['', Validators.required],
       especialidad: ['', Validators.required]
     });
+
+    this.tecnicosService.obtenerProximoCodigo().subscribe(code => {
+      this.tecnicoForm.patchValue({ codigo: code });
+    });
   }
 
   guardarTecnico() {
