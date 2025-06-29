@@ -90,13 +90,3 @@ mat-form-field {
 .login-button:hover {
   background-color: #2980b9;
 }
-
-.register-link {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.register-link a {
-  margin-left: 4px;
-  color: #3498db;
-}
