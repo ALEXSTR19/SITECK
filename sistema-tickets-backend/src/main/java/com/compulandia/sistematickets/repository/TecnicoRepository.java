@@ -11,6 +11,6 @@ import com.compulandia.sistematickets.entities.Tecnico;
 public interface TecnicoRepository extends JpaRepository<Tecnico, String> {
     Tecnico findByCodigo(String codigo);
 
-    List<Tecnico> findByEspecialidad(String especialidad);
+    List<Tecnico> findByEspecialidadesNombre(String nombre);
 
 }

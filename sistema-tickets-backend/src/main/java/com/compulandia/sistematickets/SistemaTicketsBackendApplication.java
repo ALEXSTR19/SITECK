@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
+import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
@@ -39,7 +40,9 @@ public class SistemaTicketsBackendApplication {
                         .nombre("Alexis")
                         .apellido("Gonzalez")
                         .codigo("TE-001")
-                        .especialidad("Desarrollo Backend")
+                        .especialidades(Arrays.asList(
+                            Servicio.builder().nombre("Desarrollo Backend").build()
+                        ))
                         .build()
                     // ... otros técnicos
                 );

@@ -1,9 +1,11 @@
+import { Servicio } from './servicio.model';
+
 export interface Tecnico {
     id: string;
     codigo: string;
     nombre: string;
     apellido: string;
-    especialidad: string;
+    especialidades: Servicio[];
     foto: string;
 }
 
