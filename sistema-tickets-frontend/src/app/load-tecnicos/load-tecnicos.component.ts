@@ -17,6 +17,8 @@ export class LoadTecnicosComponent implements OnInit {
   ngOnInit(): void {
     this.tecnicoForm = this.fb.group({
       nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      codigo: [''],
       especialidad: ['', Validators.required]
     });
 
@@ -38,7 +40,9 @@ export class LoadTecnicosComponent implements OnInit {
     this.tecnicosService.crearTecnico(this.tecnicoForm.value).subscribe({
       next: (resp) => {
         this.tecnicoForm.reset();
-        // Mostrar mensaje de éxito si quieres
+        this.tecnicosService.obtenerProximoCodigo().subscribe(code => {
+          this.tecnicoForm.patchValue({ codigo: code });
+        });
       },
       error: (err) => {
         console.error('Error al guardar técnico:', err);
