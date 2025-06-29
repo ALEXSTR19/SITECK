@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -37,7 +36,6 @@ public class SistemaTicketsBackendApplication {
             if (tecnicoRepository.count() == 0) {
                 List<Tecnico> tecnicos = Arrays.asList(
                     Tecnico.builder()
-                        .id("550e8400-e29b-41d4-a716-446655440000")
                         .nombre("Alexis")
                         .apellido("Gonzalez")
                         .codigo("TE-001")
