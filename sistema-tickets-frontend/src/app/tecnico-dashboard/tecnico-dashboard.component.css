@@ -1,40 +1,64 @@
 .dashboard-container {
-  padding: 16px;
+  padding: 2rem;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.card {
-  width: 180px;
+mat-card.card {
   cursor: pointer;
-  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background: white;
+  text-align: center;
+  padding: 1rem;
 }
 
-.card.today {
-  background-color: #1976d2;
+mat-card.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-.card.pending {
-  background-color: #f57c00;
+mat-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.card.completed {
-  background-color: #388e3c;
+mat-card-content {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007acc;
 }
 
-.card.historic {
-  background-color: #455a64;
+table {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-top: 1rem;
 }
 
-.card.metrics {
-  background-color: #0288d1;
+th.mat-header-cell {
+  background-color: #eaeaea;
+  font-weight: 600;
 }
 
-.card.scores {
-  background-color: #7b1fa2;
+td.mat-cell {
+  padding: 0.5rem 1rem;
+}
+
+h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.2rem;
+  color: #555;
 }

@@ -28,7 +28,6 @@ const routes: Routes = [
       { path: "home", component: HomeComponent },
       { path: "profile", component: ProfileComponent },
       { path: "loadTecnicos", component: LoadTecnicosComponent,
-        canActivate: [AuthorizationGuard], data: { roles: ['ADMIN']},
        },
 
       { path: "loadTickets", component: LoadTicketsComponent,
