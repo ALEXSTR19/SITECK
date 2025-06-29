@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 
 
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
+import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
@@ -28,6 +29,9 @@ const routes: Routes = [
       { path: "home", component: HomeComponent },
       { path: "profile", component: ProfileComponent },
       { path: "loadTecnicos", component: LoadTecnicosComponent,
+        canActivate: [AuthorizationGuard], data: { roles: ['ADMIN']},
+       },
+      { path: "loadServicios", component: LoadServiciosComponent,
         canActivate: [AuthorizationGuard], data: { roles: ['ADMIN']},
        },
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
+import { ServiciosService } from '../services/servicios.service';
+import { Servicio } from '../models/servicio.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,8 +12,11 @@ import Swal from 'sweetalert2';
 })
 export class LoadTecnicosComponent implements OnInit {
   tecnicoForm!: FormGroup;
+  servicios: Servicio[] = [];
 
-  constructor(private fb: FormBuilder, private tecnicosService: TecnicosService) {}
+  constructor(private fb: FormBuilder,
+              private tecnicosService: TecnicosService,
+              private serviciosService: ServiciosService) {}
 
   ngOnInit(): void {
     this.tecnicoForm = this.fb.group({
@@ -21,8 +26,7 @@ export class LoadTecnicosComponent implements OnInit {
       especialidad: ['', Validators.required]
     });
 
-    this.tecnicosService.obtenerProximoCodigo().subscribe(code => {
-      this.tecnicoForm.patchValue({ codigo: code });
+
     });
   }
 
