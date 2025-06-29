@@ -31,11 +31,9 @@ const routes: Routes = [
       { path: "loadTecnicos", component: LoadTecnicosComponent,
        },
       { path: "loadServicios", component: LoadServiciosComponent,
-        canActivate: [AuthorizationGuard], data: { roles: ['ADMIN']},
        },
 
       { path: "loadTickets", component: LoadTicketsComponent,
-        canActivate: [AuthorizationGuard], data: { roles: ['ADMIN'] }
        },
       { path: "dashboard", component: DashboardComponent },
       { path: "dashboard-tecnico", component: TecnicoDashboardComponent },
