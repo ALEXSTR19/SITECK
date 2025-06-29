@@ -17,6 +17,9 @@ export class LoadTecnicosComponent implements OnInit {
       nombre: ['', Validators.required],
       especialidad: ['', Validators.required]
     });
+
+
+    });
   }
 
   guardarTecnico(): void {
