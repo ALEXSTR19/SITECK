@@ -28,7 +28,7 @@ import { AuthorizationGuard } from './guards/authorization.guard.ts';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TecnicoDetallesComponent } from './tecnico-detalles/tecnico-detalles.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
@@ -59,11 +59,11 @@ import { RegisterComponent } from './register/register.component';
     MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatListModule,
     MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatTableModule,
     HttpClientModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
-    MatDatepickerModule, MatNativeDateModule, MatSelectModule
+    MatDatepickerModule, MatNativeDateModule, MatSelectModule, BrowserModule
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync(), AuthGuard, AuthorizationGuard
+    provideAnimationsAsync(), AuthGuard, AuthorizationGuard, provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
