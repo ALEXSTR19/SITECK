@@ -26,9 +26,7 @@ export class LoadTecnicosComponent implements OnInit {
       especialidad: ['', Validators.required]
     });
 
-    this.serviciosService.getServicios().subscribe({
-      next: value => this.servicios = value,
-      error: err => console.error('Error al obtener servicios', err)
+
     });
   }
 
