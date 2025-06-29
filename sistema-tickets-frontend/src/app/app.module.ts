@@ -35,6 +35,7 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
     TecnicoDetallesComponent,
     NewTicketComponent,
     NewTicketComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
