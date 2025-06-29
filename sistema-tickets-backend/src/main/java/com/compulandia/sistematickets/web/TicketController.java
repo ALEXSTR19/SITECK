@@ -50,7 +50,7 @@ public class TicketController {
     }
     @GetMapping("/tecnicosPorEspecialidad")
     public List<Tecnico> listarTecnicosPorEspecialidad(@RequestParam String especialidad){
-        return tecnicoRepository.findByEspecialidad(especialidad);
+        return tecnicoRepository.findByEspecialidadesNombre(especialidad);
     }
 
     @GetMapping("/tickets")

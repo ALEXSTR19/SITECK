@@ -20,7 +20,7 @@ export class LoadTecnicosComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       codigo: [''],
-      especialidad: ['', Validators.required]
+      especialidades: [[], Validators.required]
     });
 
     this.tecnicosService.obtenerProximoCodigo().subscribe(code => {

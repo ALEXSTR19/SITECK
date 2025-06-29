@@ -15,7 +15,7 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Codigo</th>
-                        <th>Especialidad</th>
+                        <th>Especialidades</th>
                         <th>Tickets</th>
                     </tr>
                 </thead>
@@ -25,7 +25,7 @@
                         <td>{{ tecnico.nombre }}</td>
                         <td>{{ tecnico.apellido }}</td>
                         <td>{{ tecnico.codigo }}</td>
-                        <td>{{ tecnico.especialidad }}</td>
+                        <td>{{ tecnico.especialidades?.map(e => e.nombre).join(', ') }}</td>
                         <td>
                             <button mat-raised-button
                                 (click)="listarTicketsDeTecnico(tecnico)">Ver
@@ -76,11 +76,11 @@
                         <td mat-cell
                             *matCellDef="let tecnico">{{tecnico.codigo}}</td>
                     </ng-container>
-                    <ng-container matColumnDef="especialidad">
+                    <ng-container matColumnDef="especialidades">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            ESPECIALIDAD </th>
+                            ESPECIALIDADES </th>
                         <td mat-cell
-                            *matCellDef="let tecnico">{{tecnico.especialidad}}</td>
+                            *matCellDef="let tecnico">{{tecnico.especialidades?.map(e => e.nombre).join(', ')}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="tickets">

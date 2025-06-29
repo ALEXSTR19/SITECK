@@ -17,9 +17,9 @@
         <input matInput formControlName="codigo" readonly />
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Especialidad</mat-label>
-        <mat-select formControlName="especialidad">
-          <mat-option *ngFor="let s of servicios" [value]="s.nombre">{{ s.nombre }}</mat-option>
+        <mat-label>Especialidades</mat-label>
+        <mat-select formControlName="especialidades" multiple>
+          <mat-option *ngFor="let s of servicios" [value]="s">{{ s.nombre }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-card-actions>
