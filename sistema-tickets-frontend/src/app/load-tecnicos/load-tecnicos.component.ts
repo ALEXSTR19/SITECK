@@ -1,46 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
-import { ServiciosService } from '../services/servicios.service';
-import { Servicio } from '../models/servicio.model';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-load-tecnicos',
-  templateUrl: './load-tecnicos.component.html',
-  styleUrls: ['./load-tecnicos.component.css']
+  templateUrl: './load-tecnicos.component.html'
 })
 export class LoadTecnicosComponent implements OnInit {
-  tecnicoForm!: FormGroup;
-  servicios: Servicio[] = [];
 
-  constructor(private fb: FormBuilder,
-              private tecnicosService: TecnicosService,
-              private serviciosService: ServiciosService) {}
+  tecnicoForm!: FormGroup;
+
+  constructor(private fb: FormBuilder, private tecnicosService: TecnicosService) {}
 
   ngOnInit(): void {
     this.tecnicoForm = this.fb.group({
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      codigo: ['', Validators.required],
       especialidad: ['', Validators.required]
-    });
-
-
     });
   }
 
-  guardarTecnico() {
-    if (this.tecnicoForm.invalid) {
+  guardarTecnico(): void {
+    if (!this.tecnicoForm || this.tecnicoForm.invalid) {
       return;
     }
+
     this.tecnicosService.crearTecnico(this.tecnicoForm.value).subscribe({
-      next: () => {
-        Swal.fire('Técnico guardado', 'El técnico se ha registrado correctamente', 'success');
+      next: (resp) => {
         this.tecnicoForm.reset();
+        // Mostrar mensaje de éxito si quieres
       },
-      error: () => {
-        Swal.fire('Error', 'No se pudo guardar el técnico', 'error');
+      error: (err) => {
+        console.error('Error al guardar técnico:', err);
       }
     });
   }
