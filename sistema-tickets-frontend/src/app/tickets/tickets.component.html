@@ -49,30 +49,36 @@
                 <ng-container matColumnDef="info1">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>INFO 1</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.type === 'INSTALACION' ? element.instalacionEquipo :
-                           element.type === 'MANTENIMIENTO' ? element.mantenimientoEquipo :
-                           element.type === 'COTIZACION' ? element.cotizacionCliente :
-                           element.type === 'DIAGNOSTICO' ? element.diagnosticoEquipo : '' }}
+                        <ng-container [ngSwitch]="element.type">
+                            <span *ngSwitchCase="'INSTALACION'">Equipo: {{ element.instalacionEquipo }}</span>
+                            <span *ngSwitchCase="'MANTENIMIENTO'">Equipo: {{ element.mantenimientoEquipo }}</span>
+                            <span *ngSwitchCase="'COTIZACION'">Cliente: {{ element.cotizacionCliente }}</span>
+                            <span *ngSwitchCase="'DIAGNOSTICO'">Equipo: {{ element.diagnosticoEquipo }}</span>
+                        </ng-container>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="info2">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>INFO 2</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.type === 'INSTALACION' ? element.instalacionModelo :
-                           element.type === 'MANTENIMIENTO' ? element.mantenimientoDescripcion :
-                           element.type === 'COTIZACION' ? element.cotizacionMonto :
-                           element.type === 'DIAGNOSTICO' ? element.diagnosticoProblema : '' }}
+                        <ng-container [ngSwitch]="element.type">
+                            <span *ngSwitchCase="'INSTALACION'">Modelo: {{ element.instalacionModelo }}</span>
+                            <span *ngSwitchCase="'MANTENIMIENTO'">Descripción: {{ element.mantenimientoDescripcion }}</span>
+                            <span *ngSwitchCase="'COTIZACION'">Monto: {{ element.cotizacionMonto }}</span>
+                            <span *ngSwitchCase="'DIAGNOSTICO'">Problema: {{ element.diagnosticoProblema }}</span>
+                        </ng-container>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="info3">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>INFO 3</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.type === 'INSTALACION' ? element.instalacionDireccion :
-                           element.type === 'MANTENIMIENTO' ? element.mantenimientoProxima :
-                           element.type === 'COTIZACION' ? element.cotizacionDescripcion :
-                           element.type === 'DIAGNOSTICO' ? element.diagnosticoObservaciones : '' }}
+                        <ng-container [ngSwitch]="element.type">
+                            <span *ngSwitchCase="'INSTALACION'">Dirección: {{ element.instalacionDireccion }}</span>
+                            <span *ngSwitchCase="'MANTENIMIENTO'">Próxima: {{ element.mantenimientoProxima }}</span>
+                            <span *ngSwitchCase="'COTIZACION'">Descripción: {{ element.cotizacionDescripcion }}</span>
+                            <span *ngSwitchCase="'DIAGNOSTICO'">Observaciones: {{ element.diagnosticoObservaciones }}</span>
+                        </ng-container>
                     </td>
                 </ng-container>
 
