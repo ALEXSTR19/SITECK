@@ -27,6 +27,10 @@ export class TecnicosService {
     return this.http.get<Tecnico>(`${environment.backendHost}/tecnicos/${codigo}`);
   }
 
+  public crearTecnico(tecnico: Tecnico): Observable<Tecnico> {
+    return this.http.post<Tecnico>(`${environment.backendHost}/tecnicos`, tecnico);
+  }
+
   public guardarTicket(formData: any): Observable<Ticket> {
     return this.http.post<Ticket>(`${environment.backendHost}/tickets`, formData);
   }

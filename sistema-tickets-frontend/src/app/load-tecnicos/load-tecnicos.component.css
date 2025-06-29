@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+.tecnico-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
