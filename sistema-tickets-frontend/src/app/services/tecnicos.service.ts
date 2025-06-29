@@ -23,6 +23,10 @@ export class TecnicosService {
     return this.http.get<Array<Ticket>>(`${environment.backendHost}/tecnicos/${codigo}/tickets`);
   }
 
+  public getTecnicoPorCodigo(codigo: string): Observable<Tecnico> {
+    return this.http.get<Tecnico>(`${environment.backendHost}/tecnicos/${codigo}`);
+  }
+
   public guardarTicket(formData: any): Observable<Ticket> {
     return this.http.post<Ticket>(`${environment.backendHost}/tickets`, formData);
   }

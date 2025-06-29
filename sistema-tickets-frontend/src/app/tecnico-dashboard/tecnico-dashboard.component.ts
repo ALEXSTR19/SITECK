@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '../models/tecnicos.model';
 import { TecnicosService } from '../services/tecnicos.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-tecnico-dashboard',
@@ -13,6 +14,7 @@ export class TecnicoDashboardComponent implements OnInit {
   todayTickets: Ticket[] = [];
   pendingTickets: Ticket[] = [];
   completedTickets: Ticket[] = [];
+  tecnicoCodigo: string | undefined;
 
   todayDataSource = new MatTableDataSource<Ticket>();
   pendingDataSource = new MatTableDataSource<Ticket>();
@@ -23,10 +25,14 @@ export class TecnicoDashboardComponent implements OnInit {
 
   activeCategory = '';
 
-  constructor(private tecnicosService: TecnicosService) {}
+  constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.tecnicosService.getAllTickets().subscribe({
+    this.tecnicoCodigo = this.authService.username;
+    if (!this.tecnicoCodigo) {
+      return;
+    }
+    this.tecnicosService.getTicketsDeTecnico(this.tecnicoCodigo).subscribe({
       next: (data) => {
         this.tickets = data;
         this.filterTickets();
