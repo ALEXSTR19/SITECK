@@ -10,6 +10,12 @@
         <label for="password">Contraseña</label>
         <input id="password" formControlName="password" type="password" />
       </div>
+      <div class="form-group">
+        <label for="servicios">Servicios</label>
+        <select id="servicios" formControlName="servicios" multiple>
+          <option *ngFor="let s of servicios" [value]="s.nombre">{{ s.nombre }}</option>
+        </select>
+      </div>
       <button type="submit" class="register-button">Registrar</button>
     </form>
   </div>
