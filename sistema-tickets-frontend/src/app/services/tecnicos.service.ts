@@ -31,6 +31,10 @@ export class TecnicosService {
     return this.http.post<Tecnico>(`${environment.backendHost}/tecnicos`, tecnico);
   }
 
+  public obtenerProximoCodigo(): Observable<string> {
+    return this.http.get(`${environment.backendHost}/tecnicos/proximoCodigo`, { responseType: 'text' });
+  }
+
   public guardarTicket(formData: any): Observable<Ticket> {
     return this.http.post<Ticket>(`${environment.backendHost}/tickets`, formData);
   }
