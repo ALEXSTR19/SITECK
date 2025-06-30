@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.transaction.Transactional;
 
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Servicio;
@@ -23,6 +24,7 @@ public class TecnicoController {
     private ServicioRepository servicioRepository;
 
     @PostMapping("/tecnicos")
+    @Transactional
     public Tecnico saveTecnico(@RequestBody Tecnico tecnico) {
         if (tecnico.getEspecialidades() != null) {
             tecnico.setEspecialidades(
