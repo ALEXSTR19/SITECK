@@ -25,7 +25,7 @@
         <input matInput formControlName="codigo" readonly />
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Especialidades</mat-label>
+        <mat-label>Servicios</mat-label>
         <mat-select formControlName="especialidades" multiple>
           <mat-option *ngFor="let s of servicios" [value]="s">{{ s.nombre }}</mat-option>
         </mat-select>
