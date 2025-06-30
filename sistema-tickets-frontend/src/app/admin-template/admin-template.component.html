@@ -3,10 +3,10 @@
         <mat-icon>menu</mat-icon>
     </button>
     <span style="flex:auto">Admin Dashboard</span>
-    <button mat-button routerLink="/admin/home">Home</button>
-    <button mat-button routerLink="/admin/profile">Perfil</button>
+    <button mat-button routerLink="/admin/home" *ngIf="authService.roles.includes('ADMIN')">Home</button>
+    <button mat-button routerLink="/admin/profile" *ngIf="authService.roles.includes('ADMIN')">Perfil</button>
 
-    <button  mat-button [matMenuTriggerFor]="importMenu">
+    <button  mat-button [matMenuTriggerFor]="importMenu" *ngIf="authService.roles.includes('ADMIN')">
         <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
         Importar
     </button>
@@ -32,36 +32,36 @@
 <mat-drawer-container>
     <mat-drawer #myDrawer opened="true" mode="side" position="start">
     <mat-list>
-        <mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
             <button mat-button routerLink="/admin/dashboard">
                 <mat-icon>dashboard</mat-icon>
                 Dashboard
             </button>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN') || authService.roles.includes('TECNICO')">
             <button mat-button routerLink="/admin/dashboard-tecnico">
                 <mat-icon>dashboard</mat-icon>
                 Dashboard Tecnico
             </button>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/tecnicos">
                 <mat-icon>Dasboard</mat-icon>
                 Tecnicos
              </button>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/loadServicios">
                 <mat-icon>Dasboard</mat-icon>
                 Servicios
              </button>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/tickets">
                 <mat-icon>Dasboard</mat-icon>
                 Tickets
              </button>
-             
+
         </mat-list-item>
     </mat-list>
     </mat-drawer>
