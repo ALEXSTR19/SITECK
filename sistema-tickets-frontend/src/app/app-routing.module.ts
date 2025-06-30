@@ -21,26 +21,78 @@ const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   {
-    path: "admin", component: AdminTemplateComponent,
-    canActivate: [AuthGuard], // Assuming AuthGuard is imported and provided in the module
+    path: "admin",
+    component: AdminTemplateComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: "home", component: HomeComponent },
-      { path: "profile", component: ProfileComponent },
-      { path: "loadTecnicos", component: LoadTecnicosComponent,
-       },
-      { path: "loadServicios", component: LoadServiciosComponent,
-       },
-
-      { path: "loadTickets", component: LoadTicketsComponent,
-       },
-      { path: "dashboard", component: DashboardComponent },
-      { path: "dashboard-tecnico", component: TecnicoDashboardComponent },
-      { path: "tecnicos", component: TecnicosComponent },
-      { path: "tickets", component: TicketsComponent },
-      { path: "tecnico-detalles/:codigo",  component: TecnicoDetallesComponent },
-      { path: "new-ticket", component: NewTicketComponent }
+      {
+        path: "home",
+        component: HomeComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "profile",
+        component: ProfileComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "loadTecnicos",
+        component: LoadTecnicosComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "loadServicios",
+        component: LoadServiciosComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "loadTickets",
+        component: LoadTicketsComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "dashboard",
+        component: DashboardComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "dashboard-tecnico",
+        component: TecnicoDashboardComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN", "TECNICO"] }
+      },
+      {
+        path: "tecnicos",
+        component: TecnicosComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "tickets",
+        component: TicketsComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "tecnico-detalles/:codigo",
+        component: TecnicoDetallesComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "new-ticket",
+        component: NewTicketComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      }
     ]
-  }, // Assuming admin redirects to home
+  },
 
 ];
 
