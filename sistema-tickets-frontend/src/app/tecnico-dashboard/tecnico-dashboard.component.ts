@@ -25,7 +25,7 @@ export class TecnicoDashboardComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre'];
 
   activeCategory = '';
-  statusChart?: Chart;
+  statusChart?: Chart<any, any, any>;
 
   constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
 
