@@ -12,12 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.compulandia.sistematickets.entities.Tecnico;
-import com.compulandia.sistematickets.entities.Ticket;
-import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.entities.Usuario;
-import com.compulandia.sistematickets.enums.TicketStatus;
-import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.UsuarioRepository;
@@ -42,42 +37,10 @@ public class SistemaTicketsBackendApplication {
                     .role("ADMIN")
                     .build());
             }
-            // Verificar si ya existen datos para no duplicar
-            if (tecnicoRepository.count() == 0) {
-                List<Tecnico> tecnicos = Arrays.asList(
-                    Tecnico.builder()
-                        .nombre("Alexis")
-                        .apellido("Gonzalez")
-                        .codigo("TE-001")
-                        .especialidades(Arrays.asList(
-                            Servicio.builder().nombre("Desarrollo Backend").build()
-                        ))
-                        .build()
-                    // ... otros técnicos
-                );
-                
-                tecnicoRepository.saveAll(tecnicos);
 
-                // Insertar tickets solo si no existen
-                if (ticketRepository.count() == 0) {
-                    TypeTicket[] tiposTicket = TypeTicket.values();
-                    Random random = new Random();
-                    List<Ticket> tickets = new ArrayList<>();
-                    
-                    for (Tecnico tecnico : tecnicoRepository.findAll()) {
-                        for (int i = 0; i < 10; i++) {
-                            tickets.add(Ticket.builder()
-                                .cantidad(1000 + random.nextInt(20000))
-                                .type(tiposTicket[random.nextInt(tiposTicket.length)])
-                                .status(TicketStatus.PENDIENTE)
-                                .fecha(LocalDate.now())
-                                .tecnico(tecnico)
-                                .build());
-                        }
-                    }
-                    ticketRepository.saveAll(tickets);
-                }
-            }
+            // Remove all existing technicians and tickets to start with a clean system
+            ticketRepository.deleteAll();
+            tecnicoRepository.deleteAll();
         };
     }
 }
