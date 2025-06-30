@@ -81,11 +81,12 @@ public class TicketController {
         return ticketService.actualizaTicketPorStatus(status, ticketId);
     }
 @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public Ticket guardarTicket(
-    @RequestParam(value="file", required=false) MultipartFile file,
-    @RequestParam("cantidad") double cantidad,
-    @RequestParam("servicio") String servicio,
-    @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+    public Ticket guardarTicket(
+        @RequestParam(value="file", required=false) MultipartFile file,
+        @RequestParam("tecnicoCodigo") String tecnicoCodigo,
+        @RequestParam("cantidad") double cantidad,
+        @RequestParam("servicio") String servicio,
+        @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
     @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
     @RequestParam(value="instalacionModelo", required = false) String instalacionModelo,
     @RequestParam(value="instalacionDireccion", required = false) String instalacionDireccion,
@@ -101,6 +102,7 @@ public Ticket guardarTicket(
 ) throws IOException {
     return ticketService.saveTicket(
         file,
+        tecnicoCodigo,
         cantidad,
         servicio,
         date,
