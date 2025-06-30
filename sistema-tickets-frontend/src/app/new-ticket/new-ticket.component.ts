@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
 import { ServiciosService } from '../services/servicios.service';
@@ -13,16 +14,21 @@ export class NewTicketComponent implements OnInit{
   ticketFormGroup!: FormGroup;
   servicios: Servicio[] = [];
   pdfFileUrl!: string;
+  tecnicoCodigo!: string | null;
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
     private fb: FormBuilder,
     private tecnicoService: TecnicosService,
-    private servicioService: ServiciosService
+    private servicioService: ServiciosService,
+    private route: ActivatedRoute
   ) {
     // Initialize the form group and other properties here if needed
 
 
 }  ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    this.tecnicoCodigo = params['codigo'];
+  });
   this.servicioService.getServicios().subscribe({
     next: servicios => (this.servicios = servicios),
     error: err => console.error('Error al cargar servicios', err)
@@ -71,6 +77,9 @@ guardarTicket() {
   console.log('Archivo a enviar:', this.ticketFormGroup.value.fileSource);
 
   let formData = new FormData();
+  if(this.tecnicoCodigo){
+    formData.set('tecnicoCodigo', this.tecnicoCodigo);
+  }
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
