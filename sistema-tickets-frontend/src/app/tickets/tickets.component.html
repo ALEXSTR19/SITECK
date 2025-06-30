@@ -43,7 +43,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
                         TECNICO </th>
                     <td mat-cell
-                        *matCellDef="let element">{{element.tecnico.nombre}}</td>
+                        *matCellDef="let element">{{ element.tecnico?.nombre || 'Sin asignar' }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="info1">
