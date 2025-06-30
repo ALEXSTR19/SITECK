@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { TicketType } from '../models/tecnicos.model';
 import { TecnicosService } from '../services/tecnicos.service';
-import { title } from 'process';
-import { text } from 'stream/consumers';
+import { ServiciosService } from '../services/servicios.service';
+import { Servicio } from '../models/servicio.model';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-new-ticket',
@@ -14,20 +13,24 @@ import Swal from 'sweetalert2';
 export class NewTicketComponent implements OnInit{
   ticketFormGroup!: FormGroup;
   codigoTecnico!: string;
-  tiposTickets: string[] = [];
+  servicios: Servicio[] = [];
   pdfFileUrl!: string;
   // Fields specific to each type of servicio will be handled through the reactive form
-  constructor(private fb:FormBuilder, private activatedRoute:ActivatedRoute, private tecnicoService: TecnicosService) {
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private tecnicoService: TecnicosService,
+    private servicioService: ServiciosService
+  ) {
     // Initialize the form group and other properties here if needed
 
 
 }  ngOnInit(): void {
-  for(let elt in TicketType){
-    let value = TicketType[elt];
-    if (typeof value === 'string') {
-      this.tiposTickets.push(value);
-    }
-  }
+  this.servicioService.getServicios().subscribe({
+    next: servicios => (this.servicios = servicios),
+    error: err => console.error('Error al cargar servicios', err)
+  });
+
   this.codigoTecnico = this.activatedRoute.snapshot.params['codigoTecnico'];
   this.ticketFormGroup = this.fb.group({
     date: this.fb.control(''),
