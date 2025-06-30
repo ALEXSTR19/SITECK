@@ -19,6 +19,7 @@ import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.ServicioRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -31,8 +32,13 @@ public class SistemaTicketsBackendApplication {
 
     @Bean
     @Transactional
-    CommandLineRunner initData(TecnicoRepository tecnicoRepository, TicketRepository ticketRepository) {
+    CommandLineRunner initData(TecnicoRepository tecnicoRepository, TicketRepository ticketRepository, ServicioRepository servicioRepository) {
         return args -> {
+            // Registrar servicios oficiales
+            if (servicioRepository.findByNombre("MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO") == null) {
+                servicioRepository.save(Servicio.builder().nombre("MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO").build());
+            }
+
             // Verificar si ya existen datos para no duplicar
             if (tecnicoRepository.count() == 0) {
                 List<Tecnico> tecnicos = Arrays.asList(

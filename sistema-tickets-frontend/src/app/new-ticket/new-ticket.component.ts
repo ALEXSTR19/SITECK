@@ -13,6 +13,7 @@ export class NewTicketComponent implements OnInit{
   ticketFormGroup!: FormGroup;
   servicios: Servicio[] = [];
   pdfFileUrl!: string;
+  selectedServicio = '';
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
     private fb: FormBuilder,
@@ -50,7 +51,18 @@ export class NewTicketComponent implements OnInit{
     diagnosticoEquipo: this.fb.control(''),
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
+    // Campos MECP
+    mecpNombre: this.fb.control(''),
+    mecpTelefono: this.fb.control(''),
+    mecpDireccion: this.fb.control(''),
+    mecpModelo: this.fb.control(''),
+    mecpNombreEquipo: this.fb.control(''),
+    mecpAccesorios: this.fb.control(''),
+    mecpDiagnostico: this.fb.control(''),
+    mecpDetalles: this.fb.control(''),
   });
+
+  this.ticketFormGroup.get('servicio')?.valueChanges.subscribe(v => this.selectedServicio = v);
 }
 
  selectFile(event: any){
@@ -90,6 +102,14 @@ guardarTicket() {
   formData.set('diagnosticoEquipo', this.ticketFormGroup.value.diagnosticoEquipo);
   formData.set('diagnosticoProblema', this.ticketFormGroup.value.diagnosticoProblema);
   formData.set('diagnosticoObservaciones', this.ticketFormGroup.value.diagnosticoObservaciones);
+  formData.set('mecpNombre', this.ticketFormGroup.value.mecpNombre);
+  formData.set('mecpTelefono', this.ticketFormGroup.value.mecpTelefono);
+  formData.set('mecpDireccion', this.ticketFormGroup.value.mecpDireccion);
+  formData.set('mecpModelo', this.ticketFormGroup.value.mecpModelo);
+  formData.set('mecpNombreEquipo', this.ticketFormGroup.value.mecpNombreEquipo);
+  formData.set('mecpAccesorios', this.ticketFormGroup.value.mecpAccesorios);
+  formData.set('mecpDiagnostico', this.ticketFormGroup.value.mecpDiagnostico);
+  formData.set('mecpDetalles', this.ticketFormGroup.value.mecpDetalles);
 
   
     console.log(formData);

@@ -22,7 +22,7 @@
                 </mat-select>
             </mat-form-field>
             <!-- Datos de Instalación -->
-            <div>
+            <div *ngIf="selectedServicio === 'INSTALACION'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo a instalar</mat-label>
                     <input matInput formControlName="instalacionEquipo" />
@@ -37,7 +37,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Mantenimiento -->
-            <div>
+            <div *ngIf="selectedServicio === 'MANTENIMIENTO'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="mantenimientoEquipo" />
@@ -52,7 +52,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Cotización -->
-            <div>
+            <div *ngIf="selectedServicio === 'COTIZACION'">
                 <mat-form-field appearance="outline">
                     <mat-label>Cliente</mat-label>
                     <input matInput formControlName="cotizacionCliente" />
@@ -67,7 +67,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Diagnóstico -->
-            <div>
+            <div *ngIf="selectedServicio === 'DIAGNOSTICO'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="diagnosticoEquipo" />
@@ -79,6 +79,41 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Observaciones</mat-label>
                     <input matInput formControlName="diagnosticoObservaciones" />
+                </mat-form-field>
+            </div>
+            <!-- Datos MECP -->
+            <div *ngIf="selectedServicio === 'MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="mecpNombre" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Numero de teléfono</mat-label>
+                    <input matInput formControlName="mecpTelefono" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="mecpDireccion" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo</mat-label>
+                    <input matInput formControlName="mecpModelo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre del equipo</mat-label>
+                    <input matInput formControlName="mecpNombreEquipo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Accesorios del equipo</mat-label>
+                    <input matInput formControlName="mecpAccesorios" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Diagnostico del equipo</mat-label>
+                    <input matInput formControlName="mecpDiagnostico" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Detalles</mat-label>
+                    <input matInput formControlName="mecpDetalles" />
                 </mat-form-field>
             </div>
             <mat-form-field appearance="outline">

@@ -97,7 +97,15 @@ public Ticket guardarTicket(
     @RequestParam(value="cotizacionDescripcion", required = false) String cotizacionDescripcion,
     @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
     @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
-    @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
+    @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones,
+    @RequestParam(value="mecpNombre", required = false) String mecpNombre,
+    @RequestParam(value="mecpTelefono", required = false) String mecpTelefono,
+    @RequestParam(value="mecpDireccion", required = false) String mecpDireccion,
+    @RequestParam(value="mecpModelo", required = false) String mecpModelo,
+    @RequestParam(value="mecpNombreEquipo", required = false) String mecpNombreEquipo,
+    @RequestParam(value="mecpAccesorios", required = false) String mecpAccesorios,
+    @RequestParam(value="mecpDiagnostico", required = false) String mecpDiagnostico,
+    @RequestParam(value="mecpDetalles", required = false) String mecpDetalles
 ) throws IOException {
     return ticketService.saveTicket(
         file,
@@ -115,7 +123,15 @@ public Ticket guardarTicket(
         cotizacionDescripcion,
         diagnosticoEquipo,
         diagnosticoProblema,
-        diagnosticoObservaciones
+        diagnosticoObservaciones,
+        mecpNombre,
+        mecpTelefono,
+        mecpDireccion,
+        mecpModelo,
+        mecpNombreEquipo,
+        mecpAccesorios,
+        mecpDiagnostico,
+        mecpDetalles
     );
 }
 

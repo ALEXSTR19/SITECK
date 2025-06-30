@@ -53,6 +53,16 @@ public class Ticket {
     private String diagnosticoEquipo;
     private String diagnosticoProblema;
     private String diagnosticoObservaciones;
+
+    // Campos para MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO
+    private String mecpNombre;
+    private String mecpTelefono;
+    private String mecpDireccion;
+    private String mecpModelo;
+    private String mecpNombreEquipo;
+    private String mecpAccesorios;
+    private String mecpDiagnostico;
+    private String mecpDetalles;
     
     @ManyToOne
     private Tecnico tecnico;

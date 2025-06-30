@@ -47,7 +47,15 @@ public class TicketService {
             String cotizacionDescripcion,
             String diagnosticoEquipo,
             String diagnosticoProblema,
-            String diagnosticoObservaciones) throws IOException {
+            String diagnosticoObservaciones,
+            String mecpNombre,
+            String mecpTelefono,
+            String mecpDireccion,
+            String mecpModelo,
+            String mecpNombreEquipo,
+            String mecpAccesorios,
+            String mecpDiagnostico,
+            String mecpDetalles) throws IOException {
 
         Path filePath = null;
         if (file != null && !file.isEmpty()) {
@@ -105,6 +113,14 @@ public class TicketService {
                 .diagnosticoEquipo(diagnosticoEquipo)
                 .diagnosticoProblema(diagnosticoProblema)
                 .diagnosticoObservaciones(diagnosticoObservaciones)
+                .mecpNombre(mecpNombre)
+                .mecpTelefono(mecpTelefono)
+                .mecpDireccion(mecpDireccion)
+                .mecpModelo(mecpModelo)
+                .mecpNombreEquipo(mecpNombreEquipo)
+                .mecpAccesorios(mecpAccesorios)
+                .mecpDiagnostico(mecpDiagnostico)
+                .mecpDetalles(mecpDetalles)
                 .build();
 
         return ticketRepository.save(ticket);
