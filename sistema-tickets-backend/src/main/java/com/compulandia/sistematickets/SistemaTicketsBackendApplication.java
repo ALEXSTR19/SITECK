@@ -20,6 +20,7 @@ import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.ServicioRepository;
 import com.compulandia.sistematickets.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
@@ -33,8 +34,23 @@ public class SistemaTicketsBackendApplication {
 
     @Bean
     @Transactional
-    CommandLineRunner initData(TecnicoRepository tecnicoRepository, TicketRepository ticketRepository, UsuarioRepository usuarioRepository) {
+    CommandLineRunner initData(TecnicoRepository tecnicoRepository,
+            TicketRepository ticketRepository,
+            ServicioRepository servicioRepository,
+            UsuarioRepository usuarioRepository) {
         return args -> {
+            // Registrar servicios oficiales
+            if (servicioRepository.findByNombre("MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO") == null) {
+                servicioRepository.save(Servicio.builder()
+                        .nombre("MANTENIMIENTO DE EQUIPOS CORRECTIVO Y PREVENTIVO")
+                        .build());
+            }
+            if (servicioRepository.findByNombre("DESARROLLO BACKEND") == null) {
+                servicioRepository.save(Servicio.builder()
+                        .nombre("DESARROLLO BACKEND")
+                        .build());
+            }
+
             if (usuarioRepository.count() == 0) {
                 usuarioRepository.save(Usuario.builder()
                     .username("admin")
