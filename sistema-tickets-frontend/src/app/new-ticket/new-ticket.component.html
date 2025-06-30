@@ -18,7 +18,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Tipo de Servicio</mat-label>
                 <mat-select formControlName="type">
-                    <mat-option *ngFor="let tipo of tiposTickets" [value]="tipo">{{ tipo }}</mat-option>
+                    <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <!-- Campos adicionales para Instalación -->
