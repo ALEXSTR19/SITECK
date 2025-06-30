@@ -35,7 +35,7 @@ public class TicketService {
     @Autowired
     private ServicioRepository servicioRepository;
 
-    public Ticket saveTicket(MultipartFile file, double cantidad, String servicioNombre, LocalDate date,
+    public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
             String instalacionEquipo,
             String instalacionModelo,
             String instalacionDireccion,
@@ -81,9 +81,14 @@ public class TicketService {
         }
 
         Tecnico tecnico = null;
-        var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
-        if (!tecnicos.isEmpty()) {
-            tecnico = tecnicos.get(0);
+        if (tecnicoCodigo != null && !tecnicoCodigo.isEmpty()) {
+            tecnico = tecnicoRepository.findByCodigo(tecnicoCodigo);
+        }
+        if (tecnico == null) {
+            var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
+            if (!tecnicos.isEmpty()) {
+                tecnico = tecnicos.get(0);
+            }
         }
 
         Ticket ticket = Ticket.builder()
