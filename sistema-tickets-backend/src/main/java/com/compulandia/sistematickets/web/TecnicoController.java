@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.transaction.Transactional;
 
+import com.compulandia.sistematickets.dto.TecnicoRegistroDto;
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.entities.Usuario;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
+import com.compulandia.sistematickets.repository.UsuarioRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -23,9 +26,19 @@ public class TecnicoController {
     @Autowired
     private ServicioRepository servicioRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @PostMapping("/tecnicos")
     @Transactional
-    public Tecnico saveTecnico(@RequestBody Tecnico tecnico) {
+    public Tecnico saveTecnico(@RequestBody TecnicoRegistroDto dto) {
+        Tecnico tecnico = Tecnico.builder()
+                .nombre(dto.getNombre())
+                .apellido(dto.getApellido())
+                .codigo(dto.getCodigo())
+                .especialidades(dto.getEspecialidades())
+                .build();
+
         if (tecnico.getEspecialidades() != null) {
             tecnico.setEspecialidades(
                 tecnico.getEspecialidades().stream()
@@ -35,7 +48,19 @@ public class TecnicoController {
                     })
                     .toList());
         }
-        return tecnicoRepository.save(tecnico);
+
+        Tecnico savedTecnico = tecnicoRepository.save(tecnico);
+
+        if (dto.getUsername() != null && dto.getPassword() != null) {
+            Usuario usuario = Usuario.builder()
+                    .username(dto.getUsername())
+                    .password(dto.getPassword())
+                    .role("TECNICO")
+                    .build();
+            usuarioRepository.save(usuario);
+        }
+
+        return savedTecnico;
     }
 
     @GetMapping("/tecnicos/proximoCodigo")

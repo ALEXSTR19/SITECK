@@ -5,6 +5,8 @@ export interface Tecnico {
     codigo: string;
     nombre: string;
     apellido: string;
+    username?: string;
+    password?: string;
     especialidades: Servicio[];
     foto: string;
 }
