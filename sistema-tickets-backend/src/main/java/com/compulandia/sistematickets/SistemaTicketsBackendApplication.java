@@ -54,9 +54,10 @@ public class SistemaTicketsBackendApplication {
                     .build());
             }
 
-            // Remove all existing technicians and tickets to start with a clean system
-            ticketRepository.deleteAll();
-            tecnicoRepository.deleteAll();
+            // Previously the database was cleared on each application start.
+            // This caused tickets and technicians to disappear after every restart,
+            // preventing them from being listed through the API.
+            // Those delete calls have been removed to preserve the data.
         };
     }
 }
