@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
 import { ServiciosService } from '../services/servicios.service';
 import { Servicio } from '../models/servicio.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-load-tecnicos',
@@ -40,6 +41,7 @@ export class LoadTecnicosComponent implements OnInit {
 
     this.tecnicosService.crearTecnico(this.tecnicoForm.value).subscribe({
       next: (resp) => {
+        Swal.fire('Técnico guardado', 'El técnico se ha registrado correctamente', 'success');
         this.tecnicoForm.reset();
         this.tecnicosService.obtenerProximoCodigo().subscribe(code => {
           this.tecnicoForm.patchValue({ codigo: code });
@@ -47,6 +49,7 @@ export class LoadTecnicosComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al guardar técnico:', err);
+        Swal.fire('Error', 'No se pudo guardar el técnico', 'error');
       }
     });
   }
