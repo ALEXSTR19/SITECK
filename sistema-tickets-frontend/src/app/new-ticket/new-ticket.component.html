@@ -17,7 +17,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Tipo de Servicio</mat-label>
-                <mat-select formControlName="type">
+                <mat-select formControlName="servicio">
                     <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -81,10 +81,6 @@
                     <input matInput formControlName="diagnosticoObservaciones" />
                 </mat-form-field>
             </div>
-            <mat-form-field appearance="outline">
-                <mat-label>Código Técnico</mat-label>
-                <input matInput formControlName="codigoTecnico" [value]="codigoTecnico" readonly />
-            </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Archivo</mat-label>
                 <input matInput readonly formControlName="fileName">

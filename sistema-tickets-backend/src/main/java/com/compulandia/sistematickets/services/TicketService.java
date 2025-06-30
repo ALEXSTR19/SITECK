@@ -14,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
+import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.ServicioRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -30,8 +32,10 @@ public class TicketService {
     @Autowired
     private TecnicoRepository tecnicoRepository;
 
-    public Ticket saveTicket(MultipartFile file, double cantidad, TypeTicket typeTicket, LocalDate date,
-            String codigoTecnico,
+    @Autowired
+    private ServicioRepository servicioRepository;
+
+    public Ticket saveTicket(MultipartFile file, double cantidad, String servicioNombre, LocalDate date,
             String instalacionEquipo,
             String instalacionModelo,
             String instalacionDireccion,
@@ -71,13 +75,22 @@ public class TicketService {
             Files.copy(file.getInputStream(), filePath);
         }
 
-        Tecnico tecnico = tecnicoRepository.findByCodigo(codigoTecnico);
+        Servicio servicio = servicioRepository.findByNombre(servicioNombre);
+        if (servicio == null) {
+            servicio = servicioRepository.save(Servicio.builder().nombre(servicioNombre).build());
+        }
+
+        Tecnico tecnico = null;
+        var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
+        if (!tecnicos.isEmpty()) {
+            tecnico = tecnicos.get(0);
+        }
 
         Ticket ticket = Ticket.builder()
-                .type(typeTicket)
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
                 .tecnico(tecnico)
+                .servicio(servicio)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
                 .instalacionEquipo(instalacionEquipo)
