@@ -13,9 +13,6 @@ export class AdminTemplateComponent {
 constructor(public authService: AuthService, private router: Router) { }
 
 logout() {
-  this.authService.isAuthenticated = false;
-  this.authService.roles = [];
-  this.authService.username = undefined;
-  this.router.navigateByUrl("/login");
+  this.authService.logout();
 }
 }

@@ -10,12 +10,29 @@ import { Usuario } from '../models/usuario.model';
 })
 export class AuthService {
 
-public username: any;
+public username: string | undefined;
 public codigoTecnico: string | undefined;
-public isAuthenticated: boolean = false;
+public isAuthenticated = false;
 public roles: string[] = [];
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.loadFromStorage();
+  }
+
+  private loadFromStorage(): void {
+    const data = localStorage.getItem('auth_user');
+    if (data) {
+      const user = JSON.parse(data) as {
+        username: string;
+        roles: string[];
+        codigoTecnico?: string;
+      };
+      this.username = user.username;
+      this.roles = user.roles;
+      this.codigoTecnico = user.codigoTecnico;
+      this.isAuthenticated = true;
+    }
+  }
 
   public login(username: string, password: string): Observable<boolean> {
     return this.http
@@ -26,6 +43,10 @@ public roles: string[] = [];
           this.roles = [user.role];
           this.codigoTecnico = user.codigoTecnico;
           this.isAuthenticated = true;
+          localStorage.setItem(
+            'auth_user',
+            JSON.stringify({ username: this.username, roles: this.roles, codigoTecnico: this.codigoTecnico })
+          );
         }),
         map(() => true)
       );
@@ -40,6 +61,7 @@ public roles: string[] = [];
     this.roles = [];
     this.username = undefined;
     this.codigoTecnico = undefined;
+    localStorage.removeItem('auth_user');
     this.router.navigateByUrl("/login");
   }
 }
