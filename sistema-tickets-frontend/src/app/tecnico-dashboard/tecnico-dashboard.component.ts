@@ -30,7 +30,7 @@ export class TecnicoDashboardComponent implements OnInit {
   constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.tecnicoCodigo = this.authService.username;
+    this.tecnicoCodigo = this.authService.codigoTecnico || this.authService.username;
     if (!this.tecnicoCodigo) {
       return;
     }

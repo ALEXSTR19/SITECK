@@ -18,4 +18,7 @@ public class Usuario {
     private String password;
     private String servicios;
     private String role;
+
+    // Codigo del tecnico asociado (opcional)
+    private String codigoTecnico;
 }

@@ -11,6 +11,7 @@ import { Usuario } from '../models/usuario.model';
 export class AuthService {
 
 public username: any;
+public codigoTecnico: string | undefined;
 public isAuthenticated: boolean = false;
 public roles: string[] = [];
 
@@ -23,6 +24,7 @@ public roles: string[] = [];
         tap((user: Usuario) => {
           this.username = user.username;
           this.roles = [user.role];
+          this.codigoTecnico = user.codigoTecnico;
           this.isAuthenticated = true;
         }),
         map(() => true)
@@ -37,6 +39,7 @@ public roles: string[] = [];
     this.isAuthenticated = false;
     this.roles = [];
     this.username = undefined;
+    this.codigoTecnico = undefined;
     this.router.navigateByUrl("/login");
   }
 }
