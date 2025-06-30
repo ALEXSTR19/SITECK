@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
@@ -82,7 +84,7 @@ public class TicketController {
 public Ticket guardarTicket(
     @RequestParam(value="file", required=false) MultipartFile file,
     @RequestParam("cantidad") double cantidad,
-    @RequestParam("type") TypeTicket type,
+    @RequestParam("type") String type,
     @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
     @RequestParam("codigoTecnico") String codigoTecnico,
     @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
@@ -98,10 +100,16 @@ public Ticket guardarTicket(
     @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
     @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
 ) throws IOException {
+    TypeTicket typeTicket;
+    try {
+        typeTicket = TypeTicket.valueOf(type.toUpperCase());
+    } catch (IllegalArgumentException e) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de ticket inválido");
+    }
     return ticketService.saveTicket(
         file,
         cantidad,
-        type,
+        typeTicket,
         date,
         codigoTecnico,
         instalacionEquipo,
