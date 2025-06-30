@@ -22,7 +22,7 @@ export class TecnicoDashboardComponent implements OnInit {
   completedDataSource = new MatTableDataSource<Ticket>();
   allDataSource = new MatTableDataSource<Ticket>();
 
-  displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre'];
+  displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre', 'acciones'];
 
   activeCategory = '';
   statusChart?: Chart<any, any, any>;
@@ -95,5 +95,27 @@ export class TecnicoDashboardComponent implements OnInit {
     if (this.activeCategory === 'metrics') {
       setTimeout(() => this.initializeChart());
     }
+  }
+
+  actualizarEstado(ticket: Ticket, status: string) {
+    this.tecnicosService.actualizarEstadoTicket(ticket.id, status).subscribe({
+      next: (t) => {
+        ticket.status = status;
+        this.filterTickets();
+      },
+      error: (err) => console.error('Error al actualizar ticket', err)
+    });
+  }
+
+  marcarEnProceso(ticket: Ticket) {
+    this.actualizarEstado(ticket, 'EN_PROCESO');
+  }
+
+  finalizarTicket(ticket: Ticket) {
+    this.actualizarEstado(ticket, 'FINALIZADO');
+  }
+
+  cancelarTicket(ticket: Ticket) {
+    this.actualizarEstado(ticket, 'CANCELADO');
   }
 }
