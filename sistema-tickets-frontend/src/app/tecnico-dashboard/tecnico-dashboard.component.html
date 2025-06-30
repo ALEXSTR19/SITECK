@@ -159,6 +159,9 @@
     <p>Total de tickets: {{ tickets.length }}</p>
     <p>Pendientes: {{ pendingTickets.length }}</p>
     <p>Completados: {{ completedTickets.length }}</p>
+    <div class="chart-container">
+      <canvas id="statusChart"></canvas>
+    </div>
   </div>
 
   <div *ngIf="activeCategory === 'scores'">

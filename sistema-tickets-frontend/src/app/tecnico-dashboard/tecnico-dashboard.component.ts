@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js/auto';
 import { MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '../models/tecnicos.model';
 import { TecnicosService } from '../services/tecnicos.service';
@@ -24,6 +25,7 @@ export class TecnicoDashboardComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre'];
 
   activeCategory = '';
+  statusChart?: Chart;
 
   constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
 
@@ -55,7 +57,43 @@ export class TecnicoDashboardComponent implements OnInit {
     this.allDataSource.data = this.tickets;
   }
 
+  initializeChart() {
+    const counts = {
+      pendiente: this.tickets.filter(t => t.status === 'PENDIENTE').length,
+      enProceso: this.tickets.filter(t => t.status === 'EN_PROCESO').length,
+      finalizado: this.tickets.filter(t => t.status === 'FINALIZADO').length,
+      cancelado: this.tickets.filter(t => t.status === 'CANCELADO').length
+    };
+
+    if (this.statusChart) {
+      this.statusChart.destroy();
+    }
+
+    this.statusChart = new Chart('statusChart', {
+      type: 'doughnut',
+      data: {
+        labels: ['Pendiente', 'En proceso', 'Finalizado', 'Cancelado'],
+        datasets: [{
+          data: [
+            counts.pendiente,
+            counts.enProceso,
+            counts.finalizado,
+            counts.cancelado
+          ],
+          backgroundColor: ['#FFC107', '#2196F3', '#4CAF50', '#F44336']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  }
+
   setCategory(cat: string) {
     this.activeCategory = this.activeCategory === cat ? '' : cat;
+    if (this.activeCategory === 'metrics') {
+      setTimeout(() => this.initializeChart());
+    }
   }
 }
