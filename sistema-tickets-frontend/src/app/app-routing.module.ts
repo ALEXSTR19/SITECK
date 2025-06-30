@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: "tecnicos", component: TecnicosComponent },
       { path: "tickets", component: TicketsComponent },
       { path: "tecnico-detalles/:codigo",  component: TecnicoDetallesComponent },
-      { path: "new-ticket/:codigoTecnico", component: NewTicketComponent }
+      { path: "new-ticket", component: NewTicketComponent }
     ]
   }, // Assuming admin redirects to home
 

@@ -36,7 +36,7 @@ export class TecnicoDetallesComponent {
   }
 
   agregaTicket() {
-    this.router.navigateByUrl(`admin/new-ticket/${this.tecnicoCodigo}`);
+    this.router.navigateByUrl(`admin/new-ticket`);
 
   }
 }

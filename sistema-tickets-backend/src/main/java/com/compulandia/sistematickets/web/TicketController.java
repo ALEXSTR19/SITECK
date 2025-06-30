@@ -84,9 +84,8 @@ public class TicketController {
 public Ticket guardarTicket(
     @RequestParam(value="file", required=false) MultipartFile file,
     @RequestParam("cantidad") double cantidad,
-    @RequestParam("type") String type,
+    @RequestParam("servicio") String servicio,
     @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-    @RequestParam("codigoTecnico") String codigoTecnico,
     @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
     @RequestParam(value="instalacionModelo", required = false) String instalacionModelo,
     @RequestParam(value="instalacionDireccion", required = false) String instalacionDireccion,
@@ -100,18 +99,11 @@ public Ticket guardarTicket(
     @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
     @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
 ) throws IOException {
-    TypeTicket typeTicket;
-    try {
-        typeTicket = TypeTicket.valueOf(type.toUpperCase());
-    } catch (IllegalArgumentException e) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de ticket inválido");
-    }
     return ticketService.saveTicket(
         file,
         cantidad,
-        typeTicket,
+        servicio,
         date,
-        codigoTecnico,
         instalacionEquipo,
         instalacionModelo,
         instalacionDireccion,

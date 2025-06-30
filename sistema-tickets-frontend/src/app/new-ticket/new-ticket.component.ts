@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { TecnicosService } from '../services/tecnicos.service';
 import { ServiciosService } from '../services/servicios.service';
 import { Servicio } from '../models/servicio.model';
@@ -12,13 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class NewTicketComponent implements OnInit{
   ticketFormGroup!: FormGroup;
-  codigoTecnico!: string;
   servicios: Servicio[] = [];
   pdfFileUrl!: string;
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private tecnicoService: TecnicosService,
     private servicioService: ServiciosService
   ) {
@@ -31,12 +28,10 @@ export class NewTicketComponent implements OnInit{
     error: err => console.error('Error al cargar servicios', err)
   });
 
-  this.codigoTecnico = this.activatedRoute.snapshot.params['codigoTecnico'];
   this.ticketFormGroup = this.fb.group({
     date: this.fb.control(''),
     cantidad: this.fb.control(''),
-    type: this.fb.control(''),
-    codigoTecnico: this.fb.control(this.codigoTecnico),
+    servicio: this.fb.control(''),
     fileSource: this.fb.control(null),
     fileName: this.fb.control(''),
     // Campos para Instalación
@@ -78,8 +73,7 @@ guardarTicket() {
   let formData = new FormData();
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
-  formData.set('type', this.ticketFormGroup.value.type);
-  formData.set('codigoTecnico', this.ticketFormGroup.value.codigoTecnico);
+  formData.set('servicio', this.ticketFormGroup.value.servicio);
   if (this.ticketFormGroup.value.fileSource) {
     formData.append('file', this.ticketFormGroup.value.fileSource);
   }

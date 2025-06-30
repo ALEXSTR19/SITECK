@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
+import com.compulandia.sistematickets.entities.Servicio;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,4 +56,7 @@ public class Ticket {
     
     @ManyToOne
     private Tecnico tecnico;
+
+    @ManyToOne
+    private Servicio servicio;
 }
