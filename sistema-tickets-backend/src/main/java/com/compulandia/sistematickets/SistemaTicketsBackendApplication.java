@@ -12,7 +12,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.entities.Tecnico;
+import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Usuario;
+import com.compulandia.sistematickets.enums.TicketStatus;
+import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.UsuarioRepository;
