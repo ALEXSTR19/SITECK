@@ -35,49 +35,14 @@ public class SistemaTicketsBackendApplication {
     @Transactional
     CommandLineRunner initData(TecnicoRepository tecnicoRepository, TicketRepository ticketRepository, UsuarioRepository usuarioRepository) {
         return args -> {
-            if (usuarioRepository.count() == 0) {
-                usuarioRepository.save(Usuario.builder()
-                    .username("admin")
-                    .password("admin")
-                    .role("ADMIN")
-                    .build());
-            }
-            // Verificar si ya existen datos para no duplicar
-            if (tecnicoRepository.count() == 0) {
-                List<Tecnico> tecnicos = Arrays.asList(
-                    Tecnico.builder()
-                        .nombre("Alexis")
-                        .apellido("Gonzalez")
-                        .codigo("TE-001")
-                        .especialidades(Arrays.asList(
-                            Servicio.builder().nombre("Desarrollo Backend").build()
-                        ))
-                        .build()
-                    // ... otros técnicos
-                );
-                
-                tecnicoRepository.saveAll(tecnicos);
-
-                // Insertar tickets solo si no existen
-                if (ticketRepository.count() == 0) {
-                    TypeTicket[] tiposTicket = TypeTicket.values();
-                    Random random = new Random();
-                    List<Ticket> tickets = new ArrayList<>();
-                    
-                    for (Tecnico tecnico : tecnicoRepository.findAll()) {
-                        for (int i = 0; i < 10; i++) {
-                            tickets.add(Ticket.builder()
-                                .cantidad(1000 + random.nextInt(20000))
-                                .type(tiposTicket[random.nextInt(tiposTicket.length)])
-                                .status(TicketStatus.PENDIENTE)
-                                .fecha(LocalDate.now())
-                                .tecnico(tecnico)
+                        if (usuarioRepository.count() == 0) {
+                            usuarioRepository.save(Usuario.builder()
+                                .username("admin")
+                                .password("admin")
+                                .role("ADMIN")
                                 .build());
                         }
-                    }
-                    ticketRepository.saveAll(tickets);
+                    };
                 }
             }
-        };
-    }
-}
+    
