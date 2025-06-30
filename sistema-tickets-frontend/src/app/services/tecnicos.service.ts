@@ -38,4 +38,14 @@ export class TecnicosService {
   public guardarTicket(formData: any): Observable<Ticket> {
     return this.http.post<Ticket>(`${environment.backendHost}/tickets`, formData);
   }
+
+  public actualizarEstadoTicket(id: number, status: string): Observable<Ticket> {
+    return this.http.put<Ticket>(
+      `${environment.backendHost}/tickets/${id}/actualizarTicket`,
+      null,
+      {
+        params: { status }
+      }
+    );
+  }
 }
