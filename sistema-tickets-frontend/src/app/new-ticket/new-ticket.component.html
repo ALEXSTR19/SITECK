@@ -21,8 +21,8 @@
                     <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <!-- Campos adicionales para Instalación -->
-            <div *ngIf="ticketFormGroup.get('type')?.value === 'INSTALACION'">
+            <!-- Datos de Instalación -->
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo a instalar</mat-label>
                     <input matInput formControlName="instalacionEquipo" />
@@ -36,8 +36,8 @@
                     <input matInput formControlName="instalacionDireccion" />
                 </mat-form-field>
             </div>
-            <!-- Campos adicionales para Mantenimiento -->
-            <div *ngIf="ticketFormGroup.get('type')?.value === 'MANTENIMIENTO'">
+            <!-- Datos de Mantenimiento -->
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="mantenimientoEquipo" />
@@ -51,8 +51,8 @@
                     <input matInput formControlName="mantenimientoProxima" />
                 </mat-form-field>
             </div>
-            <!-- Campos adicionales para Cotización -->
-            <div *ngIf="ticketFormGroup.get('type')?.value === 'COTIZACION'">
+            <!-- Datos de Cotización -->
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Cliente</mat-label>
                     <input matInput formControlName="cotizacionCliente" />
@@ -66,8 +66,8 @@
                     <input matInput formControlName="cotizacionDescripcion" />
                 </mat-form-field>
             </div>
-            <!-- Campos adicionales para Diagnóstico -->
-            <div *ngIf="ticketFormGroup.get('type')?.value === 'DIAGNOSTICO'">
+            <!-- Datos de Diagnóstico -->
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="diagnosticoEquipo" />
