@@ -36,7 +36,7 @@ export class TecnicosComponent implements OnInit {
     this.router.navigateByUrl(`/admin/tecnico-detalles/${tecnico.codigo}`);
   }
 
-  getEspecialidadesNombres(tecnico: Tecnico): string {
+  getServiciosNombres(tecnico: Tecnico): string {
     return tecnico.especialidades?.map(e => e.nombre).join(', ') ?? '';
   }
 
