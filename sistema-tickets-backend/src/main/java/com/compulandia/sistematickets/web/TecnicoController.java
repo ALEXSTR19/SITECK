@@ -56,6 +56,7 @@ public class TecnicoController {
                     .username(dto.getUsername())
                     .password(dto.getPassword())
                     .role("TECNICO")
+                    .codigoTecnico(dto.getCodigo())
                     .build();
             usuarioRepository.save(usuario);
         }

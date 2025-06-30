@@ -3,4 +3,5 @@ export interface Usuario {
   password: string;
   servicios?: string;
   role: string;
+  codigoTecnico?: string;
 }

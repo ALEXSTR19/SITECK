@@ -25,7 +25,13 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
     this.authService.login(username, password).subscribe({
-      next: () => this.router.navigateByUrl('/admin'),
+      next: () => {
+        if (this.authService.roles.includes('TECNICO')) {
+          this.router.navigateByUrl('/admin/dashboard-tecnico');
+        } else {
+          this.router.navigateByUrl('/admin');
+        }
+      },
       error: () => alert('Credenciales incorrectas')
     });
   }
