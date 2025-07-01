@@ -80,6 +80,13 @@ public class TicketService {
             servicio = servicioRepository.save(Servicio.builder().nombre(servicioNombre).build());
         }
 
+        TypeTicket typeTicket = null;
+        try {
+            typeTicket = TypeTicket.valueOf(servicioNombre.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            // El nombre del servicio no corresponde con ningún TypeTicket definido
+        }
+
         Tecnico tecnico = null;
         if (tecnicoCodigo != null && !tecnicoCodigo.isEmpty()) {
             tecnico = tecnicoRepository.findByCodigo(tecnicoCodigo);
@@ -96,6 +103,7 @@ public class TicketService {
                 .fecha(date)
                 .tecnico(tecnico)
                 .servicio(servicio)
+                .type(typeTicket)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
                 .instalacionEquipo(instalacionEquipo)
