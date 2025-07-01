@@ -19,6 +19,7 @@ export interface Ticket {
     status: string;
     file: string;
     tecnico: Tecnico;
+    servicio?: Servicio;
     instalacionEquipo?: string;
     instalacionModelo?: string;
     instalacionDireccion?: string;
