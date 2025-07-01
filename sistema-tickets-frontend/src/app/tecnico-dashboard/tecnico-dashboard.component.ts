@@ -30,7 +30,7 @@ export class TecnicoDashboardComponent implements OnInit {
   constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.tecnicoCodigo = this.authService.codigoTecnico || this.authService.username;
+    this.tecnicoCodigo = this.authService.codigoTecnico;
     if (!this.tecnicoCodigo) {
       return;
     }
@@ -38,6 +38,7 @@ export class TecnicoDashboardComponent implements OnInit {
       next: (data) => {
         this.tickets = data;
         this.filterTickets();
+        this.activeCategory = 'pending';
       },
       error: (err) => {
         console.error('Error al cargar los tickets', err);

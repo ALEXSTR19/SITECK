@@ -25,6 +25,7 @@
 
     <button mat-button *ngIf="authService.isAuthenticated">
         {{ authService.username }}
+        <span *ngIf="authService.codigoTecnico">({{ authService.codigoTecnico }})</span>
     </button>
 
     <button mat-raised-button class="custom-accent" (click)="logout()">Salir</button>
