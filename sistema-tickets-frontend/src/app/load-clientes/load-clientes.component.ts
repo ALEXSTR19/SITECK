@@ -15,7 +15,12 @@ export class LoadClientesComponent implements OnInit {
   ngOnInit(): void {
     this.clienteForm = this.fb.group({
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required]
+      apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      telefono: ['', Validators.required],
+      direccion: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      codigoPostal: ['', Validators.required]
     });
   }
 
