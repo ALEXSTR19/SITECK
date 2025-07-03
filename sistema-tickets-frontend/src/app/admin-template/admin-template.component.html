@@ -73,7 +73,10 @@
              </button>
         </mat-list-item>
         <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
-
+             <button mat-button routerLink="/admin/cotizaciones">
+                <mat-icon>description</mat-icon>
+                Cotizaciones
+             </button>
         </mat-list-item>
     </mat-list>
     </mat-drawer>
