@@ -21,6 +21,9 @@
         <button mat-menu-item routerLink="/admin/loadTickets">
             Cargar Tickets
         </button>
+        <button mat-menu-item routerLink="/admin/loadClientes">
+            Cargar Clientes
+        </button>
     </mat-menu>
 
     <button mat-button *ngIf="authService.isAuthenticated">
@@ -61,6 +64,13 @@
              <button mat-button routerLink="/admin/tickets">
                 <mat-icon>Dasboard</mat-icon>
                 Tickets
+             </button>
+
+        </mat-list-item>
+        <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
+             <button mat-button routerLink="/admin/clientes">
+                <mat-icon>Dasboard</mat-icon>
+                Clientes
              </button>
 
         </mat-list-item>
