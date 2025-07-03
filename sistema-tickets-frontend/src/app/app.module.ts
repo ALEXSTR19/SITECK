@@ -22,7 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthorizationGuard } from './guards/authorization.guard';
 import { MatTableModule } from '@angular/material/table';
@@ -37,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
+import { QuotesComponent } from './quotes/quotes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,12 +54,13 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
     NewTicketComponent,
     TecnicoDashboardComponent,
     LoadServiciosComponent,
+    QuotesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatListModule,
-    MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatTableModule,
+    MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatTableModule,
     HttpClientModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
     MatDatepickerModule, MatNativeDateModule, MatSelectModule, BrowserModule
   ],

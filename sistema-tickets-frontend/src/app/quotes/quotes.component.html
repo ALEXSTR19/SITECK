@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Nueva Cotización</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="fill" style="width:100%;">
+      <mat-label>Cliente</mat-label>
+      <input matInput [(ngModel)]="cliente" />
+    </mat-form-field>
+
+    <div class="item-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <input matInput [(ngModel)]="newItem.description" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" [(ngModel)]="newItem.quantity" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" [(ngModel)]="newItem.price" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addItem()">Agregar</button>
+    </div>
+
+    <table class="table" *ngIf="items.length">
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i=index">
+          <td>{{item.description}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.quantity * item.price}}</td>
+          <td>
+            <button mat-button color="warn" (click)="removeItem(i)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total" *ngIf="items.length">
+      <strong>Total: {{ total() }}</strong>
+    </div>
+
+    <button mat-raised-button color="accent" (click)="exportPDF()" [disabled]="!items.length">Exportar PDF</button>
+  </mat-card-content>
+</mat-card>
