@@ -12,6 +12,9 @@ export class DashboardComponent implements OnInit {
   dayChart?: Chart;
   weekChart?: Chart;
   monthChart?: Chart;
+  serviciosChart?: Chart;
+  clientesChart?: Chart;
+  tecnicosChart?: Chart;
 
   constructor(private dashboardService: DashboardService) {}
 
@@ -19,6 +22,9 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getStatsByDay().subscribe(d => this.createChart('dayChart', d));
     this.dashboardService.getStatsByWeek().subscribe(d => this.createChart('weekChart', d));
     this.dashboardService.getStatsByMonth().subscribe(d => this.createChart('monthChart', d));
+    this.dashboardService.getTopServicios().subscribe(d => this.createChart('serviciosChart', d));
+    this.dashboardService.getTopClientes().subscribe(d => this.createChart('clientesChart', d));
+    this.dashboardService.getTopTecnicos().subscribe(d => this.createChart('tecnicosChart', d));
   }
 
   private createChart(elementId: string, stats: TicketStat[]) {

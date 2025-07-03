@@ -96,6 +96,21 @@ public class TicketController {
     public List<TicketStatsDto> ticketStatsByMonth(){
         return ticketService.getStatsByMonth();
     }
+
+    @GetMapping("/ticketStats/servicios")
+    public List<TicketStatsDto> topServicios(){
+        return ticketService.getTopServicios();
+    }
+
+    @GetMapping("/ticketStats/clientes")
+    public List<TicketStatsDto> topClientes(){
+        return ticketService.getTopClientes();
+    }
+
+    @GetMapping("/ticketStats/tecnicos")
+    public List<TicketStatsDto> topTecnicos(){
+        return ticketService.getTopTecnicos();
+    }
 @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Ticket guardarTicket(
         @RequestParam(value="file", required=false) MultipartFile file,
