@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
-import com.compulandia.sistematickets.repository.ClienteRepository;
+
 
 import jakarta.transaction.Transactional;
 
@@ -154,5 +155,23 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id).get();
         ticket.setStatus(status);
         return ticketRepository.save(ticket);
+    }
+
+    public List<TicketStatsDto> getStatsByDay() {
+        return ticketRepository.countTicketsByDay().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getStatsByWeek() {
+        return ticketRepository.countTicketsByWeek().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getStatsByMonth() {
+        return ticketRepository.countTicketsByMonth().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
     }
 }
