@@ -37,6 +37,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
+import { LoadClientesComponent } from './load-clientes/load-clientes.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { QuotesComponent } from './quotes/quotes.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,9 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
     NewTicketComponent,
     TecnicoDashboardComponent,
     LoadServiciosComponent,
+    LoadClientesComponent,
+    ClientesComponent,
+    QuotesComponent,
 
   ],
   imports: [

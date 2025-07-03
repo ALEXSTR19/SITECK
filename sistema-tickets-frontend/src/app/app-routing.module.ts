@@ -17,6 +17,9 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
+import { LoadClientesComponent } from './load-clientes/load-clientes.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { QuotesComponent } from './quotes/quotes.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
