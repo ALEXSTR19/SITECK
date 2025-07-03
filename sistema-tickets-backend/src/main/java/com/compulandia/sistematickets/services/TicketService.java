@@ -176,4 +176,22 @@ public class TicketService {
                 .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
                 .toList();
     }
+
+    public List<TicketStatsDto> getTopServicios() {
+        return ticketRepository.topServicios().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getTopClientes() {
+        return ticketRepository.topClientes().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getTopTecnicos() {
+        return ticketRepository.topTecnicos().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
 }

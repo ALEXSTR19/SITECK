@@ -21,4 +21,16 @@ export class DashboardService {
   getStatsByMonth(): Observable<TicketStat[]> {
     return this.http.get<TicketStat[]>(`${environment.backendHost}/ticketStats/month`);
   }
+
+  getTopServicios(): Observable<TicketStat[]> {
+    return this.http.get<TicketStat[]>(`${environment.backendHost}/ticketStats/servicios`);
+  }
+
+  getTopClientes(): Observable<TicketStat[]> {
+    return this.http.get<TicketStat[]>(`${environment.backendHost}/ticketStats/clientes`);
+  }
+
+  getTopTecnicos(): Observable<TicketStat[]> {
+    return this.http.get<TicketStat[]>(`${environment.backendHost}/ticketStats/tecnicos`);
+  }
 }

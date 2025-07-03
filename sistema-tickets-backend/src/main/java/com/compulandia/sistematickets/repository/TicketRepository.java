@@ -27,4 +27,13 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query(value = "SELECT DATE_FORMAT(fecha, '%Y-%m') as label, COUNT(*) as count FROM ticket GROUP BY DATE_FORMAT(fecha, '%Y-%m') ORDER BY DATE_FORMAT(fecha, '%Y-%m')", nativeQuery = true)
     List<Object[]> countTicketsByMonth();
 
+    @Query(value = "SELECT s.nombre as label, COUNT(*) as count FROM ticket t JOIN servicio s ON t.servicio_id = s.id GROUP BY s.nombre ORDER BY count DESC LIMIT 5", nativeQuery = true)
+    List<Object[]> topServicios();
+
+    @Query(value = "SELECT CONCAT(c.nombre, ' ', c.apellido) as label, COUNT(*) as count FROM ticket t JOIN cliente c ON t.cliente_id = c.id GROUP BY c.id, c.nombre, c.apellido ORDER BY count DESC LIMIT 5", nativeQuery = true)
+    List<Object[]> topClientes();
+
+    @Query(value = "SELECT te.codigo as label, COUNT(*) as count FROM ticket t JOIN tecnico te ON t.tecnico_id = te.id GROUP BY te.codigo ORDER BY count DESC LIMIT 5", nativeQuery = true)
+    List<Object[]> topTecnicos();
+
 }
