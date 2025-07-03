@@ -52,6 +52,10 @@ public roles: string[] = [];
       );
   }
 
+  public getProfile(username: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${environment.backendHost}/api/auth/profile/${username}`);
+  }
+
   public register(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`${environment.backendHost}/api/auth/register`, usuario);
   }
