@@ -5,7 +5,11 @@
   <mat-card-content>
     <mat-form-field appearance="fill" style="width:100%;">
       <mat-label>Cliente</mat-label>
-      <input matInput [(ngModel)]="cliente" />
+      <mat-select [(ngModel)]="cliente">
+        <mat-option *ngFor="let c of clientes" [value]="c.nombre + ' ' + c.apellido">
+          {{ c.nombre }} {{ c.apellido }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <div class="item-form">
