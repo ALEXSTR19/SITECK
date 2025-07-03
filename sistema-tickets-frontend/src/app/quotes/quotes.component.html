@@ -5,12 +5,35 @@
   <mat-card-content>
     <mat-form-field appearance="fill" style="width:100%;">
       <mat-label>Cliente</mat-label>
-      <mat-select [(ngModel)]="cliente">
-        <mat-option *ngFor="let c of clientes" [value]="c.nombre + ' ' + c.apellido">
+      <mat-select [(ngModel)]="selectedClienteId" (selectionChange)="updateSelectedCliente()">
+        <mat-option *ngFor="let c of clientes" [value]="c.id">
           {{ c.nombre }} {{ c.apellido }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <div *ngIf="selectedCliente" class="cliente-details">
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Email</mat-label>
+        <input matInput [value]="selectedCliente?.email" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [value]="selectedCliente?.telefono" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Dirección</mat-label>
+        <input matInput [value]="selectedCliente?.direccion" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Ciudad</mat-label>
+        <input matInput [value]="selectedCliente?.ciudad" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Código Postal</mat-label>
+        <input matInput [value]="selectedCliente?.codigoPostal" readonly />
+      </mat-form-field>
+    </div>
 
     <div class="item-form">
       <mat-form-field appearance="fill">
