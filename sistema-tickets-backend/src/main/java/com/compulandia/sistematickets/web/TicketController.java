@@ -26,6 +26,7 @@ import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.services.TicketService;
+import com.compulandia.sistematickets.dto.TicketStatsDto;
 
 import jakarta.annotation.PostConstruct;
 
@@ -79,6 +80,21 @@ public class TicketController {
     @PutMapping("/tickets/{ticketId}/actualizarTicket")
     public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status, @PathVariable Long ticketId){
         return ticketService.actualizaTicketPorStatus(status, ticketId);
+    }
+
+    @GetMapping("/ticketStats/day")
+    public List<TicketStatsDto> ticketStatsByDay(){
+        return ticketService.getStatsByDay();
+    }
+
+    @GetMapping("/ticketStats/week")
+    public List<TicketStatsDto> ticketStatsByWeek(){
+        return ticketService.getStatsByWeek();
+    }
+
+    @GetMapping("/ticketStats/month")
+    public List<TicketStatsDto> ticketStatsByMonth(){
+        return ticketService.getStatsByMonth();
     }
 @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Ticket guardarTicket(
