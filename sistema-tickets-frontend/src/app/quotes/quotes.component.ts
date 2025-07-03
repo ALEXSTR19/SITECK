@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TecnicosService } from '../services/tecnicos.service';
 import { MatCard } from '@angular/material/card';
+import { Cliente } from '../models/cliente.model';
+import { ClientesService } from '../services/clientes.service';
 
 declare const jspdf: any;
 
@@ -19,10 +21,20 @@ interface QuoteItem {
   templateUrl: './quotes.component.html',
   styleUrls: ['./quotes.component.css']
 })
-export class QuotesComponent {
+export class QuotesComponent implements OnInit {
   cliente = '';
+  clientes: Cliente[] = [];
   items: QuoteItem[] = [];
   newItem: QuoteItem = { description: '', quantity: 1, price: 0 };
+
+  constructor(private clientesService: ClientesService) {}
+
+  ngOnInit(): void {
+    this.clientesService.getClientes().subscribe({
+      next: clientes => (this.clientes = clientes),
+      error: err => console.error('Error al cargar clientes', err)
+    });
+  }
 
   addItem() {
     if (this.newItem.description) {
