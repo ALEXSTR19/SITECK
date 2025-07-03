@@ -72,35 +72,28 @@ public class SistemaTicketsBackendApplication {
                     // ... otros técnicos
                 );
                 
-                tecnicoRepository.saveAll(tecnicos);
+        tecnicoRepository.saveAll(tecnicos);
 
-<<<<<<< HEAD
-                // Insertar tickets solo si no existen
-                if (ticketRepository.count() == 0) {
-                    TypeTicket[] tiposTicket = TypeTicket.values();
-                    Random random = new Random();
-                    List<Ticket> tickets = new ArrayList<>();
-                    
-                    for (Tecnico tecnico : tecnicoRepository.findAll()) {
-                        for (int i = 0; i < 10; i++) {
-                            tickets.add(Ticket.builder()
-                                .cantidad(1000 + random.nextInt(20000))
-                                .type(tiposTicket[random.nextInt(tiposTicket.length)])
-                                .status(TicketStatus.PENDIENTE)
-                                .fecha(LocalDate.now())
-                                .tecnico(tecnico)
-                                .build());
-                        }
-                    }
-                    ticketRepository.saveAll(tickets);
+        // Insertar tickets solo si no existen
+        if (ticketRepository.count() == 0) {
+            TypeTicket[] tiposTicket = TypeTicket.values();
+            Random random = new Random();
+            List<Ticket> tickets = new ArrayList<>();
+            
+            for (Tecnico tecnico : tecnicoRepository.findAll()) {
+                for (int i = 0; i < 10; i++) {
+                    tickets.add(Ticket.builder()
+                        .cantidad(1000 + random.nextInt(20000))
+                        .type(tiposTicket[random.nextInt(tiposTicket.length)])
+                        .status(TicketStatus.PENDIENTE)
+                        .fecha(LocalDate.now())
+                        .tecnico(tecnico)
+                        .build());
                 }
             }
-=======
-            // Previously the database was cleared on each application start.
-            // This caused tickets and technicians to disappear after every restart,
-            // preventing them from being listed through the API.
-            // Those delete calls have been removed to preserve the data.
->>>>>>> bb9df6a12668f20bdd5d9da18b916f4fdd4d5d2e
-        };
+            ticketRepository.saveAll(tickets);
+        }
+    }
+};
     }
 }

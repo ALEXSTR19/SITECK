@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { TecnicosService } from '../services/tecnicos.service';
+import { MatCard } from '@angular/material/card';
 
 declare const jspdf: any;
 

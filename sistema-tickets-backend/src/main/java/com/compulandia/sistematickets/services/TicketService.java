@@ -16,11 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.dto.TicketStatsDto;
 import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.ClienteRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
 
 
