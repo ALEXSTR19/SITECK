@@ -1,1 +1,6 @@
-<p>profile works!</p>
+<div class="profile-container" *ngIf="usuario">
+  <h2>Perfil de Usuario</h2>
+  <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+  <p><strong>Rol:</strong> {{ usuario.role }}</p>
+  <p *ngIf="usuario.codigoTecnico"><strong>Código Técnico:</strong> {{ usuario.codigoTecnico }}</p>
+</div>
