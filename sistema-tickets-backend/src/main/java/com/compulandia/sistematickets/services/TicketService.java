@@ -15,11 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
+import com.compulandia.sistematickets.repository.ClienteRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -35,7 +37,11 @@ public class TicketService {
     @Autowired
     private ServicioRepository servicioRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
+            Long clienteId,
             String instalacionEquipo,
             String instalacionModelo,
             String instalacionDireccion,
@@ -98,11 +104,17 @@ public class TicketService {
             }
         }
 
+        Cliente cliente = null;
+        if (clienteId != null) {
+            cliente = clienteRepository.findById(clienteId).orElse(null);
+        }
+
         Ticket ticket = Ticket.builder()
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
                 .tecnico(tecnico)
                 .servicio(servicio)
+                .cliente(cliente)
                 .type(typeTicket)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
