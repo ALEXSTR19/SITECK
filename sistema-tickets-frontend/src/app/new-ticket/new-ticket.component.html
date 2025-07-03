@@ -21,6 +21,12 @@
                     <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clienteId">
+                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</mat-option>
+                </mat-select>
+            </mat-form-field>
             <!-- Datos de Instalación -->
             <div>
                 <mat-form-field appearance="outline">
