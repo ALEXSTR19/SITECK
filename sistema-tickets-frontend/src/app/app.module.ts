@@ -32,6 +32,7 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TecnicoDetallesComponent } from './tecnico-detalles/tecnico-detalles.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -56,6 +57,7 @@ import { GreetingComponent } from './greeting/greeting.component';
     DashboardComponent,
     TecnicoDetallesComponent,
     NewTicketComponent,
+    EditTicketComponent,
     TecnicoDashboardComponent,
     LoadServiciosComponent,
     LoadClientesComponent,

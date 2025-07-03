@@ -138,6 +138,89 @@ public class TicketService {
         return ticketRepository.save(ticket);
 
     }
+
+    public Ticket updateTicket(Long id,
+            MultipartFile file,
+            String tecnicoCodigo,
+            double cantidad,
+            String servicioNombre,
+            LocalDate date,
+            Long clienteId,
+            String instalacionEquipo,
+            String instalacionModelo,
+            String instalacionDireccion,
+            String mantenimientoEquipo,
+            String mantenimientoDescripcion,
+            String mantenimientoProxima,
+            String cotizacionCliente,
+            String cotizacionMonto,
+            String cotizacionDescripcion,
+            String diagnosticoEquipo,
+            String diagnosticoProblema,
+            String diagnosticoObservaciones) throws IOException {
+
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+
+        Path filePath = null;
+        if (file != null && !file.isEmpty()) {
+            Path FolderPath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets");
+            if (!Files.exists(FolderPath)) {
+                Files.createDirectories(FolderPath);
+            }
+            String fileName = UUID.randomUUID().toString();
+            filePath = Paths.get(System.getProperty("user.home"), "enset-data", "tickets", fileName + ".pdf");
+            Files.copy(file.getInputStream(), filePath);
+            ticket.setFile(filePath.toUri().toString());
+        }
+
+        Servicio servicio = servicioRepository.findByNombre(servicioNombre);
+        if (servicio == null) {
+            servicio = servicioRepository.save(Servicio.builder().nombre(servicioNombre).build());
+        }
+
+        TypeTicket typeTicket = null;
+        try {
+            typeTicket = TypeTicket.valueOf(servicioNombre.toUpperCase());
+        } catch (IllegalArgumentException e) {
+        }
+
+        Tecnico tecnico = null;
+        if (tecnicoCodigo != null && !tecnicoCodigo.isEmpty()) {
+            tecnico = tecnicoRepository.findByCodigo(tecnicoCodigo);
+        }
+        if (tecnico == null) {
+            var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
+            if (!tecnicos.isEmpty()) {
+                tecnico = tecnicos.get(0);
+            }
+        }
+
+        Cliente cliente = null;
+        if (clienteId != null) {
+            cliente = clienteRepository.findById(clienteId).orElse(null);
+        }
+
+        ticket.setFecha(date);
+        ticket.setCantidad(cantidad);
+        ticket.setServicio(servicio);
+        ticket.setType(typeTicket);
+        ticket.setTecnico(tecnico);
+        ticket.setCliente(cliente);
+        ticket.setInstalacionEquipo(instalacionEquipo);
+        ticket.setInstalacionModelo(instalacionModelo);
+        ticket.setInstalacionDireccion(instalacionDireccion);
+        ticket.setMantenimientoEquipo(mantenimientoEquipo);
+        ticket.setMantenimientoDescripcion(mantenimientoDescripcion);
+        ticket.setMantenimientoProxima(mantenimientoProxima);
+        ticket.setCotizacionCliente(cotizacionCliente);
+        ticket.setCotizacionMonto(cotizacionMonto);
+        ticket.setCotizacionDescripcion(cotizacionDescripcion);
+        ticket.setDiagnosticoEquipo(diagnosticoEquipo);
+        ticket.setDiagnosticoProblema(diagnosticoProblema);
+        ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
+
+        return ticketRepository.save(ticket);
+    }
     public byte[] getArchivoPorId(Long ticketId) throws IOException{
         Ticket ticket = ticketRepository.findById(ticketId).get();
 

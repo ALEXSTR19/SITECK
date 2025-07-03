@@ -39,6 +39,14 @@ export class TecnicosService {
     return this.http.post<Ticket>(`${environment.backendHost}/tickets`, formData);
   }
 
+  public getTicket(id: number): Observable<Ticket> {
+    return this.http.get<Ticket>(`${environment.backendHost}/tickets/${id}`);
+  }
+
+  public editarTicket(id: number, formData: any): Observable<Ticket> {
+    return this.http.put<Ticket>(`${environment.backendHost}/tickets/${id}`, formData);
+  }
+
   public actualizarEstadoTicket(id: number, status: string): Observable<Ticket> {
     return this.http.put<Ticket>(
       `${environment.backendHost}/tickets/${id}/actualizarTicket`,

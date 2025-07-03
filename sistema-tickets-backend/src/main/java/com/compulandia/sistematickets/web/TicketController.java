@@ -61,8 +61,8 @@ public class TicketController {
         return ticketRepository.findAll();
     }
     @GetMapping("/tickets/{id}")
-    public Ticket listarTicketPorId(@RequestParam Long Id){
-        return ticketRepository.findById(Id).get();
+    public Ticket listarTicketPorId(@PathVariable Long id){
+        return ticketRepository.findById(id).get();
     }
     @GetMapping("/tecnicos/{codigo}/tickets")
     public List<Ticket> listarTicketsPorCodigoTecnico(@PathVariable String codigo){
@@ -157,6 +157,51 @@ public class TicketController {
     @GetMapping(value = "/ticketfile/{ticketId}", produces = MediaType.APPLICATION_PDF_VALUE)
     public byte[] listarArchivoPorId(@PathVariable Long ticketId) throws IOException{
         return ticketService.getArchivoPorId(ticketId);
+    }
+
+    @PutMapping(path = "/tickets/{ticketId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Ticket actualizarTicket(
+        @PathVariable Long ticketId,
+        @RequestParam(value="file", required=false) MultipartFile file,
+        @RequestParam("tecnicoCodigo") String tecnicoCodigo,
+        @RequestParam("cantidad") double cantidad,
+        @RequestParam("servicio") String servicio,
+        @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+        @RequestParam(value="clienteId", required = false) Long clienteId,
+        @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
+        @RequestParam(value="instalacionModelo", required = false) String instalacionModelo,
+        @RequestParam(value="instalacionDireccion", required = false) String instalacionDireccion,
+        @RequestParam(value="mantenimientoEquipo", required = false) String mantenimientoEquipo,
+        @RequestParam(value="mantenimientoDescripcion", required = false) String mantenimientoDescripcion,
+        @RequestParam(value="mantenimientoProxima", required = false) String mantenimientoProxima,
+        @RequestParam(value="cotizacionCliente", required = false) String cotizacionCliente,
+        @RequestParam(value="cotizacionMonto", required = false) String cotizacionMonto,
+        @RequestParam(value="cotizacionDescripcion", required = false) String cotizacionDescripcion,
+        @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
+        @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
+        @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
+    ) throws IOException {
+        return ticketService.updateTicket(
+            ticketId,
+            file,
+            tecnicoCodigo,
+            cantidad,
+            servicio,
+            date,
+            clienteId,
+            instalacionEquipo,
+            instalacionModelo,
+            instalacionDireccion,
+            mantenimientoEquipo,
+            mantenimientoDescripcion,
+            mantenimientoProxima,
+            cotizacionCliente,
+            cotizacionMonto,
+            cotizacionDescripcion,
+            diagnosticoEquipo,
+            diagnosticoProblema,
+            diagnosticoObservaciones
+        );
     }
    
     }
