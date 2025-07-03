@@ -1,0 +1,13 @@
+<div class="container">
+  <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </form>
+</div>

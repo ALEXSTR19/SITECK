@@ -4,6 +4,8 @@ import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TecnicosService } from '../services/tecnicos.service';
 import { ServiciosService } from '../services/servicios.service';
 import { Servicio } from '../models/servicio.model';
+import { Cliente } from '../models/cliente.model';
+import { ClientesService } from '../services/clientes.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-new-ticket',
@@ -13,13 +15,16 @@ import Swal from 'sweetalert2';
 export class NewTicketComponent implements OnInit{
   ticketFormGroup!: FormGroup;
   servicios: Servicio[] = [];
+  clientes: Cliente[] = [];
   pdfFileUrl!: string;
   tecnicoCodigo!: string | null;
+  selectedServiceType: string = '';
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
     private fb: FormBuilder,
     private tecnicoService: TecnicosService,
     private servicioService: ServiciosService,
+    private clientesService: ClientesService,
     private route: ActivatedRoute
   ) {
     // Initialize the form group and other properties here if needed
@@ -33,11 +38,16 @@ export class NewTicketComponent implements OnInit{
     next: servicios => (this.servicios = servicios),
     error: err => console.error('Error al cargar servicios', err)
   });
+  this.clientesService.getClientes().subscribe({
+    next: clientes => (this.clientes = clientes),
+    error: err => console.error('Error al cargar clientes', err)
+  });
 
   this.ticketFormGroup = this.fb.group({
     date: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
+    clienteId: this.fb.control(''),
     fileSource: this.fb.control(null),
     fileName: this.fb.control(''),
     // Campos para Instalación
@@ -57,7 +67,23 @@ export class NewTicketComponent implements OnInit{
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
   });
+
 }
+
+ onServicioChange(servicioNombre: string){
+  const nombre = (servicioNombre || '').toUpperCase();
+  if(nombre.includes('INSTAL')){
+    this.selectedServiceType = 'INSTALACION';
+  } else if(nombre.includes('MANTEN')){
+    this.selectedServiceType = 'MANTENIMIENTO';
+  } else if(nombre.includes('COTIZ')){
+    this.selectedServiceType = 'COTIZACION';
+  } else if(nombre.includes('DIAGN')){
+    this.selectedServiceType = 'DIAGNOSTICO';
+  } else {
+    this.selectedServiceType = '';
+  }
+ }
 
  selectFile(event: any){
   if (event.target.files && event.target.files.length > 0) {
@@ -83,6 +109,7 @@ guardarTicket() {
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
+  formData.set('clienteId', this.ticketFormGroup.value.clienteId);
   if (this.ticketFormGroup.value.fileSource) {
     formData.append('file', this.ticketFormGroup.value.fileSource);
   }

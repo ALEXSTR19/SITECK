@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
+
 
 import jakarta.transaction.Transactional;
 
@@ -35,7 +38,11 @@ public class TicketService {
     @Autowired
     private ServicioRepository servicioRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
+            Long clienteId,
             String instalacionEquipo,
             String instalacionModelo,
             String instalacionDireccion,
@@ -98,11 +105,17 @@ public class TicketService {
             }
         }
 
+        Cliente cliente = null;
+        if (clienteId != null) {
+            cliente = clienteRepository.findById(clienteId).orElse(null);
+        }
+
         Ticket ticket = Ticket.builder()
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
                 .tecnico(tecnico)
                 .servicio(servicio)
+                .cliente(cliente)
                 .type(typeTicket)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
@@ -142,5 +155,23 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id).get();
         ticket.setStatus(status);
         return ticketRepository.save(ticket);
+    }
+
+    public List<TicketStatsDto> getStatsByDay() {
+        return ticketRepository.countTicketsByDay().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getStatsByWeek() {
+        return ticketRepository.countTicketsByWeek().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
+    }
+
+    public List<TicketStatsDto> getStatsByMonth() {
+        return ticketRepository.countTicketsByMonth().stream()
+                .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
+                .toList();
     }
 }

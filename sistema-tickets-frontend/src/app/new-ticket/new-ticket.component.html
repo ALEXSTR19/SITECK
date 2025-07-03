@@ -17,12 +17,18 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Tipo de Servicio</mat-label>
-                <mat-select formControlName="servicio">
+                <mat-select formControlName="servicio" (selectionChange)="onServicioChange($event.value)">
                     <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clienteId">
+                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</mat-option>
+                </mat-select>
+            </mat-form-field>
             <!-- Datos de Instalación -->
-            <div>
+            <div *ngIf="selectedServiceType === 'INSTALACION'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo a instalar</mat-label>
                     <input matInput formControlName="instalacionEquipo" />
@@ -37,7 +43,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Mantenimiento -->
-            <div>
+            <div *ngIf="selectedServiceType === 'MANTENIMIENTO'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="mantenimientoEquipo" />
@@ -52,7 +58,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Cotización -->
-            <div>
+            <div *ngIf="selectedServiceType === 'COTIZACION'">
                 <mat-form-field appearance="outline">
                     <mat-label>Cliente</mat-label>
                     <input matInput formControlName="cotizacionCliente" />
@@ -67,7 +73,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Diagnóstico -->
-            <div>
+            <div *ngIf="selectedServiceType === 'DIAGNOSTICO'">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="diagnosticoEquipo" />

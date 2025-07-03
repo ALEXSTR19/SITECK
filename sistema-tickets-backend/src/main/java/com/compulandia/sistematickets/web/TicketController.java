@@ -26,6 +26,7 @@ import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.services.TicketService;
+import com.compulandia.sistematickets.dto.TicketStatsDto;
 
 import jakarta.annotation.PostConstruct;
 
@@ -80,6 +81,21 @@ public class TicketController {
     public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status, @PathVariable Long ticketId){
         return ticketService.actualizaTicketPorStatus(status, ticketId);
     }
+
+    @GetMapping("/ticketStats/day")
+    public List<TicketStatsDto> ticketStatsByDay(){
+        return ticketService.getStatsByDay();
+    }
+
+    @GetMapping("/ticketStats/week")
+    public List<TicketStatsDto> ticketStatsByWeek(){
+        return ticketService.getStatsByWeek();
+    }
+
+    @GetMapping("/ticketStats/month")
+    public List<TicketStatsDto> ticketStatsByMonth(){
+        return ticketService.getStatsByMonth();
+    }
 @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Ticket guardarTicket(
         @RequestParam(value="file", required=false) MultipartFile file,
@@ -87,6 +103,7 @@ public class TicketController {
         @RequestParam("cantidad") double cantidad,
         @RequestParam("servicio") String servicio,
         @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+    @RequestParam(value="clienteId", required = false) Long clienteId,
     @RequestParam(value="instalacionEquipo", required = false) String instalacionEquipo,
     @RequestParam(value="instalacionModelo", required = false) String instalacionModelo,
     @RequestParam(value="instalacionDireccion", required = false) String instalacionDireccion,
@@ -106,6 +123,7 @@ public class TicketController {
         cantidad,
         servicio,
         date,
+        clienteId,
         instalacionEquipo,
         instalacionModelo,
         instalacionDireccion,
