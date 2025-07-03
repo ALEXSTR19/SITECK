@@ -17,8 +17,7 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
-import { LoadClientesComponent } from './load-clientes/load-clientes.component';
-import { ClientesComponent } from './clientes/clientes.component';
+
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
@@ -102,6 +101,12 @@ const routes: Routes = [
       {
         path: "new-ticket",
         component: NewTicketComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "cotizaciones",
+        component: QuotesComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ["ADMIN"] }
       }
