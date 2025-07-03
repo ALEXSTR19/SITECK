@@ -40,6 +40,7 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
 import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
+import { GreetingComponent } from './greeting/greeting.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { QuotesComponent } from './quotes/quotes.component';
     LoadClientesComponent,
     ClientesComponent,
     QuotesComponent,
+    GreetingComponent,
 
   ],
   imports: [
