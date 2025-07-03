@@ -17,6 +17,8 @@ import { NewTicketComponent } from './new-ticket/new-ticket.component';
 
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
+import { LoadClientesComponent } from './load-clientes/load-clientes.component';
+import { ClientesComponent } from './clientes/clientes.component';
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
@@ -50,6 +52,12 @@ const routes: Routes = [
         data: { roles: ["ADMIN"] }
       },
       {
+        path: "loadClientes",
+        component: LoadClientesComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
         path: "loadTickets",
         component: LoadTicketsComponent,
         canActivate: [AuthorizationGuard],
@@ -70,6 +78,12 @@ const routes: Routes = [
       {
         path: "tecnicos",
         component: TecnicosComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "clientes",
+        component: ClientesComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ["ADMIN"] }
       },
