@@ -18,6 +18,7 @@ export class NewTicketComponent implements OnInit{
   clientes: Cliente[] = [];
   pdfFileUrl!: string;
   tecnicoCodigo!: string | null;
+  selectedServiceType: string = '';
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
     private fb: FormBuilder,
@@ -66,7 +67,23 @@ export class NewTicketComponent implements OnInit{
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
   });
+
 }
+
+ onServicioChange(servicioNombre: string){
+  const nombre = (servicioNombre || '').toUpperCase();
+  if(nombre.includes('INSTAL')){
+    this.selectedServiceType = 'INSTALACION';
+  } else if(nombre.includes('MANTEN')){
+    this.selectedServiceType = 'MANTENIMIENTO';
+  } else if(nombre.includes('COTIZ')){
+    this.selectedServiceType = 'COTIZACION';
+  } else if(nombre.includes('DIAGN')){
+    this.selectedServiceType = 'DIAGNOSTICO';
+  } else {
+    this.selectedServiceType = '';
+  }
+ }
 
  selectFile(event: any){
   if (event.target.files && event.target.files.length > 0) {
