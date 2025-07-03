@@ -22,7 +22,8 @@ interface QuoteItem {
   styleUrls: ['./quotes.component.css']
 })
 export class QuotesComponent implements OnInit {
-  cliente = '';
+  selectedClienteId: number | null = null;
+  selectedCliente: Cliente | null = null;
   clientes: Cliente[] = [];
   items: QuoteItem[] = [];
   newItem: QuoteItem = { description: '', quantity: 1, price: 0 };
@@ -34,6 +35,10 @@ export class QuotesComponent implements OnInit {
       next: clientes => (this.clientes = clientes),
       error: err => console.error('Error al cargar clientes', err)
     });
+  }
+
+  updateSelectedCliente() {
+    this.selectedCliente = this.clientes.find(c => c.id === this.selectedClienteId) || null;
   }
 
   addItem() {
@@ -54,8 +59,16 @@ export class QuotesComponent implements OnInit {
   exportPDF() {
     const { jsPDF } = jspdf;
     const doc = new jsPDF();
-    doc.text(`Cliente: ${this.cliente}`, 10, 10);
-    let y = 20;
+    let y = 10;
+    if (this.selectedCliente) {
+      const c = this.selectedCliente;
+      doc.text(`Cliente: ${c.nombre} ${c.apellido}`, 10, y); y += 10;
+      if (c.email) { doc.text(`Email: ${c.email}`, 10, y); y += 10; }
+      if (c.telefono) { doc.text(`Teléfono: ${c.telefono}`, 10, y); y += 10; }
+      if (c.direccion) { doc.text(`Dirección: ${c.direccion}`, 10, y); y += 10; }
+      if (c.ciudad) { doc.text(`Ciudad: ${c.ciudad}`, 10, y); y += 10; }
+      if (c.codigoPostal) { doc.text(`Código Postal: ${c.codigoPostal}`, 10, y); y += 10; }
+    }
     this.items.forEach(item => {
       doc.text(`${item.description} - ${item.quantity} x $${item.price}`, 10, y);
       y += 10;
