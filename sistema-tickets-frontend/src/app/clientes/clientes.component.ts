@@ -14,7 +14,16 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[] = [];
   dataSource!: MatTableDataSource<Cliente>;
-  displayedColumns: string[] = ['id', 'nombre', 'apellido'];
+  displayedColumns: string[] = [
+    'id',
+    'nombre',
+    'apellido',
+    'email',
+    'telefono',
+    'direccion',
+    'ciudad',
+    'codigoPostal'
+  ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
