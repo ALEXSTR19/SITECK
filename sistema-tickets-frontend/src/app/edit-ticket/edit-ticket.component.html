@@ -1,0 +1,103 @@
+<div class="container">
+    <mat-card [formGroup]="ticketFormGroup" class="ticket-form">
+        <mat-card-header>
+            <mat-card-title>Editar Ticket</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de ticket</mat-label>
+                <mat-hint>MM-DD-YYYY</mat-hint>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Cantidad</mat-label>
+                <input matInput formControlName="cantidad" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de Servicio</mat-label>
+                <mat-select formControlName="servicio" (selectionChange)="onServicioChange($event.value)">
+                    <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clienteId">
+                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Datos de Instalación -->
+            <div *ngIf="selectedServiceType === 'INSTALACION'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Equipo a instalar</mat-label>
+                    <input matInput formControlName="instalacionEquipo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo</mat-label>
+                    <input matInput formControlName="instalacionModelo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección de instalación</mat-label>
+                    <input matInput formControlName="instalacionDireccion" />
+                </mat-form-field>
+            </div>
+            <!-- Datos de Mantenimiento -->
+            <div *ngIf="selectedServiceType === 'MANTENIMIENTO'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Equipo</mat-label>
+                    <input matInput formControlName="mantenimientoEquipo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripción del trabajo</mat-label>
+                    <input matInput formControlName="mantenimientoDescripcion" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Próxima fecha</mat-label>
+                    <input matInput formControlName="mantenimientoProxima" />
+                </mat-form-field>
+            </div>
+            <!-- Datos de Cotización -->
+            <div *ngIf="selectedServiceType === 'COTIZACION'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cliente</mat-label>
+                    <input matInput formControlName="cotizacionCliente" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Monto estimado</mat-label>
+                    <input matInput formControlName="cotizacionMonto" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="cotizacionDescripcion" />
+                </mat-form-field>
+            </div>
+            <!-- Datos de Diagnóstico -->
+            <div *ngIf="selectedServiceType === 'DIAGNOSTICO'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Equipo</mat-label>
+                    <input matInput formControlName="diagnosticoEquipo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Problema reportado</mat-label>
+                    <input matInput formControlName="diagnosticoProblema" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Observaciones</mat-label>
+                    <input matInput formControlName="diagnosticoObservaciones" />
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Archivo</mat-label>
+                <input matInput readonly formControlName="fileName">
+                <button type="button" mat-icon-button matPrefix (click)="f_input.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf" />
+            </mat-form-field>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="guardarTicket()">Actualizar Ticket</button>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+</div>
