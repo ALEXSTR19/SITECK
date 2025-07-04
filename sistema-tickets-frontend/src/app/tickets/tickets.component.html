@@ -88,6 +88,9 @@
                         <button mat-icon-button color="primary" [routerLink]="['/admin/edit-ticket', element.id]">
                             <mat-icon>edit</mat-icon>
                         </button>
+                        <button mat-icon-button color="accent" (click)="verDetalles(element.id)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                     </td>
                 </ng-container>
 

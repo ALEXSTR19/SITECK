@@ -12,11 +12,13 @@ import com.compulandia.sistematickets.enums.TypeTicket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findByTecnicoCodigo(String codigo);
+    List<Ticket> findByTecnicoCodigoAndDeletedFalse(String codigo);
 
-    List<Ticket> findByStatus(TicketStatus status);
+    List<Ticket> findByStatusAndDeletedFalse(TicketStatus status);
 
-    List<Ticket> findByType(TypeTicket typeTicket);
+    List<Ticket> findByTypeAndDeletedFalse(TypeTicket typeTicket);
+
+    List<Ticket> findByDeletedFalse();
 
     @Query(value = "SELECT fecha as label, COUNT(*) as count FROM ticket GROUP BY fecha ORDER BY fecha", nativeQuery = true)
     List<Object[]> countTicketsByDay();
