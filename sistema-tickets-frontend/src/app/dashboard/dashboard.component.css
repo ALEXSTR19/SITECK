@@ -22,6 +22,14 @@
 .chart-card canvas {
   width: 100% !important;
   height: 180px !important;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.chart-card canvas:hover,
+.chart-card canvas:active {
+  transform: scale(1.1);
+  z-index: 1;
 }
 
 .dashboard-title {
