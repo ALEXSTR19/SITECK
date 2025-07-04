@@ -25,7 +25,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query(value = "SELECT fecha as label, COUNT(*) as count FROM ticket GROUP BY fecha ORDER BY fecha", nativeQuery = true)
     List<Object[]> countTicketsByDay();
 
-    @Query(value = "SELECT CONCAT(YEAR(fecha), '-W', WEEK(fecha, 1)) as label, COUNT(*) as count FROM ticket GROUP BY YEAR(fecha), WEEK(fecha, 1) ORDER BY YEAR(fecha), WEEK(fecha, 1)", nativeQuery = true)
+    @Query(value = "SELECT DATE_FORMAT(fecha, '%x-W%v') as label, COUNT(*) as count " +
+            "FROM ticket GROUP BY DATE_FORMAT(fecha, '%x-W%v') ORDER BY DATE_FORMAT(fecha, '%x-W%v')",
+            nativeQuery = true)
     List<Object[]> countTicketsByWeek();
 
     @Query(value = "SELECT DATE_FORMAT(fecha, '%Y-%m') as label, COUNT(*) as count FROM ticket GROUP BY DATE_FORMAT(fecha, '%Y-%m') ORDER BY DATE_FORMAT(fecha, '%Y-%m')", nativeQuery = true)
