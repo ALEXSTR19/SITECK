@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TecnicosService } from '../services/tecnicos.service';
 import Swal from 'sweetalert2';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-ticket-report',

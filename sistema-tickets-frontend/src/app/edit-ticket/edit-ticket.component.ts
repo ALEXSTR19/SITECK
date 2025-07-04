@@ -44,7 +44,6 @@ export class EditTicketComponent implements OnInit{
         date: ticket.fecha,
         cantidad: ticket.cantidad,
         servicio: ticket.servicio?.nombre,
-        clienteId: ticket.cliente?.id,
         instalacionEquipo: ticket.instalacionEquipo,
         instalacionModelo: ticket.instalacionModelo,
         instalacionDireccion: ticket.instalacionDireccion,

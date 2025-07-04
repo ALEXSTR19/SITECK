@@ -21,6 +21,8 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
 import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
+import { TicketReportComponent } from './ticket-report/ticket-report.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 
 const routes: Routes = [
