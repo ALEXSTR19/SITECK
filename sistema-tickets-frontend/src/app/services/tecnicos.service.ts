@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tecnico, Ticket } from '../models/tecnicos.model';
+import { TicketHistory } from '../models/ticket-history.model';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -74,6 +75,12 @@ export class TecnicosService {
     );
   }
 
-
+  public restoreTicket(id: number): Observable<Ticket> {
+    return this.http.put<Ticket>(`${environment.backendHost}/tickets/${id}/restore`, null);
   }
+
+  public getTicketHistory(id: number): Observable<TicketHistory[]> {
+    return this.http.get<TicketHistory[]>(`${environment.backendHost}/tickets/${id}/history`);
+  }
+
 }
