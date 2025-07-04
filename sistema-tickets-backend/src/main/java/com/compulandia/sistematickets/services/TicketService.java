@@ -48,10 +48,11 @@ public class TicketService {
     @Autowired
     private TicketHistoryRepository historyRepository;
 
-    private void saveHistory(Ticket ticket, String action, TicketStatus previous, TicketStatus current) {
+    private void saveHistory(Ticket ticket, String action, TicketStatus previous, TicketStatus current, String changes) {
         historyRepository.save(TicketHistory.builder()
                 .ticket(ticket)
                 .action(action)
+                .changes(changes)
                 .previousStatus(previous)
                 .newStatus(current)
                 .timestamp(java.time.LocalDateTime.now())
@@ -151,7 +152,7 @@ public class TicketService {
                 .build();
 
         Ticket saved = ticketRepository.save(ticket);
-        saveHistory(saved, "CREATED", null, saved.getStatus());
+        saveHistory(saved, "CREATED", null, saved.getStatus(), null);
         return saved;
 
     }
@@ -178,6 +179,7 @@ public class TicketService {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         TicketStatus previousStatus = ticket.getStatus();
+        StringBuilder changes = new StringBuilder();
 
         Path filePath = null;
         if (file != null && !file.isEmpty()) {
@@ -218,27 +220,86 @@ public class TicketService {
             cliente = clienteRepository.findById(clienteId).orElse(null);
         }
 
-        ticket.setFecha(date);
-        ticket.setCantidad(cantidad);
-        ticket.setServicio(servicio);
-        ticket.setType(typeTicket);
-        ticket.setTecnico(tecnico);
-        ticket.setCliente(cliente);
-        ticket.setInstalacionEquipo(instalacionEquipo);
-        ticket.setInstalacionModelo(instalacionModelo);
-        ticket.setInstalacionDireccion(instalacionDireccion);
-        ticket.setMantenimientoEquipo(mantenimientoEquipo);
-        ticket.setMantenimientoDescripcion(mantenimientoDescripcion);
-        ticket.setMantenimientoProxima(mantenimientoProxima);
-        ticket.setCotizacionCliente(cotizacionCliente);
-        ticket.setCotizacionMonto(cotizacionMonto);
-        ticket.setCotizacionDescripcion(cotizacionDescripcion);
-        ticket.setDiagnosticoEquipo(diagnosticoEquipo);
-        ticket.setDiagnosticoProblema(diagnosticoProblema);
-        ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
+        if (!ticket.getFecha().equals(date)) {
+            changes.append("fecha: ").append(ticket.getFecha()).append(" -> ").append(date).append("; ");
+            ticket.setFecha(date);
+        }
+        if (ticket.getCantidad() != cantidad) {
+            changes.append("cantidad: ").append(ticket.getCantidad()).append(" -> ").append(cantidad).append("; ");
+            ticket.setCantidad(cantidad);
+        }
+        if (ticket.getServicio() == null || !ticket.getServicio().getNombre().equals(servicioNombre)) {
+            String oldVal = ticket.getServicio() != null ? ticket.getServicio().getNombre() : "null";
+            changes.append("servicio: ").append(oldVal).append(" -> ").append(servicioNombre).append("; ");
+            ticket.setServicio(servicio);
+        }
+        if (ticket.getType() != typeTicket) {
+            changes.append("type: ").append(ticket.getType()).append(" -> ").append(typeTicket).append("; ");
+            ticket.setType(typeTicket);
+        }
+        if (ticket.getTecnico() == null || !ticket.getTecnico().equals(tecnico)) {
+            String oldVal = ticket.getTecnico() != null ? ticket.getTecnico().getCodigo() : "null";
+            String newVal = tecnico != null ? tecnico.getCodigo() : "null";
+            changes.append("tecnico: ").append(oldVal).append(" -> ").append(newVal).append("; ");
+            ticket.setTecnico(tecnico);
+        }
+        if (ticket.getCliente() == null || !ticket.getCliente().equals(cliente)) {
+            String oldVal = ticket.getCliente() != null ? ticket.getCliente().getId() + "" : "null";
+            String newVal = cliente != null ? cliente.getId() + "" : "null";
+            changes.append("cliente: ").append(oldVal).append(" -> ").append(newVal).append("; ");
+            ticket.setCliente(cliente);
+        }
+        if (!equalsStr(ticket.getInstalacionEquipo(), instalacionEquipo)) {
+            changes.append("instalacionEquipo: ").append(ticket.getInstalacionEquipo()).append(" -> ").append(instalacionEquipo).append("; ");
+            ticket.setInstalacionEquipo(instalacionEquipo);
+        }
+        if (!equalsStr(ticket.getInstalacionModelo(), instalacionModelo)) {
+            changes.append("instalacionModelo: ").append(ticket.getInstalacionModelo()).append(" -> ").append(instalacionModelo).append("; ");
+            ticket.setInstalacionModelo(instalacionModelo);
+        }
+        if (!equalsStr(ticket.getInstalacionDireccion(), instalacionDireccion)) {
+            changes.append("instalacionDireccion: ").append(ticket.getInstalacionDireccion()).append(" -> ").append(instalacionDireccion).append("; ");
+            ticket.setInstalacionDireccion(instalacionDireccion);
+        }
+        if (!equalsStr(ticket.getMantenimientoEquipo(), mantenimientoEquipo)) {
+            changes.append("mantenimientoEquipo: ").append(ticket.getMantenimientoEquipo()).append(" -> ").append(mantenimientoEquipo).append("; ");
+            ticket.setMantenimientoEquipo(mantenimientoEquipo);
+        }
+        if (!equalsStr(ticket.getMantenimientoDescripcion(), mantenimientoDescripcion)) {
+            changes.append("mantenimientoDescripcion: ").append(ticket.getMantenimientoDescripcion()).append(" -> ").append(mantenimientoDescripcion).append("; ");
+            ticket.setMantenimientoDescripcion(mantenimientoDescripcion);
+        }
+        if (!equalsStr(ticket.getMantenimientoProxima(), mantenimientoProxima)) {
+            changes.append("mantenimientoProxima: ").append(ticket.getMantenimientoProxima()).append(" -> ").append(mantenimientoProxima).append("; ");
+            ticket.setMantenimientoProxima(mantenimientoProxima);
+        }
+        if (!equalsStr(ticket.getCotizacionCliente(), cotizacionCliente)) {
+            changes.append("cotizacionCliente: ").append(ticket.getCotizacionCliente()).append(" -> ").append(cotizacionCliente).append("; ");
+            ticket.setCotizacionCliente(cotizacionCliente);
+        }
+        if (!equalsStr(ticket.getCotizacionMonto(), cotizacionMonto)) {
+            changes.append("cotizacionMonto: ").append(ticket.getCotizacionMonto()).append(" -> ").append(cotizacionMonto).append("; ");
+            ticket.setCotizacionMonto(cotizacionMonto);
+        }
+        if (!equalsStr(ticket.getCotizacionDescripcion(), cotizacionDescripcion)) {
+            changes.append("cotizacionDescripcion: ").append(ticket.getCotizacionDescripcion()).append(" -> ").append(cotizacionDescripcion).append("; ");
+            ticket.setCotizacionDescripcion(cotizacionDescripcion);
+        }
+        if (!equalsStr(ticket.getDiagnosticoEquipo(), diagnosticoEquipo)) {
+            changes.append("diagnosticoEquipo: ").append(ticket.getDiagnosticoEquipo()).append(" -> ").append(diagnosticoEquipo).append("; ");
+            ticket.setDiagnosticoEquipo(diagnosticoEquipo);
+        }
+        if (!equalsStr(ticket.getDiagnosticoProblema(), diagnosticoProblema)) {
+            changes.append("diagnosticoProblema: ").append(ticket.getDiagnosticoProblema()).append(" -> ").append(diagnosticoProblema).append("; ");
+            ticket.setDiagnosticoProblema(diagnosticoProblema);
+        }
+        if (!equalsStr(ticket.getDiagnosticoObservaciones(), diagnosticoObservaciones)) {
+            changes.append("diagnosticoObservaciones: ").append(ticket.getDiagnosticoObservaciones()).append(" -> ").append(diagnosticoObservaciones).append("; ");
+            ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
+        }
 
         Ticket saved = ticketRepository.save(ticket);
-        saveHistory(saved, "UPDATED", previousStatus, saved.getStatus());
+        saveHistory(saved, "UPDATED", previousStatus, saved.getStatus(), changes.toString());
         return saved;
     }
     public byte[] getArchivoPorId(Long ticketId) throws IOException{
@@ -261,7 +322,7 @@ public class TicketService {
         TicketStatus previous = ticket.getStatus();
         ticket.setStatus(status);
         Ticket saved = ticketRepository.save(ticket);
-        saveHistory(saved, "STATUS_CHANGED", previous, saved.getStatus());
+        saveHistory(saved, "STATUS_CHANGED", previous, saved.getStatus(), "status cambiado");
         return saved;
     }
 
@@ -270,7 +331,7 @@ public class TicketService {
         if (!ticket.isDeleted()) {
             ticket.setDeleted(true);
             Ticket saved = ticketRepository.save(ticket);
-            saveHistory(saved, "DELETED", saved.getStatus(), saved.getStatus());
+            saveHistory(saved, "DELETED", saved.getStatus(), saved.getStatus(), null);
         }
     }
 
@@ -279,7 +340,7 @@ public class TicketService {
         if (ticket.isDeleted()) {
             ticket.setDeleted(false);
             Ticket saved = ticketRepository.save(ticket);
-            saveHistory(saved, "RESTORED", saved.getStatus(), saved.getStatus());
+            saveHistory(saved, "RESTORED", saved.getStatus(), saved.getStatus(), null);
             return saved;
         }
         return ticket;
@@ -330,5 +391,11 @@ public class TicketService {
         return ticketRepository.topTecnicos().stream()
                 .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
                 .toList();
+    }
+
+    private boolean equalsStr(String a, String b) {
+        if (a == null && b == null) return true;
+        if (a == null || b == null) return false;
+        return a.equals(b);
     }
 }

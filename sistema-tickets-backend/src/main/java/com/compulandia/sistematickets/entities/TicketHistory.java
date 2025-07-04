@@ -31,6 +31,8 @@ public class TicketHistory {
 
     private String action;
 
+    private String changes;
+
     @Enumerated(EnumType.STRING)
     private TicketStatus previousStatus;
 
