@@ -64,15 +64,6 @@ export class TecnicosService {
     );
   }
 
-  public getTicketHistory(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.backendHost}/tickets/${id}/history`);
-  }
 
-  public deleteTicket(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.backendHost}/tickets/${id}`);
-  }
-
-  public restoreTicket(id: number): Observable<Ticket> {
-    return this.http.put<Ticket>(`${environment.backendHost}/tickets/${id}/restore`, null);
   }
 }

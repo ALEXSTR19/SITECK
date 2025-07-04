@@ -32,6 +32,7 @@ export interface Ticket {
     diagnosticoEquipo?: string;
     diagnosticoProblema?: string;
     diagnosticoObservaciones?: string;
+    reporteServicio?: string;
 }
 
 export enum TicketType {

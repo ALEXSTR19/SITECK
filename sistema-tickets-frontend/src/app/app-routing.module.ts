@@ -21,7 +21,7 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
 import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
-import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -76,6 +76,12 @@ const routes: Routes = [
       {
         path: "dashboard-tecnico",
         component: TecnicoDashboardComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN", "TECNICO"] }
+      },
+      {
+        path: "ticket-report/:id",
+        component: TicketReportComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ["ADMIN", "TECNICO"] }
       },

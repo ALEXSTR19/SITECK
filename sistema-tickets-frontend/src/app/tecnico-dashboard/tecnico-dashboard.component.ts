@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '../models/tecnicos.model';
 import { TecnicosService } from '../services/tecnicos.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tecnico-dashboard',
@@ -27,7 +28,7 @@ export class TecnicoDashboardComponent implements OnInit {
   activeCategory = '';
   statusChart?: Chart<any, any, any>;
 
-  constructor(private tecnicosService: TecnicosService, private authService: AuthService) {}
+  constructor(private tecnicosService: TecnicosService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.tecnicoCodigo = this.authService.codigoTecnico;
@@ -113,7 +114,7 @@ export class TecnicoDashboardComponent implements OnInit {
   }
 
   finalizarTicket(ticket: Ticket) {
-    this.actualizarEstado(ticket, 'FINALIZADO');
+    this.router.navigate(['/admin/ticket-report', ticket.id]);
   }
 
   cancelarTicket(ticket: Ticket) {
