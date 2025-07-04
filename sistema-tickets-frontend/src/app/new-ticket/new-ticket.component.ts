@@ -92,6 +92,10 @@ onServicioChange(servicioNombre: string){
       next: tecs => this.tecnicos = tecs,
       error: err => console.error('Error al cargar tecnicos por servicio', err)
     });
+    const serv = this.servicios.find(s => s.nombre === servicioNombre);
+    if(serv && serv.liderCodigo){
+      this.ticketFormGroup.patchValue({tecnicoCodigo: serv.liderCodigo});
+    }
   } else {
     this.tecnicos = [];
   }

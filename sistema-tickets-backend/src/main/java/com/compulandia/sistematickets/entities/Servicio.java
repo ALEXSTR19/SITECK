@@ -20,4 +20,6 @@ public class Servicio {
     private Long id;
 
     private String nombre;
+
+    private String liderCodigo;
 }

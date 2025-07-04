@@ -110,6 +110,10 @@ export class EditTicketComponent implements OnInit{
   } else {
     this.selectedServiceType = '';
   }
+  const serv = this.servicios.find(s => s.nombre === servicioNombre);
+  if(serv && serv.liderCodigo){
+    this.tecnicoCodigo = serv.liderCodigo;
+  }
  }
 
  selectFile(event: any){

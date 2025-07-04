@@ -54,12 +54,12 @@ export class TecnicosService {
     return this.http.put<Ticket>(`${environment.backendHost}/tickets/${id}`, formData);
   }
 
-  public actualizarEstadoTicket(id: number, status: string): Observable<Ticket> {
+  public actualizarEstadoTicket(id: number, status: string, codigo: string): Observable<Ticket> {
     return this.http.put<Ticket>(
       `${environment.backendHost}/tickets/${id}/actualizarTicket`,
       null,
       {
-        params: { status }
+        params: { status, codigo }
       }
     );
   }
