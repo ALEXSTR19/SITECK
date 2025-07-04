@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TecnicosService } from '../services/tecnicos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tickets',
@@ -19,7 +20,7 @@ public tickets: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient, private tecnicoService: TecnicosService) { }
+  constructor(private http: HttpClient, private tecnicoService: TecnicosService, private router: Router) { }
   ngOnInit(): void {
     this.tecnicoService.getAllTickets().subscribe({
       next: data => {
@@ -32,5 +33,9 @@ public tickets: any;
         console.error('Error al obtener los tickets', err);
       }
     })
+  }
+
+  verDetalles(id: number){
+    this.router.navigate(['/admin/ticket-details', id]);
   }
 }

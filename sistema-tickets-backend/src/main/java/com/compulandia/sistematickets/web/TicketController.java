@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
+import com.compulandia.sistematickets.entities.TicketHistory;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
@@ -58,7 +60,7 @@ public class TicketController {
 
     @GetMapping("/tickets")
     public List<Ticket> listarTickets(){
-        return ticketRepository.findAll();
+        return ticketRepository.findByDeletedFalse();
     }
     @GetMapping("/tickets/{id}")
     public Ticket listarTicketPorId(@PathVariable Long id){
@@ -66,16 +68,16 @@ public class TicketController {
     }
     @GetMapping("/tecnicos/{codigo}/tickets")
     public List<Ticket> listarTicketsPorCodigoTecnico(@PathVariable String codigo){
-        return ticketRepository.findByTecnicoCodigo(codigo);
+        return ticketRepository.findByTecnicoCodigoAndDeletedFalse(codigo);
     }
     @GetMapping("/ticketsPorStatus")
     public List<Ticket> listarTicketsPorStatus(@RequestParam TicketStatus status){
-        return ticketRepository.findByStatus(status);
+        return ticketRepository.findByStatusAndDeletedFalse(status);
     }
     @GetMapping("/tickets/porTipo")
      public List<Ticket> listarTicketsPorType(@RequestParam TypeTicket type){
-        return ticketRepository.findByType(type);
-    }  
+        return ticketRepository.findByTypeAndDeletedFalse(type);
+    }
 
     @PutMapping("/tickets/{ticketId}/actualizarTicket")
     public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status, @PathVariable Long ticketId){
@@ -208,7 +210,21 @@ public class TicketController {
             diagnosticoObservaciones
         );
     }
-   
+
+    @DeleteMapping("/tickets/{ticketId}")
+    public void eliminarTicket(@PathVariable Long ticketId){
+        ticketService.deleteTicket(ticketId);
     }
+
+    @PutMapping("/tickets/{ticketId}/restore")
+    public Ticket restaurarTicket(@PathVariable Long ticketId){
+        return ticketService.restoreTicket(ticketId);
+    }
+
+    @GetMapping("/tickets/{ticketId}/history")
+    public List<TicketHistory> historialTicket(@PathVariable Long ticketId){
+        return ticketService.getHistory(ticketId);
+    }
+}
 
 

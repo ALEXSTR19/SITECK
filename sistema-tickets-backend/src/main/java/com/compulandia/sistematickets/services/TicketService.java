@@ -16,12 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.compulandia.sistematickets.entities.Tecnico;
 import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Servicio;
+import com.compulandia.sistematickets.entities.TicketHistory;
 import com.compulandia.sistematickets.dto.TicketStatsDto;
 import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.TicketHistoryRepository;
 import com.compulandia.sistematickets.repository.ClienteRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
 
@@ -42,6 +44,19 @@ public class TicketService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private TicketHistoryRepository historyRepository;
+
+    private void saveHistory(Ticket ticket, String action, TicketStatus previous, TicketStatus current) {
+        historyRepository.save(TicketHistory.builder()
+                .ticket(ticket)
+                .action(action)
+                .previousStatus(previous)
+                .newStatus(current)
+                .timestamp(java.time.LocalDateTime.now())
+                .build());
+    }
 
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
             Long clienteId,
@@ -135,7 +150,9 @@ public class TicketService {
                 .diagnosticoObservaciones(diagnosticoObservaciones)
                 .build();
 
-        return ticketRepository.save(ticket);
+        Ticket saved = ticketRepository.save(ticket);
+        saveHistory(saved, "CREATED", null, saved.getStatus());
+        return saved;
 
     }
 
@@ -160,6 +177,7 @@ public class TicketService {
             String diagnosticoObservaciones) throws IOException {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        TicketStatus previousStatus = ticket.getStatus();
 
         Path filePath = null;
         if (file != null && !file.isEmpty()) {
@@ -219,7 +237,9 @@ public class TicketService {
         ticket.setDiagnosticoProblema(diagnosticoProblema);
         ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
 
-        return ticketRepository.save(ticket);
+        Ticket saved = ticketRepository.save(ticket);
+        saveHistory(saved, "UPDATED", previousStatus, saved.getStatus());
+        return saved;
     }
     public byte[] getArchivoPorId(Long ticketId) throws IOException{
         Ticket ticket = ticketRepository.findById(ticketId).get();
@@ -238,8 +258,35 @@ public class TicketService {
     }
     public Ticket actualizaTicketPorStatus(TicketStatus status, long id){
         Ticket ticket = ticketRepository.findById(id).get();
+        TicketStatus previous = ticket.getStatus();
         ticket.setStatus(status);
-        return ticketRepository.save(ticket);
+        Ticket saved = ticketRepository.save(ticket);
+        saveHistory(saved, "STATUS_CHANGED", previous, saved.getStatus());
+        return saved;
+    }
+
+    public void deleteTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        if (!ticket.isDeleted()) {
+            ticket.setDeleted(true);
+            Ticket saved = ticketRepository.save(ticket);
+            saveHistory(saved, "DELETED", saved.getStatus(), saved.getStatus());
+        }
+    }
+
+    public Ticket restoreTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        if (ticket.isDeleted()) {
+            ticket.setDeleted(false);
+            Ticket saved = ticketRepository.save(ticket);
+            saveHistory(saved, "RESTORED", saved.getStatus(), saved.getStatus());
+            return saved;
+        }
+        return ticket;
+    }
+
+    public List<TicketHistory> getHistory(Long ticketId) {
+        return historyRepository.findByTicketIdOrderByTimestampAsc(ticketId);
     }
 
     public Ticket finalizarConReporte(Long id, String reporte){

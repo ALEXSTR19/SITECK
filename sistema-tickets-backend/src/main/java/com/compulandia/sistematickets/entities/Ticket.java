@@ -37,6 +37,9 @@ public class Ticket {
 
     private TicketStatus status;
 
+    @Builder.Default
+    private boolean deleted = false;
+
     private String file;
 
     // Reporte realizado por el técnico al finalizar el servicio

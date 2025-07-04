@@ -42,7 +42,7 @@ import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { GreetingComponent } from './greeting/greeting.component';
-import { TicketReportComponent } from './ticket-report/ticket-report.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +65,7 @@ import { TicketReportComponent } from './ticket-report/ticket-report.component';
     ClientesComponent,
     QuotesComponent,
     GreetingComponent,
-    TicketReportComponent,
+
 
   ],
   imports: [
