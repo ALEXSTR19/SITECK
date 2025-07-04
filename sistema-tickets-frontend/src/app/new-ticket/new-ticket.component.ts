@@ -7,6 +7,7 @@ import { Servicio } from '../models/servicio.model';
 import { Cliente } from '../models/cliente.model';
 import { ClientesService } from '../services/clientes.service';
 import Swal from 'sweetalert2';
+import { Tecnico } from '../models/tecnicos.model';
 @Component({
   selector: 'app-new-ticket',
   templateUrl: './new-ticket.component.html',
@@ -18,6 +19,7 @@ export class NewTicketComponent implements OnInit{
   clientes: Cliente[] = [];
   pdfFileUrl!: string;
   tecnicoCodigo!: string | null;
+  tecnicos: Tecnico[] = [];
   selectedServiceType: string = '';
   // Fields specific to each type of servicio will be handled through the reactive form
   constructor(
@@ -47,6 +49,7 @@ export class NewTicketComponent implements OnInit{
     date: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
+    tecnicoCodigo: this.fb.control(this.tecnicoCodigo || ''),
     clienteId: this.fb.control(''),
     fileSource: this.fb.control(null),
     fileName: this.fb.control(''),
@@ -70,7 +73,7 @@ export class NewTicketComponent implements OnInit{
 
 }
 
- onServicioChange(servicioNombre: string){
+onServicioChange(servicioNombre: string){
   const nombre = (servicioNombre || '').toUpperCase();
   if(nombre.includes('INSTAL')){
     this.selectedServiceType = 'INSTALACION';
@@ -82,6 +85,15 @@ export class NewTicketComponent implements OnInit{
     this.selectedServiceType = 'DIAGNOSTICO';
   } else {
     this.selectedServiceType = '';
+  }
+
+  if(servicioNombre){
+    this.tecnicoService.getTecnicosPorServicio(servicioNombre).subscribe({
+      next: tecs => this.tecnicos = tecs,
+      error: err => console.error('Error al cargar tecnicos por servicio', err)
+    });
+  } else {
+    this.tecnicos = [];
   }
  }
 
@@ -103,8 +115,9 @@ guardarTicket() {
   console.log('Archivo a enviar:', this.ticketFormGroup.value.fileSource);
 
   let formData = new FormData();
-  if(this.tecnicoCodigo){
-    formData.set('tecnicoCodigo', this.tecnicoCodigo);
+  const codigoSeleccionado = this.ticketFormGroup.value.tecnicoCodigo || this.tecnicoCodigo;
+  if(codigoSeleccionado){
+    formData.set('tecnicoCodigo', codigoSeleccionado);
   }
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
