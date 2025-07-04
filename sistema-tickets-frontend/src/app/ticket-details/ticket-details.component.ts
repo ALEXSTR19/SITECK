@@ -12,7 +12,7 @@ import { TicketHistory } from '../models/ticket-history.model';
 export class TicketDetailsComponent implements OnInit {
   histories: TicketHistory[] = [];
   dataSource = new MatTableDataSource<TicketHistory>();
-  displayedColumns = ['timestamp','action','previousStatus','newStatus'];
+  displayedColumns = ['timestamp','action','changes','previousStatus','newStatus'];
   ticketId!: number;
 
   constructor(private route: ActivatedRoute, private service: TecnicosService){}
