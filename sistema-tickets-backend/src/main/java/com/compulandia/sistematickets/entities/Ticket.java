@@ -8,6 +8,7 @@ import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.entities.Cliente;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,6 +40,7 @@ public class Ticket {
     private String file;
 
     // Reporte realizado por el técnico al finalizar el servicio
+    @Column(columnDefinition = "TEXT")
     private String reporteServicio;
 
     // Campos adicionales para cada tipo de servicio
