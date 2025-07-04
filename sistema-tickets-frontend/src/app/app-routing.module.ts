@@ -21,6 +21,7 @@ import { LoadServiciosComponent } from './load-servicios/load-servicios.componen
 import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -111,6 +112,12 @@ const routes: Routes = [
       {
         path: "edit-ticket/:id",
         component: EditTicketComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "ticket-details/:id",
+        component: TicketDetailsComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ["ADMIN"] }
       },

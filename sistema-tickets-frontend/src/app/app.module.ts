@@ -42,6 +42,7 @@ import { LoadClientesComponent } from './load-clientes/load-clientes.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { GreetingComponent } from './greeting/greeting.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { GreetingComponent } from './greeting/greeting.component';
     ClientesComponent,
     QuotesComponent,
     GreetingComponent,
+    TicketDetailsComponent,
 
   ],
   imports: [

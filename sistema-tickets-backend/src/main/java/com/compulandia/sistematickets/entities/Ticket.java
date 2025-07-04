@@ -36,6 +36,9 @@ public class Ticket {
 
     private TicketStatus status;
 
+    @Builder.Default
+    private boolean deleted = false;
+
     private String file;
 
     // Campos adicionales para cada tipo de servicio
