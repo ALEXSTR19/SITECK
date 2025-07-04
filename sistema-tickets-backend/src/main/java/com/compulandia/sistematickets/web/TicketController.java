@@ -82,6 +82,11 @@ public class TicketController {
         return ticketService.actualizaTicketPorStatus(status, ticketId);
     }
 
+    @PutMapping("/tickets/{ticketId}/finalizar")
+    public Ticket finalizarTicket(@PathVariable Long ticketId, @RequestParam String reporte){
+        return ticketService.finalizarConReporte(ticketId, reporte);
+    }
+
     @GetMapping("/ticketStats/day")
     public List<TicketStatsDto> ticketStatsByDay(){
         return ticketService.getStatsByDay();

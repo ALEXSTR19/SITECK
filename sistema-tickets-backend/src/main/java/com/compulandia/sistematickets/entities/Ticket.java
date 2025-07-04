@@ -38,6 +38,9 @@ public class Ticket {
 
     private String file;
 
+    // Reporte realizado por el técnico al finalizar el servicio
+    private String reporteServicio;
+
     // Campos adicionales para cada tipo de servicio
     private String instalacionEquipo;
     private String instalacionModelo;

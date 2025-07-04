@@ -242,6 +242,13 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
+    public Ticket finalizarConReporte(Long id, String reporte){
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        ticket.setStatus(TicketStatus.FINALIZADO);
+        ticket.setReporteServicio(reporte);
+        return ticketRepository.save(ticket);
+    }
+
     public List<TicketStatsDto> getStatsByDay() {
         return ticketRepository.countTicketsByDay().stream()
                 .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))

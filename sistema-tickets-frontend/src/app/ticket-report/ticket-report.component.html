@@ -1,0 +1,10 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Reporte del servicio</mat-card-title>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Escribe el reporte</mat-label>
+      <textarea matInput rows="5" [(ngModel)]="reporte"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+  </mat-card>
+</div>
