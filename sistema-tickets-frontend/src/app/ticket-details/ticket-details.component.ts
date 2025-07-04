@@ -20,7 +20,7 @@ export class TicketDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.ticketId = +params['id'];
-      this.service.getTicketHistory(this.ticketId).subscribe(data => {
+      this.service.getTicketHistory(this.ticketId).subscribe((data: TicketHistory[]) => {
         this.histories = data;
         this.dataSource.data = this.histories;
       });
@@ -28,8 +28,8 @@ export class TicketDetailsComponent implements OnInit {
   }
 
   restore(){
-    this.service.restoreTicket(this.ticketId).subscribe(()=>{
-      this.service.getTicketHistory(this.ticketId).subscribe(d=>this.dataSource.data=d);
+    this.service.restoreTicket(this.ticketId).subscribe(() => {
+      this.service.getTicketHistory(this.ticketId).subscribe((d: TicketHistory[]) => this.dataSource.data = d);
     });
   }
 }

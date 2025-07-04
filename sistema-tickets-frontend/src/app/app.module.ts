@@ -43,6 +43,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { TicketReportComponent } from './ticket-report/ticket-report.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { TicketReportComponent } from './ticket-report/ticket-report.component';
     QuotesComponent,
     GreetingComponent,
     TicketReportComponent,
+    TicketDetailsComponent,
 
   ],
   imports: [
