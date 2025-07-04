@@ -64,6 +64,14 @@ export class TecnicosService {
     );
   }
 
-
+  public finalizarTicket(id: number, reporte: string): Observable<Ticket> {
+    return this.http.put<Ticket>(
+      `${environment.backendHost}/tickets/${id}/finalizar`,
+      null,
+      {
+        params: { reporte }
+      }
+    );
   }
+
 }
