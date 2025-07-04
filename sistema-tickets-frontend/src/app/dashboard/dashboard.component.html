@@ -1,37 +1,58 @@
 <div class="container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>
-                Dashboard
-            </mat-card-title>
-        </mat-card-header>
-
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <div class="chart-wrapper">
-                <h3>Tickets por día</h3>
-                <canvas id="dayChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <h3>Tickets por semana</h3>
-                <canvas id="weekChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <h3>Tickets por mes</h3>
-                <canvas id="monthChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <h3>Servicios más demandados</h3>
-                <canvas id="serviciosChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <h3>Clientes frecuentes</h3>
-                <canvas id="clientesChart"></canvas>
-            </div>
-            <div class="chart-wrapper">
-                <h3>Técnicos más destacados</h3>
-                <canvas id="tecnicosChart"></canvas>
-            </div>
-        </mat-card-content>
+  <h2 class="dashboard-title">Dashboard</h2>
+  <div class="charts-grid">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Tickets por día</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="dayChart"></canvas>
+      </mat-card-content>
     </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Tickets por semana</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="weekChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Tickets por mes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="monthChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Servicios más demandados</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="serviciosChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Clientes frecuentes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="clientesChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Técnicos más destacados</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <canvas id="tecnicosChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
