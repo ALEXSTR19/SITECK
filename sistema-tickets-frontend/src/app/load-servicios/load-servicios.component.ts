@@ -15,7 +15,8 @@ export class LoadServiciosComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioForm = this.fb.group({
-      nombre: ['', Validators.required]
+      nombre: ['', Validators.required],
+      liderCodigo: ['']
     });
   }
 

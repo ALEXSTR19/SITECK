@@ -116,6 +116,9 @@ public class TicketService {
         if (tecnicoCodigo != null && !tecnicoCodigo.isEmpty()) {
             tecnico = tecnicoRepository.findByCodigo(tecnicoCodigo);
         }
+        if (tecnico == null && servicio.getLiderCodigo() != null) {
+            tecnico = tecnicoRepository.findByCodigo(servicio.getLiderCodigo());
+        }
         if (tecnico == null) {
             var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
             if (!tecnicos.isEmpty()) {
@@ -207,6 +210,9 @@ public class TicketService {
         Tecnico tecnico = null;
         if (tecnicoCodigo != null && !tecnicoCodigo.isEmpty()) {
             tecnico = tecnicoRepository.findByCodigo(tecnicoCodigo);
+        }
+        if (tecnico == null && servicio.getLiderCodigo() != null) {
+            tecnico = tecnicoRepository.findByCodigo(servicio.getLiderCodigo());
         }
         if (tecnico == null) {
             var tecnicos = tecnicoRepository.findByEspecialidadesNombre(servicioNombre);
@@ -317,8 +323,11 @@ public class TicketService {
 
 
     }
-    public Ticket actualizaTicketPorStatus(TicketStatus status, long id){
-        Ticket ticket = ticketRepository.findById(id).get();
+    public Ticket actualizaTicketPorStatus(TicketStatus status, long id, String codigoTecnico){
+        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        if(ticket.getTecnico() == null || !ticket.getTecnico().getCodigo().equals(codigoTecnico)){
+            throw new RuntimeException("No autorizado");
+        }
         TicketStatus previous = ticket.getStatus();
         ticket.setStatus(status);
         Ticket saved = ticketRepository.save(ticket);

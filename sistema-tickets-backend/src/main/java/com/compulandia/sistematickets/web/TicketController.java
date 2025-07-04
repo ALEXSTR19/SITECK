@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.compulandia.sistematickets.entities.Tecnico;
+import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.TicketHistory;
 import com.compulandia.sistematickets.enums.TicketStatus;
@@ -68,7 +69,14 @@ public class TicketController {
     }
     @GetMapping("/tecnicos/{codigo}/tickets")
     public List<Ticket> listarTicketsPorCodigoTecnico(@PathVariable String codigo){
-        return ticketRepository.findByTecnicoCodigoAndDeletedFalse(codigo);
+        Tecnico tecnico = tecnicoRepository.findByCodigo(codigo);
+        if(tecnico == null){
+            return List.of();
+        }
+        List<String> servicios = tecnico.getEspecialidades().stream()
+                .map(Servicio::getNombre)
+                .toList();
+        return ticketRepository.findByServicioNombreInAndDeletedFalse(servicios);
     }
     @GetMapping("/ticketsPorStatus")
     public List<Ticket> listarTicketsPorStatus(@RequestParam TicketStatus status){
@@ -80,8 +88,10 @@ public class TicketController {
     }
 
     @PutMapping("/tickets/{ticketId}/actualizarTicket")
-    public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status, @PathVariable Long ticketId){
-        return ticketService.actualizaTicketPorStatus(status, ticketId);
+    public Ticket actualizarStatusDeTicket(@RequestParam TicketStatus status,
+                                           @RequestParam String codigo,
+                                           @PathVariable Long ticketId){
+        return ticketService.actualizaTicketPorStatus(status, ticketId, codigo);
     }
 
     @PutMapping("/tickets/{ticketId}/finalizar")

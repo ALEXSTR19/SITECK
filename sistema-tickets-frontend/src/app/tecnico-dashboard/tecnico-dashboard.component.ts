@@ -100,7 +100,10 @@ export class TecnicoDashboardComponent implements OnInit {
   }
 
   actualizarEstado(ticket: Ticket, status: string) {
-    this.tecnicosService.actualizarEstadoTicket(ticket.id, status).subscribe({
+    if(!this.tecnicoCodigo){
+      return;
+    }
+    this.tecnicosService.actualizarEstadoTicket(ticket.id, status, this.tecnicoCodigo).subscribe({
       next: (t) => {
         ticket.status = status;
         this.filterTickets();
