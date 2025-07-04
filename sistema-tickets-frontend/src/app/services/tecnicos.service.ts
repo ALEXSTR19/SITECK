@@ -19,6 +19,13 @@ export class TecnicosService {
     return this.http.get<Array<Tecnico>>(`${environment.backendHost}/tecnicos`);
   }
 
+  public getTecnicosPorServicio(nombreServicio: string): Observable<Array<Tecnico>> {
+    return this.http.get<Array<Tecnico>>(
+      `${environment.backendHost}/tecnicosPorEspecialidad`,
+      { params: { especialidad: nombreServicio } }
+    );
+  }
+
   public getTicketsDeTecnico(codigo: string): Observable<Array<Ticket>>{
     return this.http.get<Array<Ticket>>(`${environment.backendHost}/tecnicos/${codigo}/tickets`);
   }
