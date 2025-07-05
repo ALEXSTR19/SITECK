@@ -5,7 +5,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import jakarta.transaction.Transactional;
 
 import com.compulandia.sistematickets.dto.TecnicoRegistroDto;
@@ -68,5 +73,45 @@ public class TecnicoController {
     public String obtenerProximoCodigo() {
         long count = tecnicoRepository.count() + 1;
         return String.format("TE-%03d", count);
+    }
+
+    @PutMapping("/tecnicos/{codigo}")
+    @Transactional
+    public Tecnico actualizarTecnico(@PathVariable String codigo, @RequestBody TecnicoRegistroDto dto) {
+        Tecnico tecnico = tecnicoRepository.findByCodigo(codigo);
+        if (tecnico == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
+        }
+
+        if (dto.getNombre() != null) {
+            tecnico.setNombre(dto.getNombre());
+        }
+        if (dto.getApellido() != null) {
+            tecnico.setApellido(dto.getApellido());
+        }
+        if (dto.getCodigo() != null) {
+            tecnico.setCodigo(dto.getCodigo());
+        }
+
+        if (dto.getEspecialidades() != null) {
+            tecnico.setEspecialidades(
+                dto.getEspecialidades().stream()
+                    .map(s -> {
+                        Servicio existing = servicioRepository.findByNombre(s.getNombre());
+                        return existing != null ? existing : servicioRepository.save(s);
+                    })
+                    .toList());
+        }
+
+        return tecnicoRepository.save(tecnico);
+    }
+
+    @DeleteMapping("/tecnicos/{codigo}")
+    public void eliminarTecnico(@PathVariable String codigo) {
+        Tecnico tecnico = tecnicoRepository.findByCodigo(codigo);
+        if (tecnico == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
+        }
+        tecnicoRepository.delete(tecnico);
     }
 }

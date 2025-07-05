@@ -14,6 +14,7 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 import { TecnicoDetallesComponent } from './tecnico-detalles/tecnico-detalles.component';
 import { NewTicketComponent } from './new-ticket/new-ticket.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { EditTecnicoComponent } from './edit-tecnico/edit-tecnico.component';
 
 
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
@@ -120,6 +121,12 @@ const routes: Routes = [
       {
         path: "edit-ticket/:id",
         component: EditTicketComponent,
+        canActivate: [AuthorizationGuard],
+        data: { roles: ["ADMIN"] }
+      },
+      {
+        path: "edit-tecnico/:codigo",
+        component: EditTecnicoComponent,
         canActivate: [AuthorizationGuard],
         data: { roles: ["ADMIN"] }
       },
