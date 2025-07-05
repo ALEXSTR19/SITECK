@@ -1,0 +1,9 @@
+.servicio-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+mat-form-field {
+    display: block;
+    width: 100%;
+}

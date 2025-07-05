@@ -1,8 +1,14 @@
 
 mat-form-field {
     display: block;
+    width: 100%;
 }
-.pago-form{
-    width: 500px;
 
+.ticket-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.pago-form {
+    width: 500px;
 }
