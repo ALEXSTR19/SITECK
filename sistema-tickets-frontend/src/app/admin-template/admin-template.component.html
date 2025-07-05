@@ -13,16 +13,20 @@
 
     <mat-menu #importMenu>
         <button mat-menu-item routerLink="/admin/loadTecnicos">
-            Cargar Tecnicos
+            <mat-icon>upload_file</mat-icon>
+            <span>Cargar Tecnicos</span>
         </button>
         <button mat-menu-item routerLink="/admin/loadServicios">
-            Cargar Servicios
+            <mat-icon>upload_file</mat-icon>
+            <span>Cargar Servicios</span>
         </button>
         <button mat-menu-item routerLink="/admin/loadTickets">
-            Cargar Tickets
+            <mat-icon>upload_file</mat-icon>
+            <span>Cargar Tickets</span>
         </button>
         <button mat-menu-item routerLink="/admin/loadClientes">
-            Cargar Clientes
+            <mat-icon>upload_file</mat-icon>
+            <span>Cargar Clientes</span>
         </button>
     </mat-menu>
 
@@ -50,25 +54,25 @@
         </mat-list-item>
         <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/tecnicos">
-                <mat-icon>Dasboard</mat-icon>
+                <mat-icon>engineering</mat-icon>
                 Tecnicos
              </button>
         </mat-list-item>
         <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/loadServicios">
-                <mat-icon>Dasboard</mat-icon>
+                <mat-icon>build</mat-icon>
                 Servicios
              </button>
         </mat-list-item>
         <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/tickets">
-                <mat-icon>Dasboard</mat-icon>
+                <mat-icon>assignment</mat-icon>
                 Tickets
              </button>
         </mat-list-item>
         <mat-list-item *ngIf="authService.roles.includes('ADMIN')">
              <button mat-button routerLink="/admin/clientes">
-                <mat-icon>Dasboard</mat-icon>
+                <mat-icon>people</mat-icon>
                 Clientes
              </button>
         </mat-list-item>
