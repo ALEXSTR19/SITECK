@@ -83,14 +83,20 @@ public class TecnicoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
         }
 
+        // Validar cambio de codigo
+        if (dto.getCodigo() != null && !dto.getCodigo().equals(codigo)) {
+            Tecnico exist = tecnicoRepository.findByCodigo(dto.getCodigo());
+            if (exist != null) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Codigo de tecnico ya existe");
+            }
+            tecnico.setCodigo(dto.getCodigo());
+        }
+
         if (dto.getNombre() != null) {
             tecnico.setNombre(dto.getNombre());
         }
         if (dto.getApellido() != null) {
             tecnico.setApellido(dto.getApellido());
-        }
-        if (dto.getCodigo() != null) {
-            tecnico.setCodigo(dto.getCodigo());
         }
 
         if (dto.getEspecialidades() != null) {
@@ -101,6 +107,28 @@ public class TecnicoController {
                         return existing != null ? existing : servicioRepository.save(s);
                     })
                     .toList());
+        }
+
+        // Actualizar datos de usuario asociado
+        Usuario usuario = usuarioRepository.findByCodigoTecnico(codigo);
+        if (usuario != null) {
+            if (dto.getUsername() != null && !dto.getUsername().isEmpty()) {
+                usuario.setUsername(dto.getUsername());
+            }
+            if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+                usuario.setPassword(dto.getPassword());
+            }
+            if (dto.getCodigo() != null) {
+                usuario.setCodigoTecnico(dto.getCodigo());
+            }
+            usuarioRepository.save(usuario);
+        } else if (dto.getUsername() != null && dto.getPassword() != null) {
+            usuarioRepository.save(Usuario.builder()
+                    .username(dto.getUsername())
+                    .password(dto.getPassword())
+                    .role("TECNICO")
+                    .codigoTecnico(dto.getCodigo() != null ? dto.getCodigo() : codigo)
+                    .build());
         }
 
         return tecnicoRepository.save(tecnico);
