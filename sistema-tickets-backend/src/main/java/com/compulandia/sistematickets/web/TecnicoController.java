@@ -83,6 +83,8 @@ public class TecnicoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
         }
 
+        Usuario usuario = usuarioRepository.findByCodigoTecnico(codigo);
+
         if (dto.getNombre() != null) {
             tecnico.setNombre(dto.getNombre());
         }
@@ -91,6 +93,9 @@ public class TecnicoController {
         }
         if (dto.getCodigo() != null) {
             tecnico.setCodigo(dto.getCodigo());
+            if (usuario != null) {
+                usuario.setCodigoTecnico(dto.getCodigo());
+            }
         }
 
         if (dto.getEspecialidades() != null) {
@@ -101,6 +106,24 @@ public class TecnicoController {
                         return existing != null ? existing : servicioRepository.save(s);
                     })
                     .toList());
+        }
+
+        if (usuario != null) {
+            if (dto.getUsername() != null) {
+                usuario.setUsername(dto.getUsername());
+            }
+            if (dto.getPassword() != null) {
+                usuario.setPassword(dto.getPassword());
+            }
+            usuarioRepository.save(usuario);
+        } else if (dto.getUsername() != null && dto.getPassword() != null) {
+            Usuario nuevo = Usuario.builder()
+                    .username(dto.getUsername())
+                    .password(dto.getPassword())
+                    .role("TECNICO")
+                    .codigoTecnico(dto.getCodigo() != null ? dto.getCodigo() : codigo)
+                    .build();
+            usuarioRepository.save(nuevo);
         }
 
         return tecnicoRepository.save(tecnico);
