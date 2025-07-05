@@ -15,6 +15,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Generic card layout for forms */
 .form-card {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+}
+
+/* Simple grid layout for form fields */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+/* preserve grid when toggling sections */
+.form-section {
+    display: contents;
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()">
+  <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()" class="cliente-form form-card form-grid">
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre" required>

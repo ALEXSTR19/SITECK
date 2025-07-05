@@ -3,7 +3,7 @@
         <mat-card-header>
             <mat-card-title>Editar Ticket</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="form-grid">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha de ticket</mat-label>
                 <mat-hint>MM-DD-YYYY</mat-hint>
@@ -28,7 +28,7 @@
                 </mat-select>
             </mat-form-field>
             <!-- Datos de Instalación -->
-            <div *ngIf="selectedServiceType === 'INSTALACION'">
+            <div *ngIf="selectedServiceType === 'INSTALACION'" class="form-section">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo a instalar</mat-label>
                     <input matInput formControlName="instalacionEquipo" />
@@ -43,7 +43,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Mantenimiento -->
-            <div *ngIf="selectedServiceType === 'MANTENIMIENTO'">
+            <div *ngIf="selectedServiceType === 'MANTENIMIENTO'" class="form-section">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="mantenimientoEquipo" />
@@ -58,7 +58,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Cotización -->
-            <div *ngIf="selectedServiceType === 'COTIZACION'">
+            <div *ngIf="selectedServiceType === 'COTIZACION'" class="form-section">
                 <mat-form-field appearance="outline">
                     <mat-label>Cliente</mat-label>
                     <input matInput formControlName="cotizacionCliente" />
@@ -73,7 +73,7 @@
                 </mat-form-field>
             </div>
             <!-- Datos de Diagnóstico -->
-            <div *ngIf="selectedServiceType === 'DIAGNOSTICO'">
+            <div *ngIf="selectedServiceType === 'DIAGNOSTICO'" class="form-section">
                 <mat-form-field appearance="outline">
                     <mat-label>Equipo</mat-label>
                     <input matInput formControlName="diagnosticoEquipo" />
