@@ -83,4 +83,12 @@ export class TecnicosService {
     return this.http.get<TicketHistory[]>(`${environment.backendHost}/tickets/${id}/history`);
   }
 
+  public editarTecnico(codigo: string, tecnico: Tecnico): Observable<Tecnico> {
+    return this.http.put<Tecnico>(`${environment.backendHost}/tecnicos/${codigo}`, tecnico);
+  }
+
+  public eliminarTecnico(codigo: string): Observable<void> {
+    return this.http.delete<void>(`${environment.backendHost}/tecnicos/${codigo}`);
+  }
+
 }
