@@ -44,6 +44,7 @@ import { QuotesComponent } from './quotes/quotes.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { TicketReportComponent } from './ticket-report/ticket-report.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { EditTecnicoComponent } from './edit-tecnico/edit-tecnico.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
     GreetingComponent,
     TicketReportComponent,
     TicketDetailsComponent,
+    EditTecnicoComponent,
 
   ],
   imports: [
