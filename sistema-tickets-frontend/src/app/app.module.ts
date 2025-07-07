@@ -36,6 +36,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TecnicoDashboardComponent } from './tecnico-dashboard/tecnico-dashboard.component';
 import { LoadServiciosComponent } from './load-servicios/load-servicios.component';
 import { LoadClientesComponent } from './load-clientes/load-clientes.component';
@@ -79,7 +80,7 @@ import { EditTecnicoComponent } from './edit-tecnico/edit-tecnico.component';
     MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatListModule,
     MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatTableModule,
     HttpClientModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
-    MatDatepickerModule, MatNativeDateModule, MatSelectModule, BrowserModule
+    MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatCheckboxModule, BrowserModule
   ],
   providers: [
     provideClientHydration(),
