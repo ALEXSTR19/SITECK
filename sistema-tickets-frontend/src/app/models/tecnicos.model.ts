@@ -17,6 +17,7 @@ export interface Ticket {
     cantidad: number;
     type: string;
     status: string;
+    priority?: string;
     file: string;
     tecnico: Tecnico;
     servicio?: Servicio;
