@@ -95,6 +95,7 @@
                 </button>
                 <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf" />
             </mat-form-field>
+            <mat-checkbox formControlName="pagado">Pagado</mat-checkbox>
             <mat-card-actions>
                 <button mat-raised-button color="primary" (click)="guardarTicket()">Actualizar Ticket</button>
             </mat-card-actions>
