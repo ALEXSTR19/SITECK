@@ -44,6 +44,7 @@ export class EditTicketComponent implements OnInit{
         date: ticket.fecha,
         cantidad: ticket.cantidad,
         servicio: ticket.servicio?.nombre,
+        priority: ticket.priority,
         instalacionEquipo: ticket.instalacionEquipo,
         instalacionModelo: ticket.instalacionModelo,
         instalacionDireccion: ticket.instalacionDireccion,
@@ -74,6 +75,7 @@ export class EditTicketComponent implements OnInit{
     date: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
+    priority: this.fb.control(''),
     clienteId: this.fb.control(''),
     fileSource: this.fb.control(null),
     fileName: this.fb.control(''),
@@ -141,6 +143,7 @@ export class EditTicketComponent implements OnInit{
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
+  formData.set('priority', this.ticketFormGroup.value.priority);
   formData.set('clienteId', this.ticketFormGroup.value.clienteId);
   if (this.ticketFormGroup.value.fileSource) {
     formData.append('file', this.ticketFormGroup.value.fileSource);

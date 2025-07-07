@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
+import com.compulandia.sistematickets.enums.TicketPriority;
 import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.entities.Cliente;
 
@@ -36,6 +37,8 @@ public class Ticket {
     private TypeTicket type;
 
     private TicketStatus status;
+
+    private TicketPriority priority;
 
     @Builder.Default
     private boolean deleted = false;

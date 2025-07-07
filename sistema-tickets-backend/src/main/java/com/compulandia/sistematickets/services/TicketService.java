@@ -21,6 +21,7 @@ import com.compulandia.sistematickets.dto.TicketStatsDto;
 import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
+import com.compulandia.sistematickets.enums.TicketPriority;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.TicketHistoryRepository;
@@ -60,6 +61,8 @@ public class TicketService {
     }
 
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
+            String priority,
+            String priority,
             Long clienteId,
             String instalacionEquipo,
             String instalacionModelo,
@@ -132,12 +135,30 @@ public class TicketService {
             cliente = clienteRepository.findById(clienteId).orElse(null);
         }
 
+        TicketPriority priorityEnum = null;
+        if (priority != null) {
+            try {
+                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+
+        TicketPriority priorityEnum = null;
+        if (priority != null) {
+            try {
+                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                // ignore invalid priority
+            }
+        }
+
         Ticket ticket = Ticket.builder()
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
                 .tecnico(tecnico)
                 .servicio(servicio)
                 .cliente(cliente)
+                .priority(priorityEnum)
                 .type(typeTicket)
                 .cantidad(cantidad)
                 .file(filePath != null ? filePath.toUri().toString() : null)
@@ -168,6 +189,7 @@ public class TicketService {
             double cantidad,
             String servicioNombre,
             LocalDate date,
+            String priority,
             Long clienteId,
             String instalacionEquipo,
             String instalacionModelo,
@@ -257,6 +279,12 @@ public class TicketService {
             String newVal = cliente != null ? cliente.getId() + "" : "null";
             changes.append("cliente: ").append(oldVal).append(" -> ").append(newVal).append("; ");
             ticket.setCliente(cliente);
+        }
+        if (ticket.getPriority() != priorityEnum) {
+            String oldVal = ticket.getPriority() != null ? ticket.getPriority().name() : "null";
+            String newVal = priorityEnum != null ? priorityEnum.name() : "null";
+            changes.append("priority: ").append(oldVal).append(" -> ").append(newVal).append("; ");
+            ticket.setPriority(priorityEnum);
         }
         if (!equalsStr(ticket.getInstalacionEquipo(), instalacionEquipo)) {
             changes.append("instalacionEquipo: ").append(ticket.getInstalacionEquipo()).append(" -> ").append(instalacionEquipo).append("; ");

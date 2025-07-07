@@ -16,6 +16,14 @@
                 <input matInput formControlName="cantidad" />
             </mat-form-field>
             <mat-form-field appearance="outline">
+                <mat-label>Prioridad</mat-label>
+                <mat-select formControlName="priority">
+                    <mat-option value="BAJA">Baja</mat-option>
+                    <mat-option value="MEDIA">Media</mat-option>
+                    <mat-option value="ALTA">Alta</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Tipo de Servicio</mat-label>
                 <mat-select formControlName="servicio" (selectionChange)="onServicioChange($event.value)">
                     <mat-option *ngFor="let servicio of servicios" [value]="servicio.nombre">{{ servicio.nombre }}</mat-option>

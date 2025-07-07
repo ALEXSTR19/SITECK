@@ -112,17 +112,36 @@ public class TecnicoController {
         // Actualizar datos de usuario asociado
         Usuario usuario = usuarioRepository.findByCodigoTecnico(codigo);
         if (usuario != null) {
-            if (dto.getUsername() != null && !dto.getUsername().isEmpty()) {
-                usuario.setUsername(dto.getUsername());
+            boolean usernameChange = dto.getUsername() != null && !dto.getUsername().isEmpty()
+                    && !dto.getUsername().equals(usuario.getUsername());
+
+            // Si el username cambia, eliminar el antiguo y crear uno nuevo
+            if (usernameChange) {
+                if (usuarioRepository.existsById(dto.getUsername())) {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario ya existe");
+                }
+                Usuario nuevoUsuario = Usuario.builder()
+                        .username(dto.getUsername())
+                        .password(dto.getPassword() != null ? dto.getPassword() : usuario.getPassword())
+                        .role(usuario.getRole())
+                        .codigoTecnico(dto.getCodigo() != null ? dto.getCodigo() : codigo)
+                        .servicios(usuario.getServicios())
+                        .build();
+                usuarioRepository.delete(usuario);
+                usuarioRepository.save(nuevoUsuario);
+            } else {
+                if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+                    usuario.setPassword(dto.getPassword());
+                }
+                if (dto.getCodigo() != null) {
+                    usuario.setCodigoTecnico(dto.getCodigo());
+                }
+                usuarioRepository.save(usuario);
             }
-            if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
-                usuario.setPassword(dto.getPassword());
-            }
-            if (dto.getCodigo() != null) {
-                usuario.setCodigoTecnico(dto.getCodigo());
-            }
-            usuarioRepository.save(usuario);
         } else if (dto.getUsername() != null && dto.getPassword() != null) {
+            if (usuarioRepository.existsById(dto.getUsername())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario ya existe");
+            }
             usuarioRepository.save(Usuario.builder()
                     .username(dto.getUsername())
                     .password(dto.getPassword())
