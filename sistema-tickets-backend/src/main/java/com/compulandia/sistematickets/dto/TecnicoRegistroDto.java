@@ -15,6 +15,7 @@ public class TecnicoRegistroDto {
     private String nombre;
     private String apellido;
     private String codigo;
+    private String email;
     private List<Servicio> especialidades;
     private String username;
     private String password;

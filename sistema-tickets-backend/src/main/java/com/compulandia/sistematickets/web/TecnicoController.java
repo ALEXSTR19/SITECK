@@ -41,6 +41,7 @@ public class TecnicoController {
                 .nombre(dto.getNombre())
                 .apellido(dto.getApellido())
                 .codigo(dto.getCodigo())
+                .email(dto.getEmail())
                 .especialidades(dto.getEspecialidades())
                 .build();
 
@@ -97,6 +98,9 @@ public class TecnicoController {
         }
         if (dto.getApellido() != null) {
             tecnico.setApellido(dto.getApellido());
+        }
+        if (dto.getEmail() != null) {
+            tecnico.setEmail(dto.getEmail());
         }
 
         if (dto.getEspecialidades() != null) {
