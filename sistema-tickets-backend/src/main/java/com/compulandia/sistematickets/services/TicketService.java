@@ -27,6 +27,7 @@ import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.repository.TicketHistoryRepository;
 import com.compulandia.sistematickets.repository.ClienteRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
+import com.compulandia.sistematickets.services.NotificationService;
 
 
 import jakarta.transaction.Transactional;
@@ -49,6 +50,8 @@ public class TicketService {
     @Autowired
     private TicketHistoryRepository historyRepository;
 
+    @Autowired
+    private NotificationService notificationService;
     private void saveHistory(Ticket ticket, String action, TicketStatus previous, TicketStatus current, String changes) {
         historyRepository.save(TicketHistory.builder()
                 .ticket(ticket)
@@ -170,6 +173,9 @@ public class TicketService {
                 .build();
 
         Ticket saved = ticketRepository.save(ticket);
+        if (tecnico != null) {
+            notificationService.notifyTicketAssigned(tecnico, saved);
+        }
         saveHistory(saved, "CREATED", null, saved.getStatus(), null);
         return saved;
 
@@ -198,6 +204,7 @@ public class TicketService {
             boolean pagado) throws IOException {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        Tecnico oldTecnico = ticket.getTecnico();
         TicketStatus previousStatus = ticket.getStatus();
         StringBuilder changes = new StringBuilder();
 
@@ -341,6 +348,9 @@ public class TicketService {
         }
 
         Ticket saved = ticketRepository.save(ticket);
+        if (tecnico != null && (oldTecnico == null || !oldTecnico.equals(tecnico))) {
+            notificationService.notifyTicketAssigned(tecnico, saved);
+        }
         saveHistory(saved, "UPDATED", previousStatus, saved.getStatus(), changes.toString());
         return saved;
     }
