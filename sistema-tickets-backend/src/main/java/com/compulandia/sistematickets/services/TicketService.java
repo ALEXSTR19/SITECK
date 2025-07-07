@@ -134,13 +134,6 @@ public class TicketService {
             cliente = clienteRepository.findById(clienteId).orElse(null);
         }
 
-        TicketPriority priorityEnum = null;
-        if (priority != null) {
-            try {
-                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
-            } catch (IllegalArgumentException e) {
-            }
-        }
 
         TicketPriority priorityEnum = null;
         if (priority != null) {
@@ -257,14 +250,6 @@ public class TicketService {
         Cliente cliente = null;
         if (clienteId != null) {
             cliente = clienteRepository.findById(clienteId).orElse(null);
-        }
-        TicketPriority priorityEnum = null;
-        if (priority != null) {
-            try {
-                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                // ignore invalid priority
-            }
         }
 
         if (!ticket.getFecha().equals(date)) {
