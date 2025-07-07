@@ -62,7 +62,6 @@ public class TicketService {
 
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
             String priority,
-            String priority,
             Long clienteId,
             String instalacionEquipo,
             String instalacionModelo,
@@ -139,15 +138,6 @@ public class TicketService {
             try {
                 priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
             } catch (IllegalArgumentException e) {
-            }
-        }
-
-        TicketPriority priorityEnum = null;
-        if (priority != null) {
-            try {
-                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                // ignore invalid priority
             }
         }
 
@@ -246,6 +236,14 @@ public class TicketService {
         Cliente cliente = null;
         if (clienteId != null) {
             cliente = clienteRepository.findById(clienteId).orElse(null);
+        }
+        TicketPriority priorityEnum = null;
+        if (priority != null) {
+            try {
+                priorityEnum = TicketPriority.valueOf(priority.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                // ignore invalid priority
+            }
         }
 
         if (!ticket.getFecha().equals(date)) {
