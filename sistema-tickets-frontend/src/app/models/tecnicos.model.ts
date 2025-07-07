@@ -34,6 +34,7 @@ export interface Ticket {
     diagnosticoProblema?: string;
     diagnosticoObservaciones?: string;
     reporteServicio?: string;
+    pagado?: boolean;
 }
 
 export enum TicketType {

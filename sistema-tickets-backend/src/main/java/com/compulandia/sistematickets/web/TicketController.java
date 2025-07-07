@@ -148,7 +148,8 @@ public class TicketController {
     @RequestParam(value="cotizacionDescripcion", required = false) String cotizacionDescripcion,
     @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
     @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
-    @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
+    @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones,
+    @RequestParam(value="pagado", defaultValue = "false") boolean pagado
 ) throws IOException {
     return ticketService.saveTicket(
         file,
@@ -169,7 +170,8 @@ public class TicketController {
         cotizacionDescripcion,
         diagnosticoEquipo,
         diagnosticoProblema,
-        diagnosticoObservaciones
+        diagnosticoObservaciones,
+        pagado
     );
 }
 
@@ -199,7 +201,8 @@ public class TicketController {
         @RequestParam(value="cotizacionDescripcion", required = false) String cotizacionDescripcion,
         @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
         @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
-        @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones
+        @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones,
+        @RequestParam(value="pagado", defaultValue = "false") boolean pagado
     ) throws IOException {
         return ticketService.updateTicket(
             ticketId,
@@ -221,7 +224,8 @@ public class TicketController {
             cotizacionDescripcion,
             diagnosticoEquipo,
             diagnosticoProblema,
-            diagnosticoObservaciones
+            diagnosticoObservaciones,
+            pagado
         );
     }
 

@@ -75,7 +75,8 @@ public class TicketService {
             String cotizacionDescripcion,
             String diagnosticoEquipo,
             String diagnosticoProblema,
-            String diagnosticoObservaciones) throws IOException {
+            String diagnosticoObservaciones,
+            boolean pagado) throws IOException {
 
         Path filePath = null;
         if (file != null && !file.isEmpty()) {
@@ -173,6 +174,7 @@ public class TicketService {
                 .diagnosticoEquipo(diagnosticoEquipo)
                 .diagnosticoProblema(diagnosticoProblema)
                 .diagnosticoObservaciones(diagnosticoObservaciones)
+                .pagado(pagado)
                 .build();
 
         Ticket saved = ticketRepository.save(ticket);
@@ -200,7 +202,8 @@ public class TicketService {
             String cotizacionDescripcion,
             String diagnosticoEquipo,
             String diagnosticoProblema,
-            String diagnosticoObservaciones) throws IOException {
+            String diagnosticoObservaciones,
+            boolean pagado) throws IOException {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         TicketStatus previousStatus = ticket.getStatus();
@@ -330,6 +333,10 @@ public class TicketService {
         if (!equalsStr(ticket.getDiagnosticoObservaciones(), diagnosticoObservaciones)) {
             changes.append("diagnosticoObservaciones: ").append(ticket.getDiagnosticoObservaciones()).append(" -> ").append(diagnosticoObservaciones).append("; ");
             ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
+        }
+        if (ticket.isPagado() != pagado) {
+            changes.append("pagado: ").append(ticket.isPagado()).append(" -> ").append(pagado).append("; ");
+            ticket.setPagado(pagado);
         }
 
         Ticket saved = ticketRepository.save(ticket);

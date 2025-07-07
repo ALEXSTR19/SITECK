@@ -70,6 +70,7 @@ export class NewTicketComponent implements OnInit{
     diagnosticoEquipo: this.fb.control(''),
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
+    pagado: this.fb.control(false),
   });
 
 }
@@ -145,6 +146,7 @@ guardarTicket() {
   formData.set('diagnosticoEquipo', this.ticketFormGroup.value.diagnosticoEquipo);
   formData.set('diagnosticoProblema', this.ticketFormGroup.value.diagnosticoProblema);
   formData.set('diagnosticoObservaciones', this.ticketFormGroup.value.diagnosticoObservaciones);
+  formData.set('pagado', this.ticketFormGroup.value.pagado);
 
   
     console.log(formData);

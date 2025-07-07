@@ -43,6 +43,9 @@ public class Ticket {
     @Builder.Default
     private boolean deleted = false;
 
+    @Builder.Default
+    private boolean pagado = false;
+
     private String file;
 
     // Reporte realizado por el técnico al finalizar el servicio

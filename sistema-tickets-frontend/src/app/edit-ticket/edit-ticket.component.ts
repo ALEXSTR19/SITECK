@@ -56,7 +56,8 @@ export class EditTicketComponent implements OnInit{
         cotizacionDescripcion: ticket.cotizacionDescripcion,
         diagnosticoEquipo: ticket.diagnosticoEquipo,
         diagnosticoProblema: ticket.diagnosticoProblema,
-        diagnosticoObservaciones: ticket.diagnosticoObservaciones
+        diagnosticoObservaciones: ticket.diagnosticoObservaciones,
+        pagado: ticket.pagado
       });
       this.onServicioChange(ticket.servicio?.nombre || '');
     });
@@ -94,6 +95,7 @@ export class EditTicketComponent implements OnInit{
     diagnosticoEquipo: this.fb.control(''),
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
+    pagado: this.fb.control(false),
   });
 
   }
@@ -159,6 +161,7 @@ export class EditTicketComponent implements OnInit{
   formData.set('diagnosticoEquipo', this.ticketFormGroup.value.diagnosticoEquipo);
   formData.set('diagnosticoProblema', this.ticketFormGroup.value.diagnosticoProblema);
   formData.set('diagnosticoObservaciones', this.ticketFormGroup.value.diagnosticoObservaciones);
+  formData.set('pagado', this.ticketFormGroup.value.pagado);
 
   
     console.log(formData);

@@ -87,6 +87,11 @@
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="pagado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Pagado</th>
+                    <td mat-cell *matCellDef="let element">{{ element.pagado ? 'Sí' : 'No' }}</td>
+                </ng-container>
+
                 <ng-container matColumnDef="reporte">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Reporte del servicio</th>
                     <td mat-cell *matCellDef="let element">{{element.reporteServicio}}</td>
