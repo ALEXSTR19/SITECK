@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class TicketsComponent implements OnInit {
 public tickets: any;
   public dataSource: any;
-  public displayedColumns = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre', 'info1', 'info2', 'info3', 'reporte', 'acciones'];
+  public displayedColumns = ['id', 'fecha', 'cantidad', 'type', 'status', 'priority', 'nombre', 'info1', 'info2', 'info3', 'reporte', 'acciones'];
 
   /*@ViewChild es un decorador que permite acceder a un componente hijo del DOM */
   @ViewChild(MatPaginator) paginator!: MatPaginator;

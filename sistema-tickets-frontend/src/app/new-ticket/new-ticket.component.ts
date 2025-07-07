@@ -49,6 +49,7 @@ export class NewTicketComponent implements OnInit{
     date: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
+    priority: this.fb.control(''),
     tecnicoCodigo: this.fb.control(this.tecnicoCodigo || ''),
     clienteId: this.fb.control(''),
     fileSource: this.fb.control(null),
@@ -126,6 +127,7 @@ guardarTicket() {
   formData.set('date', formattedDate);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
+  formData.set('priority', this.ticketFormGroup.value.priority);
   formData.set('clienteId', this.ticketFormGroup.value.clienteId);
   if (this.ticketFormGroup.value.fileSource) {
     formData.append('file', this.ticketFormGroup.value.fileSource);
