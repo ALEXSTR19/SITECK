@@ -37,4 +37,8 @@ export class TicketDetailsComponent implements OnInit {
       this.service.getTicketHistory(this.ticketId).subscribe((d: TicketHistory[]) => this.dataSource.data = d);
     });
   }
+
+  printTicket(){
+    window.print();
+  }
 }

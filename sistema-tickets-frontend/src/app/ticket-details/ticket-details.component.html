@@ -27,6 +27,9 @@
       <p><strong>Pagado:</strong> {{ticket.pagado ? 'Sí' : 'No'}}</p>
       <p *ngIf="ticket.reporteServicio"><strong>Reporte:</strong> {{ticket.reporteServicio}}</p>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="printTicket()">Imprimir</button>
+    </mat-card-actions>
   </mat-card>
   <mat-card>
     <mat-card-header>
