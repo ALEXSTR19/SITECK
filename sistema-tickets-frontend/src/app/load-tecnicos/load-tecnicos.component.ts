@@ -20,6 +20,7 @@ export class LoadTecnicosComponent implements OnInit {
     this.tecnicoForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', Validators.required],
       codigo: [''],
