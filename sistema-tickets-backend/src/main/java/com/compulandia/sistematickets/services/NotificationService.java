@@ -3,6 +3,7 @@ package com.compulandia.sistematickets.services;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class NotificationService {
     @Autowired(required = false)
     private JavaMailSender mailSender;
 
+    @Value("${spring.mail.username:}")
+    private String fromEmail;
+
     public void notifyTicketAssigned(Tecnico tecnico, Ticket ticket) {
         if (tecnico == null || ticket == null) return;
         Notification notification = Notification.builder()
@@ -35,6 +39,9 @@ public class NotificationService {
 
         if (mailSender != null && tecnico.getEmail() != null && !tecnico.getEmail().isEmpty()) {
             SimpleMailMessage msg = new SimpleMailMessage();
+            if (fromEmail != null && !fromEmail.isEmpty()) {
+                msg.setFrom(fromEmail);
+            }
             msg.setTo(tecnico.getEmail());
             msg.setSubject("Nuevo ticket asignado");
             msg.setText("Se te ha asignado el ticket #" + ticket.getId());
