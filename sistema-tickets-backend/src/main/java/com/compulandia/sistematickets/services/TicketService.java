@@ -28,6 +28,8 @@ import com.compulandia.sistematickets.repository.TicketHistoryRepository;
 import com.compulandia.sistematickets.repository.ClienteRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
 import com.compulandia.sistematickets.services.NotificationService;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 
 import jakarta.transaction.Transactional;
@@ -372,7 +374,7 @@ public class TicketService {
     public Ticket actualizaTicketPorStatus(TicketStatus status, long id, String codigoTecnico){
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         if(ticket.getTecnico() == null || !ticket.getTecnico().getCodigo().equals(codigoTecnico)){
-            throw new RuntimeException("No autorizado");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No autorizado");
         }
         TicketStatus previous = ticket.getStatus();
         ticket.setStatus(status);
