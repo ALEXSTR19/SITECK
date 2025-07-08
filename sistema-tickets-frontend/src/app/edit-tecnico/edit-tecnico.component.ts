@@ -27,6 +27,7 @@ export class EditTecnicoComponent implements OnInit {
     this.tecnicoForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       username: [''],
       password: [''],
       codigo: [''],
@@ -45,6 +46,7 @@ export class EditTecnicoComponent implements OnInit {
           this.tecnicoForm.patchValue({
             nombre: t.nombre,
             apellido: t.apellido,
+            email: t.email,
             codigo: t.codigo,
             username: t.username,
             especialidades: t.especialidades

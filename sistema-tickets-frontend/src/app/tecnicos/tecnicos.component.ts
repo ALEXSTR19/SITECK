@@ -17,7 +17,7 @@ export class TecnicosComponent implements OnInit {
 
   tecnicos!: Array<Tecnico>;
   tecnicosDataSource!: MatTableDataSource<Tecnico>;
-  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'codigo', 'especialidades','tickets','acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'email', 'codigo', 'especialidades','tickets','acciones'];
 
   constructor(private tecnicoService: TecnicosService, private router: Router) { }
 
