@@ -1,5 +1,6 @@
 <div class="container">
-  <mat-card *ngIf="ticket">
+  <div class="print-area" *ngIf="ticket">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>Detalles del Ticket</mat-card-title>
     </mat-card-header>
@@ -31,6 +32,7 @@
       <button mat-raised-button color="accent" (click)="printTicket()">Imprimir</button>
     </mat-card-actions>
   </mat-card>
+  </div>
   <mat-card>
     <mat-card-header>
       <mat-card-title>Historial de Ticket</mat-card-title>
