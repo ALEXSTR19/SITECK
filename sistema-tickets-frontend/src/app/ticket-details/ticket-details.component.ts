@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { TecnicosService } from '../services/tecnicos.service';
 import { TicketHistory } from '../models/ticket-history.model';
+import { Ticket } from '../models/tecnicos.model';
 
 @Component({
   selector: 'app-ticket-details',
@@ -14,12 +15,16 @@ export class TicketDetailsComponent implements OnInit {
   dataSource = new MatTableDataSource<TicketHistory>();
   displayedColumns = ['timestamp','action','changes','previousStatus','newStatus'];
   ticketId!: number;
+  ticket?: Ticket;
 
   constructor(private route: ActivatedRoute, private service: TecnicosService){}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.ticketId = +params['id'];
+      this.service.getTicket(this.ticketId).subscribe(t => {
+        this.ticket = t;
+      });
       this.service.getTicketHistory(this.ticketId).subscribe((data: TicketHistory[]) => {
         this.histories = data;
         this.dataSource.data = this.histories;

@@ -134,7 +134,7 @@ const routes: Routes = [
         path: "ticket-details/:id",
         component: TicketDetailsComponent,
         canActivate: [AuthorizationGuard],
-        data: { roles: ["ADMIN"] }
+        data: { roles: ["ADMIN", "TECNICO"] }
       },
       {
         path: "cotizaciones",
