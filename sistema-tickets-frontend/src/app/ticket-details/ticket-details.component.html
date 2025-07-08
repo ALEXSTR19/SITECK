@@ -1,4 +1,33 @@
 <div class="container">
+  <mat-card *ngIf="ticket">
+    <mat-card-header>
+      <mat-card-title>Detalles del Ticket</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ticket.id}}</p>
+      <p><strong>Fecha:</strong> {{ticket.fecha}}</p>
+      <p><strong>Cantidad:</strong> {{ticket.cantidad}}</p>
+      <p><strong>Tipo:</strong> {{ticket.type}}</p>
+      <p><strong>Status:</strong> {{ticket.status}}</p>
+      <p><strong>Prioridad:</strong> {{ticket.priority}}</p>
+      <p><strong>Técnico:</strong> {{ticket.tecnico?.nombre}}</p>
+      <p><strong>Servicio:</strong> {{ticket.servicio?.nombre}}</p>
+      <p *ngIf="ticket.instalacionEquipo"><strong>Equipo:</strong> {{ticket.instalacionEquipo}}</p>
+      <p *ngIf="ticket.instalacionModelo"><strong>Modelo:</strong> {{ticket.instalacionModelo}}</p>
+      <p *ngIf="ticket.instalacionDireccion"><strong>Dirección:</strong> {{ticket.instalacionDireccion}}</p>
+      <p *ngIf="ticket.mantenimientoEquipo"><strong>Equipo:</strong> {{ticket.mantenimientoEquipo}}</p>
+      <p *ngIf="ticket.mantenimientoDescripcion"><strong>Descripción:</strong> {{ticket.mantenimientoDescripcion}}</p>
+      <p *ngIf="ticket.mantenimientoProxima"><strong>Próxima:</strong> {{ticket.mantenimientoProxima}}</p>
+      <p *ngIf="ticket.cotizacionCliente"><strong>Cliente:</strong> {{ticket.cotizacionCliente}}</p>
+      <p *ngIf="ticket.cotizacionMonto"><strong>Monto:</strong> {{ticket.cotizacionMonto}}</p>
+      <p *ngIf="ticket.cotizacionDescripcion"><strong>Descripción:</strong> {{ticket.cotizacionDescripcion}}</p>
+      <p *ngIf="ticket.diagnosticoEquipo"><strong>Equipo:</strong> {{ticket.diagnosticoEquipo}}</p>
+      <p *ngIf="ticket.diagnosticoProblema"><strong>Problema:</strong> {{ticket.diagnosticoProblema}}</p>
+      <p *ngIf="ticket.diagnosticoObservaciones"><strong>Observaciones:</strong> {{ticket.diagnosticoObservaciones}}</p>
+      <p><strong>Pagado:</strong> {{ticket.pagado ? 'Sí' : 'No'}}</p>
+      <p *ngIf="ticket.reporteServicio"><strong>Reporte:</strong> {{ticket.reporteServicio}}</p>
+    </mat-card-content>
+  </mat-card>
   <mat-card>
     <mat-card-header>
       <mat-card-title>Historial de Ticket</mat-card-title>
