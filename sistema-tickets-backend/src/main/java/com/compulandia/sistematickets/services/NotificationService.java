@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.compulandia.sistematickets.entities.Notification;
 import com.compulandia.sistematickets.entities.Tecnico;
@@ -14,6 +16,7 @@ import com.compulandia.sistematickets.repository.NotificationRepository;
 
 @Service
 public class NotificationService {
+    private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
     @Autowired
     private NotificationRepository repository;
 
@@ -35,7 +38,11 @@ public class NotificationService {
             msg.setTo(tecnico.getEmail());
             msg.setSubject("Nuevo ticket asignado");
             msg.setText("Se te ha asignado el ticket #" + ticket.getId());
-            mailSender.send(msg);
+            try {
+                mailSender.send(msg);
+            } catch (Exception e) {
+                log.warn("Failed to send email notification", e);
+            }
         }
     }
 }
