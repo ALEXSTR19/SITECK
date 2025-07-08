@@ -20,6 +20,8 @@ import com.compulandia.sistematickets.entities.Usuario;
 import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.ServicioRepository;
 import com.compulandia.sistematickets.repository.UsuarioRepository;
+import com.compulandia.sistematickets.repository.TicketRepository;
+import com.compulandia.sistematickets.repository.NotificationRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -33,6 +35,12 @@ public class TecnicoController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @PostMapping("/tecnicos")
     @Transactional
@@ -158,11 +166,30 @@ public class TecnicoController {
     }
 
     @DeleteMapping("/tecnicos/{codigo}")
+    @Transactional
     public void eliminarTecnico(@PathVariable String codigo) {
         Tecnico tecnico = tecnicoRepository.findByCodigo(codigo);
         if (tecnico == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
         }
+
+        // Eliminar usuario asociado si existe
+        Usuario usuario = usuarioRepository.findByCodigoTecnico(codigo);
+        if (usuario != null) {
+            usuarioRepository.delete(usuario);
+        }
+
+        // Desvincular el técnico de los tickets activos
+        ticketRepository.findByTecnicoCodigoAndDeletedFalse(codigo)
+                .forEach(t -> {
+                    t.setTecnico(null);
+                    ticketRepository.save(t);
+                });
+
+        // Eliminar notificaciones asociadas al técnico
+        notificationRepository.deleteAll(notificationRepository.findByTecnicoCodigoOrderByCreatedAtDesc(codigo));
+
+        // Finalmente eliminar el técnico
         tecnicoRepository.delete(tecnico);
     }
 }
