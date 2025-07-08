@@ -19,3 +19,30 @@
   background-color: #ffebee;
   color: #c62828;
 }
+
+/* Color coding for ticket status */
+.status-label {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.status-label.pendiente {
+  background-color: #fff4e5;
+  color: #fb8c00;
+}
+
+.status-label.en_proceso {
+  background-color: #e0f7fa;
+  color: #0277bd;
+}
+
+.status-label.finalizado {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-label.cancelado {
+  background-color: #ffebee;
+  color: #c62828;
+}
