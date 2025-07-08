@@ -15,7 +15,7 @@ export class TicketsComponent implements OnInit {
 public tickets: any;
   public dataSource: any;
 
-  public displayedColumns = ['id', 'fecha', 'cantidad', 'type', 'status', 'priority', 'nombre', 'info1', 'info2', 'info3', 'pagado', 'reporte', 'acciones'];
+  public displayedColumns = ['id', 'fecha', 'status', 'priority', 'nombre', 'info1', 'info2', 'info3', 'pagado', 'reporte', 'acciones'];
 
   /*@ViewChild es un decorador que permite acceder a un componente hijo del DOM */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
