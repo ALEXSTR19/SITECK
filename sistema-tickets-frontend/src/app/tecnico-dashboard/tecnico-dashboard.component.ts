@@ -123,4 +123,8 @@ export class TecnicoDashboardComponent implements OnInit {
   cancelarTicket(ticket: Ticket) {
     this.actualizarEstado(ticket, 'CANCELADO');
   }
+
+  verDetalles(ticket: Ticket){
+    this.router.navigate(['/admin/ticket-details', ticket.id]);
+  }
 }
