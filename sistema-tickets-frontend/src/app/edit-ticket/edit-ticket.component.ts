@@ -144,7 +144,9 @@ export class EditTicketComponent implements OnInit{
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
   formData.set('priority', this.ticketFormGroup.value.priority);
-  formData.set('clienteId', this.ticketFormGroup.value.clienteId);
+  if(this.ticketFormGroup.value.clienteId){
+    formData.set('clienteId', this.ticketFormGroup.value.clienteId);
+  }
   if (this.ticketFormGroup.value.fileSource) {
     formData.append('file', this.ticketFormGroup.value.fileSource);
   }
