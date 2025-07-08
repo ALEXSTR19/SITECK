@@ -23,7 +23,7 @@ export class TecnicoDashboardComponent implements OnInit {
   completedDataSource = new MatTableDataSource<Ticket>();
   allDataSource = new MatTableDataSource<Ticket>();
 
-  displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre', 'acciones'];
+  displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'priority', 'nombre', 'acciones'];
 
   activeCategory = '';
   statusChart?: Chart<any, any, any>;
