@@ -37,19 +37,30 @@ public class NotificationService {
             .build();
         repository.save(notification);
 
-        if (mailSender != null && tecnico.getEmail() != null && !tecnico.getEmail().isEmpty()) {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            if (fromEmail != null && !fromEmail.isEmpty()) {
-                msg.setFrom(fromEmail);
-            }
-            msg.setTo(tecnico.getEmail());
-            msg.setSubject("Nuevo ticket asignado");
-            msg.setText("Se te ha asignado el ticket #" + ticket.getId());
-            try {
-                mailSender.send(msg);
-            } catch (Exception e) {
-                log.warn("Failed to send email notification", e);
-            }
+        if (mailSender == null) {
+            log.warn("JavaMailSender bean not configured, cannot send email notification");
+            return;
+        }
+
+        if (tecnico.getEmail() == null || tecnico.getEmail().isEmpty()) {
+            log.warn("Technician '{}' does not have an email configured", tecnico.getCodigo());
+            return;
+        }
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        if (fromEmail != null && !fromEmail.isEmpty()) {
+            msg.setFrom(fromEmail);
+        } else {
+            log.info("No 'from' email configured, using default configuration");
+        }
+        msg.setTo(tecnico.getEmail());
+        msg.setSubject("Nuevo ticket asignado");
+        msg.setText("Se te ha asignado el ticket #" + ticket.getId());
+        try {
+            mailSender.send(msg);
+            log.info("Email notification sent to {}", tecnico.getEmail());
+        } catch (Exception e) {
+            log.warn("Failed to send email notification", e);
         }
     }
 }
