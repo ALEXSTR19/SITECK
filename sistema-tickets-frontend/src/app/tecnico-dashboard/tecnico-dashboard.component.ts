@@ -5,6 +5,7 @@ import { Ticket } from '../models/tecnicos.model';
 import { TecnicosService } from '../services/tecnicos.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tecnico-dashboard',
@@ -108,7 +109,13 @@ export class TecnicoDashboardComponent implements OnInit {
         ticket.status = status;
         this.filterTickets();
       },
-      error: (err) => console.error('Error al actualizar ticket', err)
+      error: (err) => {
+        if (err.status === 403) {
+          Swal.fire('No eres el lider de este servicio', '', 'error');
+        } else {
+          console.error('Error al actualizar ticket', err);
+        }
+      }
     });
   }
 
