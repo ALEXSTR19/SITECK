@@ -54,8 +54,40 @@ public class NotificationService {
             log.info("No 'from' email configured, using default configuration");
         }
         msg.setTo(tecnico.getEmail());
-        msg.setSubject("Nuevo ticket asignado");
-        msg.setText("Se te ha asignado el ticket #" + ticket.getId());
+        msg.setSubject("Asignación de Ticket #" + ticket.getId());
+
+        String servicio = ticket.getServicio() != null ? ticket.getServicio().getNombre() : "N/A";
+        String prioridad = ticket.getPriority() != null ? ticket.getPriority().name() : "N/A";
+        String cliente = "";
+        if (ticket.getCliente() != null) {
+            cliente = ticket.getCliente().getNombre();
+            if (ticket.getCliente().getApellido() != null) {
+                cliente += " " + ticket.getCliente().getApellido();
+            }
+        } else {
+            cliente = "N/A";
+        }
+        StringBuilder body = new StringBuilder();
+        body.append("Hola ")
+            .append(tecnico.getNombre() != null ? tecnico.getNombre() : "")
+            .append(',').append("\n\n")
+            .append("Se te ha asignado el ticket #")
+            .append(ticket.getId())
+            .append(" correspondiente al servicio ")
+            .append(servicio)
+            .append('.').append("\n")
+            .append("Prioridad: ")
+            .append(prioridad)
+            .append("\n")
+            .append("Cliente: ")
+            .append(cliente)
+            .append("\n")
+            .append("Fecha: ")
+            .append(ticket.getFecha())
+            .append("\n\nPor favor ingresa al sistema para revisar los detalles.")
+            .append("\n\n--\nSistema de Tickets");
+
+        msg.setText(body.toString());
         try {
             mailSender.send(msg);
             log.info("Email notification sent to {}", tecnico.getEmail());
