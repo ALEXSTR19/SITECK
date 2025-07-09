@@ -411,7 +411,9 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         ticket.setStatus(TicketStatus.FINALIZADO);
         ticket.setReporteServicio(reporte);
-        return ticketRepository.save(ticket);
+        Ticket saved = ticketRepository.save(ticket);
+        notificationService.notifyTicketFinished(saved);
+        return saved;
     }
 
     public List<TicketStatsDto> getStatsByDay() {
