@@ -2,6 +2,7 @@
     <button mat-button (click)="myDrawer.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
+    <img src="assets/logo.png" alt="Logo" class="logo-image" />
     <span style="flex:auto">Admin Dashboard</span>
     <button mat-button routerLink="/admin/home" *ngIf="authService.roles.includes('ADMIN')">Home</button>
     <button mat-button routerLink="/admin/profile" *ngIf="authService.roles.includes('ADMIN')">Perfil</button>

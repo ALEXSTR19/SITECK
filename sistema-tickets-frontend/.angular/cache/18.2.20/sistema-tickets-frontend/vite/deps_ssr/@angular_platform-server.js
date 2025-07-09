@@ -15,11 +15,11 @@ import {
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
 } from "./chunk-5U34YNWY.js";
+import "./chunk-EU53H2KM.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS,
   HttpClientModule
 } from "./chunk-4JT7VILW.js";
-import "./chunk-EU53H2KM.js";
 import {
   DOCUMENT,
   NullViewportScroller,

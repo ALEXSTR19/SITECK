@@ -15,6 +15,12 @@ mat-toolbar button.mat-raised-button {
   color: white !important;
 }
 
+.logo-image {
+  height: 40px;
+  margin: 0 16px;
+}
+
+
 /* Color para los ítems del menú desplegable */
 .mat-menu-item {
   color: #babeec !important;  /* Azul marino para el texto del menú */

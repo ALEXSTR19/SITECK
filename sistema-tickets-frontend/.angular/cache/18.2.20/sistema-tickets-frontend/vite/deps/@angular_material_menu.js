@@ -8,7 +8,6 @@ import {
 import {
   CdkScrollableModule
 } from "./chunk-AIPXKPTX.js";
-import "./chunk-G25MWSCB.js";
 import {
   animate,
   state,
@@ -16,6 +15,7 @@ import {
   transition,
   trigger
 } from "./chunk-CVTOYDKN.js";
+import "./chunk-G25MWSCB.js";
 import {
   DOWN_ARROW,
   Directionality,
