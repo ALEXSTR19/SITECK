@@ -27,6 +27,9 @@ public class NotificationService {
     @Value("${spring.mail.username:}")
     private String fromEmail;
 
+    @Value("${admin.notification.email:}")
+    private String adminEmail;
+
     public void notifyTicketAssigned(Tecnico tecnico, Ticket ticket) {
         if (tecnico == null || ticket == null) return;
         Notification notification = Notification.builder()
@@ -61,6 +64,39 @@ public class NotificationService {
             log.info("Email notification sent to {}", tecnico.getEmail());
         } catch (Exception e) {
             log.warn("Failed to send email notification", e);
+        }
+    }
+
+    public void notifyTicketFinished(Ticket ticket) {
+        if (ticket == null) return;
+
+        if (mailSender == null) {
+            log.warn("JavaMailSender bean not configured, cannot send email notification");
+            return;
+        }
+
+        if (adminEmail == null || adminEmail.isEmpty()) {
+            log.warn("Admin email not configured, cannot send notification");
+            return;
+        }
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        if (fromEmail != null && !fromEmail.isEmpty()) {
+            msg.setFrom(fromEmail);
+        } else {
+            log.info("No 'from' email configured, using default configuration");
+        }
+        msg.setTo(adminEmail);
+        msg.setSubject("Ticket finalizado");
+
+        String tecnicoNombre = ticket.getTecnico() != null ? ticket.getTecnico().getNombre() : "Un tecnico";
+        msg.setText(tecnicoNombre + " ha finalizado el ticket #" + ticket.getId());
+
+        try {
+            mailSender.send(msg);
+            log.info("Email notification sent to admin {}", adminEmail);
+        } catch (Exception e) {
+            log.warn("Failed to send email notification to admin", e);
         }
     }
 }
