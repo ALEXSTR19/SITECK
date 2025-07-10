@@ -52,6 +52,10 @@ public class Ticket {
     @Column(columnDefinition = "TEXT")
     private String reporteServicio;
 
+    // Rutas de las fotos asociadas al reporte, separadas por comas
+    @Column(columnDefinition = "TEXT")
+    private String reporteFotos;
+
     // Campos adicionales para cada tipo de servicio
     private String instalacionEquipo;
     private String instalacionModelo;

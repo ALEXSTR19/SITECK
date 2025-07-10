@@ -35,6 +35,7 @@ export interface Ticket {
     diagnosticoProblema?: string;
     diagnosticoObservaciones?: string;
     reporteServicio?: string;
+    reporteFotos?: string;
     pagado?: boolean;
 }
 
