@@ -67,6 +67,7 @@ public class TicketService {
     }
 
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
+            String horaVisita,
             String priority,
             Long clienteId,
             String instalacionEquipo,
@@ -171,6 +172,7 @@ public class TicketService {
         Ticket ticket = Ticket.builder()
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
+                .horaVisita(horaVisita)
                 .tecnico(tecnico)
                 .servicio(servicio)
                 .cliente(cliente)
@@ -215,6 +217,7 @@ public class TicketService {
             double cantidad,
             String servicioNombre,
             LocalDate date,
+            String horaVisita,
             String priority,
             Long clienteId,
             String instalacionEquipo,
@@ -309,6 +312,10 @@ public class TicketService {
         if (!ticket.getFecha().equals(date)) {
             changes.append("fecha: ").append(ticket.getFecha()).append(" -> ").append(date).append("; ");
             ticket.setFecha(date);
+        }
+        if (!equalsStr(ticket.getHoraVisita(), horaVisita)) {
+            changes.append("horaVisita: ").append(ticket.getHoraVisita()).append(" -> ").append(horaVisita).append("; ");
+            ticket.setHoraVisita(horaVisita);
         }
         if (ticket.getCantidad() != cantidad) {
             changes.append("cantidad: ").append(ticket.getCantidad()).append(" -> ").append(cantidad).append("; ");

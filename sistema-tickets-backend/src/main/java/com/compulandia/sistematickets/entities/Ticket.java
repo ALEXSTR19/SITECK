@@ -32,6 +32,8 @@ public class Ticket {
 
     private LocalDate fecha;
 
+    private String horaVisita;
+
     private double cantidad;
 
     private TypeTicket type;

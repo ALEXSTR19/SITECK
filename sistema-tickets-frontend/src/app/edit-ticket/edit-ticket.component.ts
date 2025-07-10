@@ -42,6 +42,7 @@ export class EditTicketComponent implements OnInit{
       this.tecnicoCodigo = ticket.tecnico?.codigo || null;
       this.ticketFormGroup.patchValue({
         date: ticket.fecha,
+        horaVisita: ticket.horaVisita,
         cantidad: ticket.cantidad,
         servicio: ticket.servicio?.nombre,
         priority: ticket.priority,
@@ -87,6 +88,7 @@ export class EditTicketComponent implements OnInit{
 
   this.ticketFormGroup = this.fb.group({
     date: this.fb.control(''),
+    horaVisita: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
     priority: this.fb.control(''),
@@ -172,6 +174,7 @@ export class EditTicketComponent implements OnInit{
     formData.set('tecnicoCodigo', this.tecnicoCodigo);
   }
   formData.set('date', formattedDate);
+  formData.set('horaVisita', this.ticketFormGroup.value.horaVisita);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
   formData.set('priority', this.ticketFormGroup.value.priority);

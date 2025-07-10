@@ -47,6 +47,7 @@ export class NewTicketComponent implements OnInit{
 
   this.ticketFormGroup = this.fb.group({
     date: this.fb.control(''),
+    horaVisita: this.fb.control(''),
     cantidad: this.fb.control(''),
     servicio: this.fb.control(''),
     priority: this.fb.control(''),
@@ -143,6 +144,7 @@ guardarTicket() {
     formData.set('tecnicoCodigo', codigoSeleccionado);
   }
   formData.set('date', formattedDate);
+  formData.set('horaVisita', this.ticketFormGroup.value.horaVisita);
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
   formData.set('priority', this.ticketFormGroup.value.priority);
