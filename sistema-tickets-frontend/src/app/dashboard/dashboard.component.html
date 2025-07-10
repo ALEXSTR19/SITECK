@@ -65,4 +65,35 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Calificaciones recientes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="ratingsDataSource" class="mat-elevation-z1">
+        <ng-container matColumnDef="ticket">
+          <th mat-header-cell *matHeaderCellDef>Ticket</th>
+          <td mat-cell *matCellDef="let r">{{r.ticket?.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="tecnico">
+          <th mat-header-cell *matHeaderCellDef>Técnico</th>
+          <td mat-cell *matCellDef="let r">{{r.tecnico?.nombre}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let r">{{r.fecha}}</td>
+        </ng-container>
+        <ng-container matColumnDef="stars">
+          <th mat-header-cell *matHeaderCellDef>Puntuación</th>
+          <td mat-cell *matCellDef="let r">{{r.stars}}</td>
+        </ng-container>
+        <ng-container matColumnDef="comment">
+          <th mat-header-cell *matHeaderCellDef>Comentario</th>
+          <td mat-cell *matCellDef="let r">{{r.comment}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="ratingColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: ratingColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>
