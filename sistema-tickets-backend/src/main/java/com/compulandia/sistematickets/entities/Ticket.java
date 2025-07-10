@@ -68,6 +68,15 @@ public class Ticket {
     private String diagnosticoEquipo;
     private String diagnosticoProblema;
     private String diagnosticoObservaciones;
+
+    // Campos para Levantamiento
+    private String levantamientoCamaras;
+    private String levantamientoVideoportero;
+    private String levantamientoAlarma;
+    private String levantamientoControlAcceso;
+    private String levantamientoControlAsistencia;
+    private String levantamientoRedWifi;
+    private String levantamientoCercoElectrico;
     
     @ManyToOne
     private Tecnico tecnico;

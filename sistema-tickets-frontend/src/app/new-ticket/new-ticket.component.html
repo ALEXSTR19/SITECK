@@ -103,6 +103,44 @@
                     <input matInput formControlName="diagnosticoObservaciones" />
                 </mat-form-field>
             </div>
+            <!-- Datos de Levantamiento -->
+            <div *ngIf="selectedServiceType === 'LEVANTAMIENTO'">
+                <mat-checkbox formControlName="showLevantamientoCamaras">Cámaras</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoCamaras')?.value">
+                    <mat-label>Detalle Cámaras</mat-label>
+                    <input matInput formControlName="levantamientoCamaras" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoVideoportero">Videoportero</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoVideoportero')?.value">
+                    <mat-label>Detalle Videoportero</mat-label>
+                    <input matInput formControlName="levantamientoVideoportero" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoAlarma">Alarma</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoAlarma')?.value">
+                    <mat-label>Detalle Alarma</mat-label>
+                    <input matInput formControlName="levantamientoAlarma" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoControlAcceso">Control de acceso</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoControlAcceso')?.value">
+                    <mat-label>Detalle Control de acceso</mat-label>
+                    <input matInput formControlName="levantamientoControlAcceso" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoControlAsistencia">Control de asistencia</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoControlAsistencia')?.value">
+                    <mat-label>Detalle Control de asistencia</mat-label>
+                    <input matInput formControlName="levantamientoControlAsistencia" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoRedWifi">Red WiFi</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoRedWifi')?.value">
+                    <mat-label>Detalle Red WiFi</mat-label>
+                    <input matInput formControlName="levantamientoRedWifi" />
+                </mat-form-field>
+                <mat-checkbox formControlName="showLevantamientoCercoElectrico">Cerco eléctrico</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('showLevantamientoCercoElectrico')?.value">
+                    <mat-label>Detalle Cerco eléctrico</mat-label>
+                    <input matInput formControlName="levantamientoCercoElectrico" />
+                </mat-form-field>
+            </div>
             <mat-form-field appearance="outline">
                 <mat-label>Archivo</mat-label>
                 <input matInput readonly formControlName="fileName">
