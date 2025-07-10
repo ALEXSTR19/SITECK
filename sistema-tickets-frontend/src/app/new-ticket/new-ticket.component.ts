@@ -70,6 +70,21 @@ export class NewTicketComponent implements OnInit{
     diagnosticoEquipo: this.fb.control(''),
     diagnosticoProblema: this.fb.control(''),
     diagnosticoObservaciones: this.fb.control(''),
+    // Campos para Levantamiento
+    levantamientoCamaras: this.fb.control(''),
+    levantamientoVideoportero: this.fb.control(''),
+    levantamientoAlarma: this.fb.control(''),
+    levantamientoControlAcceso: this.fb.control(''),
+    levantamientoControlAsistencia: this.fb.control(''),
+    levantamientoRedWifi: this.fb.control(''),
+    levantamientoCercoElectrico: this.fb.control(''),
+    showLevantamientoCamaras: this.fb.control(false),
+    showLevantamientoVideoportero: this.fb.control(false),
+    showLevantamientoAlarma: this.fb.control(false),
+    showLevantamientoControlAcceso: this.fb.control(false),
+    showLevantamientoControlAsistencia: this.fb.control(false),
+    showLevantamientoRedWifi: this.fb.control(false),
+    showLevantamientoCercoElectrico: this.fb.control(false),
     pagado: this.fb.control(false),
   });
 
@@ -85,6 +100,8 @@ onServicioChange(servicioNombre: string){
     this.selectedServiceType = 'COTIZACION';
   } else if(nombre.includes('DIAGN')){
     this.selectedServiceType = 'DIAGNOSTICO';
+  } else if(nombre.includes('LEVANT')){
+    this.selectedServiceType = 'LEVANTAMIENTO';
   } else {
     this.selectedServiceType = '';
   }
@@ -148,6 +165,13 @@ guardarTicket() {
   formData.set('diagnosticoEquipo', this.ticketFormGroup.value.diagnosticoEquipo);
   formData.set('diagnosticoProblema', this.ticketFormGroup.value.diagnosticoProblema);
   formData.set('diagnosticoObservaciones', this.ticketFormGroup.value.diagnosticoObservaciones);
+  formData.set('levantamientoCamaras', this.ticketFormGroup.value.levantamientoCamaras);
+  formData.set('levantamientoVideoportero', this.ticketFormGroup.value.levantamientoVideoportero);
+  formData.set('levantamientoAlarma', this.ticketFormGroup.value.levantamientoAlarma);
+  formData.set('levantamientoControlAcceso', this.ticketFormGroup.value.levantamientoControlAcceso);
+  formData.set('levantamientoControlAsistencia', this.ticketFormGroup.value.levantamientoControlAsistencia);
+  formData.set('levantamientoRedWifi', this.ticketFormGroup.value.levantamientoRedWifi);
+  formData.set('levantamientoCercoElectrico', this.ticketFormGroup.value.levantamientoCercoElectrico);
   formData.set('pagado', this.ticketFormGroup.value.pagado);
 
   

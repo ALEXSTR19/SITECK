@@ -34,12 +34,19 @@ export interface Ticket {
     diagnosticoEquipo?: string;
     diagnosticoProblema?: string;
     diagnosticoObservaciones?: string;
+    levantamientoCamaras?: string;
+    levantamientoVideoportero?: string;
+    levantamientoAlarma?: string;
+    levantamientoControlAcceso?: string;
+    levantamientoControlAsistencia?: string;
+    levantamientoRedWifi?: string;
+    levantamientoCercoElectrico?: string;
     reporteServicio?: string;
     pagado?: boolean;
 }
 
 export enum TicketType {
-    INSTALACION = 0, MANTENIMIENTO = 1, VENTA = 2, COTIZACION = 3, DIAGNOSTICO = 4
+    INSTALACION = 0, MANTENIMIENTO = 1, VENTA = 2, COTIZACION = 3, DIAGNOSTICO = 4, LEVANTAMIENTO = 5
 }
 
 export enum TicketStatus {
