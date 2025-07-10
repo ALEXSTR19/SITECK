@@ -20,10 +20,11 @@ export class TicketReportComponent {
     this.ticketId = +this.route.snapshot.paramMap.get('id')!;
   }
 
-  onFileSelected(event: Event) {
+  agregarFotos(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.fotos = Array.from(input.files);
+      this.fotos.push(...Array.from(input.files));
+      input.value = '';
     }
   }
 
