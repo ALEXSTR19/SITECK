@@ -65,14 +65,11 @@ export class TecnicosService {
     );
   }
 
-  public finalizarTicket(id: number, reporte: string): Observable<Ticket> {
-    return this.http.put<Ticket>(
-      `${environment.backendHost}/tickets/${id}/finalizar`,
-      null,
-      {
-        params: { reporte }
-      }
-    );
+  public finalizarTicket(id: number, reporte: string, fotos: File[]): Observable<Ticket> {
+    const formData = new FormData();
+    formData.append('reporte', reporte);
+    fotos.forEach(f => formData.append('fotos', f));
+    return this.http.put<Ticket>(`${environment.backendHost}/tickets/${id}/finalizar`, formData);
   }
 
   public restoreTicket(id: number): Observable<Ticket> {

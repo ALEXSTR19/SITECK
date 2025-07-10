@@ -42,6 +42,7 @@ export interface Ticket {
     levantamientoRedWifi?: string;
     levantamientoCercoElectrico?: string;
     reporteServicio?: string;
+    reporteFotos?: string;
     pagado?: boolean;
 }
 

@@ -95,9 +95,11 @@ public class TicketController {
         return ticketService.actualizaTicketPorStatus(status, ticketId, codigo);
     }
 
-    @PutMapping("/tickets/{ticketId}/finalizar")
-    public Ticket finalizarTicket(@PathVariable Long ticketId, @RequestParam String reporte){
-        return ticketService.finalizarConReporte(ticketId, reporte);
+    @PutMapping(path = "/tickets/{ticketId}/finalizar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Ticket finalizarTicket(@PathVariable Long ticketId,
+                                  @RequestParam String reporte,
+                                  @RequestParam(value="fotos", required = false) MultipartFile[] fotos) throws IOException{
+        return ticketService.finalizarConReporte(ticketId, reporte, fotos);
     }
 
     @GetMapping("/ticketStats/day")

@@ -457,10 +457,29 @@ public class TicketService {
         return historyRepository.findByTicketIdOrderByTimestampAsc(ticketId);
     }
 
-    public Ticket finalizarConReporte(Long id, String reporte){
+    public Ticket finalizarConReporte(Long id, String reporte, MultipartFile[] fotos) throws IOException{
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
         ticket.setStatus(TicketStatus.FINALIZADO);
         ticket.setReporteServicio(reporte);
+
+        if (fotos != null && fotos.length > 0) {
+            Path folderPath = Paths.get(System.getProperty("user.home"), "enset-data", "reporte-fotos");
+            if (!Files.exists(folderPath)) {
+                Files.createDirectories(folderPath);
+            }
+            StringBuilder paths = new StringBuilder();
+            for (MultipartFile foto : fotos) {
+                if (foto != null && !foto.isEmpty()) {
+                    String fileName = UUID.randomUUID().toString();
+                    Path filePath = folderPath.resolve(fileName + "-" + foto.getOriginalFilename());
+                    Files.copy(foto.getInputStream(), filePath);
+                    if (paths.length() > 0) paths.append(",");
+                    paths.append(filePath.toUri().toString());
+                }
+            }
+            ticket.setReporteFotos(paths.toString());
+        }
+
         Ticket saved = ticketRepository.save(ticket);
         notificationService.notifyTicketFinished(saved);
         return saved;
