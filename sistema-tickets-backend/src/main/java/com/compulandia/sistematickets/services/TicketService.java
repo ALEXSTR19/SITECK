@@ -423,7 +423,13 @@ public class TicketService {
     }
     public Ticket actualizaTicketPorStatus(TicketStatus status, long id, String codigoTecnico){
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
-        if(ticket.getTecnico() == null || !ticket.getTecnico().getCodigo().equals(codigoTecnico)){
+        if (ticket.getTecnico() == null) {
+            Tecnico tecnico = tecnicoRepository.findByCodigo(codigoTecnico);
+            if (tecnico == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tecnico no encontrado");
+            }
+            ticket.setTecnico(tecnico);
+        } else if (!ticket.getTecnico().getCodigo().equals(codigoTecnico)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No autorizado");
         }
         TicketStatus previous = ticket.getStatus();
