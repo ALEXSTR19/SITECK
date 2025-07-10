@@ -122,10 +122,21 @@ public class TicketService {
         }
 
         TypeTicket typeTicket = null;
-        try {
-            typeTicket = TypeTicket.valueOf(servicioNombre.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            // El nombre del servicio no corresponde con ningún TypeTicket definido
+        if (servicioNombre != null) {
+            String nombreUpper = servicioNombre.toUpperCase();
+            if (nombreUpper.contains("INSTAL")) {
+                typeTicket = TypeTicket.INSTALACION;
+            } else if (nombreUpper.contains("MANTEN")) {
+                typeTicket = TypeTicket.MANTENIMIENTO;
+            } else if (nombreUpper.contains("COTIZ")) {
+                typeTicket = TypeTicket.COTIZACION;
+            } else if (nombreUpper.contains("DIAGN")) {
+                typeTicket = TypeTicket.DIAGNOSTICO;
+            } else if (nombreUpper.contains("LEVANT")) {
+                typeTicket = TypeTicket.LEVANTAMIENTO;
+            } else if (nombreUpper.contains("VENTA")) {
+                typeTicket = TypeTicket.VENTA;
+            }
         }
 
         Tecnico tecnico = null;
@@ -259,9 +270,21 @@ public class TicketService {
         }
 
         TypeTicket typeTicket = null;
-        try {
-            typeTicket = TypeTicket.valueOf(servicioNombre.toUpperCase());
-        } catch (IllegalArgumentException e) {
+        if (servicioNombre != null) {
+            String nombreUpper = servicioNombre.toUpperCase();
+            if (nombreUpper.contains("INSTAL")) {
+                typeTicket = TypeTicket.INSTALACION;
+            } else if (nombreUpper.contains("MANTEN")) {
+                typeTicket = TypeTicket.MANTENIMIENTO;
+            } else if (nombreUpper.contains("COTIZ")) {
+                typeTicket = TypeTicket.COTIZACION;
+            } else if (nombreUpper.contains("DIAGN")) {
+                typeTicket = TypeTicket.DIAGNOSTICO;
+            } else if (nombreUpper.contains("LEVANT")) {
+                typeTicket = TypeTicket.LEVANTAMIENTO;
+            } else if (nombreUpper.contains("VENTA")) {
+                typeTicket = TypeTicket.VENTA;
+            }
         }
 
         Tecnico tecnico = null;
