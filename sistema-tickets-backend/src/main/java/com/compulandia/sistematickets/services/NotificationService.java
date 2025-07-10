@@ -30,6 +30,9 @@ public class NotificationService {
     @Value("${admin.notification.email:}")
     private String adminEmail;
 
+    @Value("${client.feedback.url:http://localhost:8080/feedback.html}")
+    private String feedbackUrl;
+
     public void notifyTicketAssigned(Tecnico tecnico, Ticket ticket) {
         if (tecnico == null || ticket == null) return;
         Notification notification = Notification.builder()
@@ -129,6 +132,24 @@ public class NotificationService {
             log.info("Email notification sent to admin {}", adminEmail);
         } catch (Exception e) {
             log.warn("Failed to send email notification to admin", e);
+        }
+
+        if (ticket.getCliente() != null && ticket.getCliente().getEmail() != null
+                && !ticket.getCliente().getEmail().isEmpty()) {
+            SimpleMailMessage clientMsg = new SimpleMailMessage();
+            if (fromEmail != null && !fromEmail.isEmpty()) {
+                clientMsg.setFrom(fromEmail);
+            }
+            clientMsg.setTo(ticket.getCliente().getEmail());
+            clientMsg.setSubject("Califica nuestro servicio");
+            String url = feedbackUrl + "?ticketId=" + ticket.getId();
+            clientMsg.setText("Su servicio ha sido finalizado. Por favor valore el servicio en el siguiente enlace:\n" + url);
+            try {
+                mailSender.send(clientMsg);
+                log.info("Feedback email sent to {}", ticket.getCliente().getEmail());
+            } catch (Exception e) {
+                log.warn("Failed to send feedback email to client", e);
+            }
         }
     }
 }
