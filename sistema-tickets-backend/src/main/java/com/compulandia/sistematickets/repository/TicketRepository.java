@@ -22,6 +22,18 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findByServicioNombreInAndDeletedFalse(List<String> nombres);
 
+    long countByPagadoTrueAndDeletedFalse();
+
+    long countByPagadoFalseAndDeletedFalse();
+
+    long countByStatusAndPagadoFalseAndDeletedFalse(TicketStatus status);
+
+    long countByStatusAndPagadoTrueAndDeletedFalse(TicketStatus status);
+
+    long countByStatusAndDeletedFalse(TicketStatus status);
+
+    long countByFechaAndDeletedFalse(java.time.LocalDate fecha);
+
     @Query(value = "SELECT fecha as label, COUNT(*) as count FROM ticket GROUP BY fecha ORDER BY fecha", nativeQuery = true)
     List<Object[]> countTicketsByDay();
 

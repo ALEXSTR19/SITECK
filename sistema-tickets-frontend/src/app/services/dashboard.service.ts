@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { TicketStat } from '../models/ticket-stat.model';
+import { AdminStats } from '../models/admin-stats.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class DashboardService {
 
   getTopTecnicos(): Observable<TicketStat[]> {
     return this.http.get<TicketStat[]>(`${environment.backendHost}/ticketStats/tecnicos`);
+  }
+
+  getAdminStats(): Observable<AdminStats> {
+    return this.http.get<AdminStats>(`${environment.backendHost}/ticketStats/admin`);
   }
 }

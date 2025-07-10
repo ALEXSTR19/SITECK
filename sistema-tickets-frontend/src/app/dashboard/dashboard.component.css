@@ -37,3 +37,26 @@
   font-size: 1.4rem;
   text-align: center;
 }
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+mat-card.card {
+  text-align: center;
+  padding: 1rem;
+}
+
+mat-card.card mat-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+mat-card.card mat-card-content {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #007acc;
+}
