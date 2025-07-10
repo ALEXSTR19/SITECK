@@ -27,6 +27,10 @@
       <p *ngIf="ticket.diagnosticoObservaciones"><strong>Observaciones:</strong> {{ticket.diagnosticoObservaciones}}</p>
       <p><strong>Pagado:</strong> {{ticket.pagado ? 'Sí' : 'No'}}</p>
       <p *ngIf="ticket.reporteServicio"><strong>Reporte:</strong> {{ticket.reporteServicio}}</p>
+      <div *ngIf="reporteFotosArray.length > 0" class="photos">
+        <p><strong>Fotos del reporte:</strong></p>
+        <img *ngFor="let foto of reporteFotosArray" [src]="foto" alt="Foto del reporte" class="reporte-foto">
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="accent" (click)="printTicket()">Imprimir</button>
