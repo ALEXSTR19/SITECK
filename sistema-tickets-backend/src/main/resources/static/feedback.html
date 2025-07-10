@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Encuesta de Satisfacción</title>
+<style>
+.star {font-size:2rem;cursor:pointer;color:lightgray;}
+.star.selected{color:gold;}
+</style>
+</head>
+<body>
+<h1>Califica el servicio</h1>
+<form id="ratingForm">
+  <div id="stars"></div>
+  <input type="hidden" name="stars" id="starsInput" value="5">
+  <input type="hidden" name="ticketId" id="ticketId">
+  <div>
+    <textarea name="comment" id="comment" placeholder="Comentario"></textarea>
+  </div>
+  <button type="submit">Enviar</button>
+</form>
+<script>
+const params = new URLSearchParams(window.location.search);
+document.getElementById('ticketId').value = params.get('ticketId');
+function update(n){
+  document.getElementById('starsInput').value=n;
+  document.querySelectorAll('.star').forEach((s,i)=>{
+    s.classList.toggle('selected',i<n);
+  });
+}
+const container=document.getElementById('stars');
+for(let i=1;i<=5;i++){
+  const span=document.createElement('span');
+  span.innerHTML='\u2605';
+  span.className='star';
+  span.addEventListener('click',()=>update(i));
+  container.appendChild(span);
+}
+update(5);
+document.getElementById('ratingForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const data=new FormData(e.target);
+  fetch('/ratings',{method:'POST',body:data}).then(()=>{
+    e.target.innerHTML='<p>Gracias por su opinión</p>';
+  }).catch(()=>alert('Error al enviar'));});
+</script>
+</body>
+</html>
