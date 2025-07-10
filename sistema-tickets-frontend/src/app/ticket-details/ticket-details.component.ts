@@ -16,6 +16,7 @@ export class TicketDetailsComponent implements OnInit {
   displayedColumns = ['timestamp','action','changes','previousStatus','newStatus'];
   ticketId!: number;
   ticket?: Ticket;
+  reporteFotosArray: string[] = [];
 
   constructor(private route: ActivatedRoute, private service: TecnicosService){}
 
@@ -24,6 +25,9 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketId = +params['id'];
       this.service.getTicket(this.ticketId).subscribe(t => {
         this.ticket = t;
+        if (t.reporteFotos) {
+          this.reporteFotosArray = t.reporteFotos.split(',');
+        }
       });
       this.service.getTicketHistory(this.ticketId).subscribe((data: TicketHistory[]) => {
         this.histories = data;
