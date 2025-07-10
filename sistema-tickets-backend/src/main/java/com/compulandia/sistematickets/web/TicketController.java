@@ -30,6 +30,7 @@ import com.compulandia.sistematickets.repository.TecnicoRepository;
 import com.compulandia.sistematickets.repository.TicketRepository;
 import com.compulandia.sistematickets.services.TicketService;
 import com.compulandia.sistematickets.dto.TicketStatsDto;
+import com.compulandia.sistematickets.dto.AdminDashboardDto;
 
 import jakarta.annotation.PostConstruct;
 
@@ -127,6 +128,11 @@ public class TicketController {
     @GetMapping("/ticketStats/tecnicos")
     public List<TicketStatsDto> topTecnicos(){
         return ticketService.getTopTecnicos();
+    }
+
+    @GetMapping("/ticketStats/admin")
+    public AdminDashboardDto adminStats(){
+        return ticketService.getAdminStats();
     }
 @PostMapping(path = "/tickets", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Ticket guardarTicket(

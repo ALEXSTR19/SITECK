@@ -1,5 +1,15 @@
 <div class="container">
   <h2 class="dashboard-title">Dashboard</h2>
+  <div class="card-container" *ngIf="adminStats">
+    <mat-card class="card"> <mat-card-title>Servicios pagados</mat-card-title> <mat-card-content>{{adminStats.serviciosPagados}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Servicios no pagados</mat-card-title> <mat-card-content>{{adminStats.serviciosNoPagados}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Finalizados con pago pendiente</mat-card-title> <mat-card-content>{{adminStats.serviciosFinalizadosPendiente}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Finalizados y pagados</mat-card-title> <mat-card-content>{{adminStats.serviciosFinalizadosPagados}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Tickets del día</mat-card-title> <mat-card-content>{{adminStats.ticketsDelDia}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Tickets pendientes</mat-card-title> <mat-card-content>{{adminStats.ticketsPendientes}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Tickets en proceso</mat-card-title> <mat-card-content>{{adminStats.ticketsEnProceso}}</mat-card-content> </mat-card>
+    <mat-card class="card"> <mat-card-title>Tickets finalizados</mat-card-title> <mat-card-content>{{adminStats.ticketsFinalizados}}</mat-card-content> </mat-card>
+  </div>
   <div class="charts-grid">
     <mat-card class="chart-card">
       <mat-card-header>

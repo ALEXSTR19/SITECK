@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DashboardService } from '../services/dashboard.service';
 import { TicketStat } from '../models/ticket-stat.model';
+import { AdminStats } from '../models/admin-stats.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,12 @@ export class DashboardComponent implements OnInit {
   serviciosChart?: Chart;
   clientesChart?: Chart;
   tecnicosChart?: Chart;
+  adminStats?: AdminStats;
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
+    this.dashboardService.getAdminStats().subscribe(s => this.adminStats = s);
     this.dashboardService.getStatsByDay().subscribe(d => this.createChart('dayChart', d));
     this.dashboardService.getStatsByWeek().subscribe(d => this.createChart('weekChart', d));
     this.dashboardService.getStatsByMonth().subscribe(d => this.createChart('monthChart', d));

@@ -18,6 +18,7 @@ import com.compulandia.sistematickets.entities.Ticket;
 import com.compulandia.sistematickets.entities.Servicio;
 import com.compulandia.sistematickets.entities.TicketHistory;
 import com.compulandia.sistematickets.dto.TicketStatsDto;
+import com.compulandia.sistematickets.dto.AdminDashboardDto;
 import com.compulandia.sistematickets.entities.Cliente;
 import com.compulandia.sistematickets.enums.TicketStatus;
 import com.compulandia.sistematickets.enums.TypeTicket;
@@ -450,6 +451,19 @@ public class TicketService {
         return ticketRepository.topTecnicos().stream()
                 .map(arr -> new TicketStatsDto(arr[0].toString(), ((Number) arr[1]).longValue()))
                 .toList();
+    }
+
+    public AdminDashboardDto getAdminStats() {
+        return new AdminDashboardDto(
+            ticketRepository.countByPagadoTrueAndDeletedFalse(),
+            ticketRepository.countByPagadoFalseAndDeletedFalse(),
+            ticketRepository.countByStatusAndPagadoFalseAndDeletedFalse(TicketStatus.FINALIZADO),
+            ticketRepository.countByStatusAndPagadoTrueAndDeletedFalse(TicketStatus.FINALIZADO),
+            ticketRepository.countByFechaAndDeletedFalse(LocalDate.now()),
+            ticketRepository.countByStatusAndDeletedFalse(TicketStatus.PENDIENTE),
+            ticketRepository.countByStatusAndDeletedFalse(TicketStatus.EN_PROCESO),
+            ticketRepository.countByStatusAndDeletedFalse(TicketStatus.FINALIZADO)
+        );
     }
 
     private boolean equalsStr(String a, String b) {
