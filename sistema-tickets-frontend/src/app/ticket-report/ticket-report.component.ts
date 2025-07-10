@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 export class TicketReportComponent {
   reporte = '';
   ticketId!: number;
+  fotos: File[] = [];
 
   constructor(private route: ActivatedRoute, private service: TecnicosService, private router: Router) {}
 
@@ -19,8 +20,15 @@ export class TicketReportComponent {
     this.ticketId = +this.route.snapshot.paramMap.get('id')!;
   }
 
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.fotos = Array.from(input.files);
+    }
+  }
+
   guardar() {
-    this.service.finalizarTicket(this.ticketId, this.reporte).subscribe({
+    this.service.finalizarTicket(this.ticketId, this.reporte, this.fotos).subscribe({
       next: () => {
         Swal.fire('Reporte guardado', 'El ticket fue finalizado', 'success').then(() => {
           this.router.navigate(['/admin/dashboard-tecnico']);
