@@ -15,6 +15,7 @@ export interface Tecnico {
 export interface Ticket {
     id: number;
     fecha: Date;
+    horaVisita?: string;
     cantidad: number;
     type: string;
     status: string;
