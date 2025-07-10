@@ -1,8 +1,12 @@
 package com.compulandia.sistematickets.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +37,15 @@ public class RatingController {
         Rating rating = Rating.builder()
                 .stars(stars)
                 .comment(comment)
+                .fecha(LocalDateTime.now())
                 .ticket(ticket)
                 .tecnico(tecnico)
                 .build();
         return ratingRepository.save(rating);
+    }
+
+    @GetMapping("/ratings")
+    public List<Rating> getRatings(){
+        return ratingRepository.findAll();
     }
 }

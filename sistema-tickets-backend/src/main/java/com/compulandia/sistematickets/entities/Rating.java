@@ -1,5 +1,7 @@
 package com.compulandia.sistematickets.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +22,8 @@ public class Rating {
 
     @Column(columnDefinition = "TEXT")
     private String comment;
+
+    private LocalDateTime fecha;
 
     @ManyToOne
     private Tecnico tecnico;
