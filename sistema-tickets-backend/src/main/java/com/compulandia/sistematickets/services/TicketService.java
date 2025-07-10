@@ -81,6 +81,13 @@ public class TicketService {
             String diagnosticoEquipo,
             String diagnosticoProblema,
             String diagnosticoObservaciones,
+            String levantamientoCamaras,
+            String levantamientoVideoportero,
+            String levantamientoAlarma,
+            String levantamientoControlAcceso,
+            String levantamientoControlAsistencia,
+            String levantamientoRedWifi,
+            String levantamientoCercoElectrico,
             boolean pagado) throws IOException {
 
         Path filePath = null;
@@ -172,6 +179,13 @@ public class TicketService {
                 .diagnosticoEquipo(diagnosticoEquipo)
                 .diagnosticoProblema(diagnosticoProblema)
                 .diagnosticoObservaciones(diagnosticoObservaciones)
+                .levantamientoCamaras(levantamientoCamaras)
+                .levantamientoVideoportero(levantamientoVideoportero)
+                .levantamientoAlarma(levantamientoAlarma)
+                .levantamientoControlAcceso(levantamientoControlAcceso)
+                .levantamientoControlAsistencia(levantamientoControlAsistencia)
+                .levantamientoRedWifi(levantamientoRedWifi)
+                .levantamientoCercoElectrico(levantamientoCercoElectrico)
                 .pagado(pagado)
                 .build();
 
@@ -204,6 +218,13 @@ public class TicketService {
             String diagnosticoEquipo,
             String diagnosticoProblema,
             String diagnosticoObservaciones,
+            String levantamientoCamaras,
+            String levantamientoVideoportero,
+            String levantamientoAlarma,
+            String levantamientoControlAcceso,
+            String levantamientoControlAsistencia,
+            String levantamientoRedWifi,
+            String levantamientoCercoElectrico,
             boolean pagado) throws IOException {
 
         Ticket ticket = ticketRepository.findById(id).orElseThrow();
@@ -344,6 +365,34 @@ public class TicketService {
         if (!equalsStr(ticket.getDiagnosticoObservaciones(), diagnosticoObservaciones)) {
             changes.append("diagnosticoObservaciones: ").append(ticket.getDiagnosticoObservaciones()).append(" -> ").append(diagnosticoObservaciones).append("; ");
             ticket.setDiagnosticoObservaciones(diagnosticoObservaciones);
+        }
+        if (!equalsStr(ticket.getLevantamientoCamaras(), levantamientoCamaras)) {
+            changes.append("levantamientoCamaras: ").append(ticket.getLevantamientoCamaras()).append(" -> ").append(levantamientoCamaras).append("; ");
+            ticket.setLevantamientoCamaras(levantamientoCamaras);
+        }
+        if (!equalsStr(ticket.getLevantamientoVideoportero(), levantamientoVideoportero)) {
+            changes.append("levantamientoVideoportero: ").append(ticket.getLevantamientoVideoportero()).append(" -> ").append(levantamientoVideoportero).append("; ");
+            ticket.setLevantamientoVideoportero(levantamientoVideoportero);
+        }
+        if (!equalsStr(ticket.getLevantamientoAlarma(), levantamientoAlarma)) {
+            changes.append("levantamientoAlarma: ").append(ticket.getLevantamientoAlarma()).append(" -> ").append(levantamientoAlarma).append("; ");
+            ticket.setLevantamientoAlarma(levantamientoAlarma);
+        }
+        if (!equalsStr(ticket.getLevantamientoControlAcceso(), levantamientoControlAcceso)) {
+            changes.append("levantamientoControlAcceso: ").append(ticket.getLevantamientoControlAcceso()).append(" -> ").append(levantamientoControlAcceso).append("; ");
+            ticket.setLevantamientoControlAcceso(levantamientoControlAcceso);
+        }
+        if (!equalsStr(ticket.getLevantamientoControlAsistencia(), levantamientoControlAsistencia)) {
+            changes.append("levantamientoControlAsistencia: ").append(ticket.getLevantamientoControlAsistencia()).append(" -> ").append(levantamientoControlAsistencia).append("; ");
+            ticket.setLevantamientoControlAsistencia(levantamientoControlAsistencia);
+        }
+        if (!equalsStr(ticket.getLevantamientoRedWifi(), levantamientoRedWifi)) {
+            changes.append("levantamientoRedWifi: ").append(ticket.getLevantamientoRedWifi()).append(" -> ").append(levantamientoRedWifi).append("; ");
+            ticket.setLevantamientoRedWifi(levantamientoRedWifi);
+        }
+        if (!equalsStr(ticket.getLevantamientoCercoElectrico(), levantamientoCercoElectrico)) {
+            changes.append("levantamientoCercoElectrico: ").append(ticket.getLevantamientoCercoElectrico()).append(" -> ").append(levantamientoCercoElectrico).append("; ");
+            ticket.setLevantamientoCercoElectrico(levantamientoCercoElectrico);
         }
         if (ticket.isPagado() != pagado) {
             changes.append("pagado: ").append(ticket.isPagado()).append(" -> ").append(pagado).append("; ");

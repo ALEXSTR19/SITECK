@@ -155,6 +155,13 @@ public class TicketController {
     @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
     @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
     @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones,
+    @RequestParam(value="levantamientoCamaras", required = false) String levantamientoCamaras,
+    @RequestParam(value="levantamientoVideoportero", required = false) String levantamientoVideoportero,
+    @RequestParam(value="levantamientoAlarma", required = false) String levantamientoAlarma,
+    @RequestParam(value="levantamientoControlAcceso", required = false) String levantamientoControlAcceso,
+    @RequestParam(value="levantamientoControlAsistencia", required = false) String levantamientoControlAsistencia,
+    @RequestParam(value="levantamientoRedWifi", required = false) String levantamientoRedWifi,
+    @RequestParam(value="levantamientoCercoElectrico", required = false) String levantamientoCercoElectrico,
     @RequestParam(value="pagado", defaultValue = "false") boolean pagado
 ) throws IOException {
     return ticketService.saveTicket(
@@ -177,6 +184,13 @@ public class TicketController {
         diagnosticoEquipo,
         diagnosticoProblema,
         diagnosticoObservaciones,
+        levantamientoCamaras,
+        levantamientoVideoportero,
+        levantamientoAlarma,
+        levantamientoControlAcceso,
+        levantamientoControlAsistencia,
+        levantamientoRedWifi,
+        levantamientoCercoElectrico,
         pagado
     );
 }
@@ -208,6 +222,13 @@ public class TicketController {
         @RequestParam(value="diagnosticoEquipo", required = false) String diagnosticoEquipo,
         @RequestParam(value="diagnosticoProblema", required = false) String diagnosticoProblema,
         @RequestParam(value="diagnosticoObservaciones", required = false) String diagnosticoObservaciones,
+        @RequestParam(value="levantamientoCamaras", required = false) String levantamientoCamaras,
+        @RequestParam(value="levantamientoVideoportero", required = false) String levantamientoVideoportero,
+        @RequestParam(value="levantamientoAlarma", required = false) String levantamientoAlarma,
+        @RequestParam(value="levantamientoControlAcceso", required = false) String levantamientoControlAcceso,
+        @RequestParam(value="levantamientoControlAsistencia", required = false) String levantamientoControlAsistencia,
+        @RequestParam(value="levantamientoRedWifi", required = false) String levantamientoRedWifi,
+        @RequestParam(value="levantamientoCercoElectrico", required = false) String levantamientoCercoElectrico,
         @RequestParam(value="pagado", defaultValue = "false") boolean pagado
     ) throws IOException {
         return ticketService.updateTicket(
@@ -231,6 +252,13 @@ public class TicketController {
             diagnosticoEquipo,
             diagnosticoProblema,
             diagnosticoObservaciones,
+            levantamientoCamaras,
+            levantamientoVideoportero,
+            levantamientoAlarma,
+            levantamientoControlAcceso,
+            levantamientoControlAsistencia,
+            levantamientoRedWifi,
+            levantamientoCercoElectrico,
             pagado
         );
     }
