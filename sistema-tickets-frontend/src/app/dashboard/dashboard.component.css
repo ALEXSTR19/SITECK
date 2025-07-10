@@ -10,6 +10,11 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background: white;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .chart-card mat-card-title {
@@ -30,6 +35,11 @@
 .chart-card canvas:active {
   transform: scale(1.1);
   z-index: 1;
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
 .dashboard-title {
