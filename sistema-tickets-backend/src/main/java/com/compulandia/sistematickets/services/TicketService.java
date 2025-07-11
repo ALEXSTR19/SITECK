@@ -68,6 +68,8 @@ public class TicketService {
 
     public Ticket saveTicket(MultipartFile file, String tecnicoCodigo, double cantidad, String servicioNombre, LocalDate date,
             String horaVisita,
+            Double costoTotal,
+            Double anticipo,
             String priority,
             Long clienteId,
             String instalacionEquipo,
@@ -169,6 +171,11 @@ public class TicketService {
             }
         }
 
+        boolean pagadoFinal = pagado;
+        if(!pagadoFinal && anticipo != null && costoTotal != null && anticipo >= costoTotal){
+            pagadoFinal = true;
+        }
+
         Ticket ticket = Ticket.builder()
                 .status(TicketStatus.PENDIENTE)
                 .fecha(date)
@@ -179,6 +186,8 @@ public class TicketService {
                 .priority(priorityEnum)
                 .type(typeTicket)
                 .cantidad(cantidad)
+                .costoTotal(costoTotal)
+                .anticipo(anticipo)
                 .file(filePath != null ? filePath.toUri().toString() : null)
                 .instalacionEquipo(instalacionEquipo)
                 .instalacionModelo(instalacionModelo)
@@ -199,7 +208,7 @@ public class TicketService {
                 .levantamientoControlAsistencia(levantamientoControlAsistencia)
                 .levantamientoRedWifi(levantamientoRedWifi)
                 .levantamientoCercoElectrico(levantamientoCercoElectrico)
-                .pagado(pagado)
+                .pagado(pagadoFinal)
                 .build();
 
         Ticket saved = ticketRepository.save(ticket);
@@ -218,6 +227,8 @@ public class TicketService {
             String servicioNombre,
             LocalDate date,
             String horaVisita,
+            Double costoTotal,
+            Double anticipo,
             String priority,
             Long clienteId,
             String instalacionEquipo,
@@ -424,9 +435,22 @@ public class TicketService {
             changes.append("levantamientoCercoElectrico: ").append(ticket.getLevantamientoCercoElectrico()).append(" -> ").append(levantamientoCercoElectrico).append("; ");
             ticket.setLevantamientoCercoElectrico(levantamientoCercoElectrico);
         }
-        if (ticket.isPagado() != pagado) {
-            changes.append("pagado: ").append(ticket.isPagado()).append(" -> ").append(pagado).append("; ");
-            ticket.setPagado(pagado);
+        if (ticket.getCostoTotal() == null || !ticket.getCostoTotal().equals(costoTotal)) {
+            changes.append("costoTotal: ").append(ticket.getCostoTotal()).append(" -> ").append(costoTotal).append("; ");
+            ticket.setCostoTotal(costoTotal);
+        }
+        if (ticket.getAnticipo() == null || !ticket.getAnticipo().equals(anticipo)) {
+            changes.append("anticipo: ").append(ticket.getAnticipo()).append(" -> ").append(anticipo).append("; ");
+            ticket.setAnticipo(anticipo);
+        }
+
+        boolean pagadoFinal = pagado;
+        if(!pagadoFinal && anticipo != null && costoTotal != null && anticipo >= costoTotal){
+            pagadoFinal = true;
+        }
+        if (ticket.isPagado() != pagadoFinal) {
+            changes.append("pagado: ").append(ticket.isPagado()).append(" -> ").append(pagadoFinal).append("; ");
+            ticket.setPagado(pagadoFinal);
         }
 
         Ticket saved = ticketRepository.save(ticket);

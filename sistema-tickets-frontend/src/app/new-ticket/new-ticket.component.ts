@@ -86,6 +86,9 @@ export class NewTicketComponent implements OnInit{
     showLevantamientoControlAsistencia: this.fb.control(false),
     showLevantamientoRedWifi: this.fb.control(false),
     showLevantamientoCercoElectrico: this.fb.control(false),
+    costoTotal: this.fb.control(''),
+    anticipoEnabled: this.fb.control(false),
+    anticipo: this.fb.control(''),
     pagado: this.fb.control(false),
   });
 
@@ -148,6 +151,10 @@ guardarTicket() {
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
   formData.set('priority', this.ticketFormGroup.value.priority);
+  formData.set('costoTotal', this.ticketFormGroup.value.costoTotal);
+  if(this.ticketFormGroup.value.anticipoEnabled){
+    formData.set('anticipo', this.ticketFormGroup.value.anticipo);
+  }
   if(this.ticketFormGroup.value.clienteId){
     formData.set('clienteId', this.ticketFormGroup.value.clienteId);
   }

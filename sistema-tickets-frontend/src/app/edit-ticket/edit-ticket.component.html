@@ -20,6 +20,10 @@
                 <input matInput formControlName="cantidad" />
             </mat-form-field>
             <mat-form-field appearance="outline">
+                <mat-label>Costo Total</mat-label>
+                <input matInput formControlName="costoTotal" type="number" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Prioridad</mat-label>
                 <mat-select formControlName="priority">
                     <mat-option value="BAJA">Baja</mat-option>
@@ -146,6 +150,11 @@
                 <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf" />
             </mat-form-field>
             <mat-checkbox formControlName="pagado">Pagado</mat-checkbox>
+            <mat-checkbox formControlName="anticipoEnabled">Anticipo</mat-checkbox>
+            <mat-form-field appearance="outline" *ngIf="ticketFormGroup.get('anticipoEnabled')?.value">
+                <mat-label>Monto Anticipo</mat-label>
+                <input matInput formControlName="anticipo" type="number" />
+            </mat-form-field>
             <mat-card-actions>
                 <button mat-raised-button color="primary" (click)="guardarTicket()">Actualizar Ticket</button>
             </mat-card-actions>

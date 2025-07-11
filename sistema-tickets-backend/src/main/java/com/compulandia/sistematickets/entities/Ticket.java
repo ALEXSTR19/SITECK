@@ -36,6 +36,10 @@ public class Ticket {
 
     private double cantidad;
 
+    private Double costoTotal;
+
+    private Double anticipo;
+
     private TypeTicket type;
 
     private TicketStatus status;
