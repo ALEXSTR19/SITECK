@@ -58,6 +58,7 @@
 mat-card.card {
   text-align: center;
   padding: 1rem;
+  cursor: pointer;
 }
 
 mat-card.card mat-card-title {
