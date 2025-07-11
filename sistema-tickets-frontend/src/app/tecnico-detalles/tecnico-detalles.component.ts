@@ -16,7 +16,7 @@ export class TecnicoDetallesComponent {
   ticketsTecnico!: Array<Ticket>;
   ticketsDataSource!: MatTableDataSource<Ticket>;
 
-  public displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre', 'info1', 'info2', 'info3', 'pagado'];
+  public displayedColumns: string[] = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre', 'info1', 'info2', 'info3', 'pagado', 'anticipo'];
 
   constructor(private activatedRoute: ActivatedRoute, private tecnicosService: TecnicosService, private router: Router) { }
 

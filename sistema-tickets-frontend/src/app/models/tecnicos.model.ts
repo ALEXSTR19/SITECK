@@ -17,6 +17,8 @@ export interface Ticket {
     fecha: Date;
     horaVisita?: string;
     cantidad: number;
+    costoTotal?: number;
+    anticipo?: number;
     type: string;
     status: string;
     priority?: string;

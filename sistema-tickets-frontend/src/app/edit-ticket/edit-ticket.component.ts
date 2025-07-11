@@ -65,6 +65,9 @@ export class EditTicketComponent implements OnInit{
         levantamientoControlAsistencia: ticket.levantamientoControlAsistencia,
         levantamientoRedWifi: ticket.levantamientoRedWifi,
         levantamientoCercoElectrico: ticket.levantamientoCercoElectrico,
+        costoTotal: ticket.costoTotal,
+        anticipo: ticket.anticipo,
+        anticipoEnabled: ticket.anticipo ? true : false,
         showLevantamientoCamaras: !!ticket.levantamientoCamaras,
         showLevantamientoVideoportero: !!ticket.levantamientoVideoportero,
         showLevantamientoAlarma: !!ticket.levantamientoAlarma,
@@ -125,7 +128,10 @@ export class EditTicketComponent implements OnInit{
     showLevantamientoControlAcceso: this.fb.control(false),
     showLevantamientoControlAsistencia: this.fb.control(false),
     showLevantamientoRedWifi: this.fb.control(false),
-    showLevantamientoCercoElectrico: this.fb.control(false),
+   showLevantamientoCercoElectrico: this.fb.control(false),
+    costoTotal: this.fb.control(''),
+    anticipoEnabled: this.fb.control(false),
+    anticipo: this.fb.control(''),
     pagado: this.fb.control(false),
   });
 
@@ -178,6 +184,10 @@ export class EditTicketComponent implements OnInit{
   formData.set('cantidad', this.ticketFormGroup.value.cantidad);
   formData.set('servicio', this.ticketFormGroup.value.servicio);
   formData.set('priority', this.ticketFormGroup.value.priority);
+  formData.set('costoTotal', this.ticketFormGroup.value.costoTotal);
+  if(this.ticketFormGroup.value.anticipoEnabled){
+    formData.set('anticipo', this.ticketFormGroup.value.anticipo);
+  }
   if(this.ticketFormGroup.value.clienteId){
     formData.set('clienteId', this.ticketFormGroup.value.clienteId);
   }

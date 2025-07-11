@@ -8,6 +8,8 @@
       <p><strong>ID:</strong> {{ticket.id}}</p>
       <p><strong>Fecha:</strong> {{ticket.fecha}}</p>
       <p><strong>Cantidad:</strong> {{ticket.cantidad}}</p>
+      <p *ngIf="ticket.costoTotal"><strong>Costo Total:</strong> {{ticket.costoTotal}}</p>
+      <p *ngIf="ticket.anticipo"><strong>Anticipo:</strong> {{ticket.anticipo}}</p>
       <p><strong>Tipo:</strong> {{ticket.type}}</p>
       <p><strong>Status:</strong> {{ticket.status}}</p>
       <p><strong>Prioridad:</strong> {{ticket.priority}}</p>
